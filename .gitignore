@@ -1,0 +1,8 @@
+# Ignore hidden files
+.*
+
+# Keep git special files
+!.gitignore
+!.gitattributes
+!.gitkeep
+
