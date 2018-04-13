@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="style_codesign_space.css" />
+        <title>Co-Design space AT Customer</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--Sliders-->
+  		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!--Sliders-->
+<!-- Radiobox -->
+  		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  		
+
+<!--Yield stregh slider-->
+      <script>
+  			$( function() {
+    			$( "#slider-range" ).slider({
+      				range: true,
+      				min: 0,
+      				max: 1200,
+      				values: [ 300, 600 ],
+      				slide: function( event, ui ) {
+        				$( "#amount" ).val( ui.values[ 0 ] + " MPa"  + " - " + ui.values[ 1 ] + " MPa" );
+      				}
+    			});
+    			$( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) + " MPa" +
+      				" - " + $( "#slider-range" ).slider( "values", 1 ) + " MPa" );
+  			} );
+      </script>
+
+<!--Max stregh slider-->
+      <script>
+        $( function() {
+          $( "#slider-range2" ).slider({
+              range: true,
+              min: 0,
+              max: 1200,
+              values: [ 550, 700 ],
+              slide: function( event, ui ) {
+                $( "#amount2" ).val( ui.values[ 0 ] + " MPa"  + " - " + ui.values[ 1 ] + " MPa" );
+              }
+          });
+          $( "#amount2" ).val( $( "#slider-range2" ).slider( "values", 0 ) + " MPa" +
+              " - " + $( "#slider-range2" ).slider( "values", 1 ) + " MPa" );
+        } );
+      </script>
+
+
+<!--Lenghening slider-->
+      <script>
+        $( function() {
+          $( "#slider-range3" ).slider({
+              range: true,
+              min: 0,
+              max: 30,
+              values: [ 10, 15 ],
+              slide: function( event, ui ) {
+                $( "#amount3" ).val( ui.values[ 0 ] + " %"  + " - " + ui.values[ 1 ] + " %" );
+              }
+          });
+          $( "#amount3" ).val( $( "#slider-range3" ).slider( "values", 0 ) + " %" +
+              " - " + $( "#slider-range3" ).slider( "values", 1 ) + " %" );
+        } );
+      </script>
+
+<!--Young modulus slider-->
+      <script>
+        $( function() {
+          $( "#slider-range4" ).slider({
+              range: true,
+              min: 0,
+              max: 500,
+              values: [ 300, 400 ],
+              slide: function( event, ui ) {
+                $( "#amount4" ).val( ui.values[ 0 ] + " GPa"  + " - " + ui.values[ 1 ] + " GPa" );
+              }
+          });
+          $( "#amount4" ).val( $( "#slider-range4" ).slider( "values", 0 ) + " GPa" +
+              " - " + $( "#slider-range4" ).slider( "values", 1 ) + " GPa" );
+        } );
+      </script>
+
+<!--Slider prix pièce-->
+      <script>
+        $( function() {
+          $( "#slider-range5" ).slider({
+              range: true,
+              min: 0,
+              max: 500,
+              values: [ 200, 350 ],
+              slide: function( event, ui ) {
+                $( "#amount5" ).val( Math.round((ui.values[ 0 ]))/100 + " - " + Math.round((ui.values[ 1 ]))/100 );
+              }
+          });
+          $( "#amount5" ).val( $( "#slider-range5" ).slider( "values", 0 )*0.01 +
+              " - " + $( "#slider-range5" ).slider( "values", 1 )*0.01 );
+        } );
+      </script>
+
+<!-- Radiobox -->
+      <script> 
+      $( function() { 
+        $( "input[type='radio']" ).checkboxradio(); // inupt.classe_des_radioboutons
+        $( "fieldset" ).controlgroup();
+      } );
+      </script>
+    </head>
+
+
+    <body>
+    	<div class="container">
+    		<div id="head">
+    			<h1>CO-DESIGN SPACE AT/CUSTOMER</h1>
+          <div class="subtitle">HMI CPOC2 v0.5 du 10 avril 2018</div>
+    		</div>
+        	
+        <div id="body">
+          <div> 
+            <div class="title_level_2"><h2>Functional characteristics</h2></div>
+        		<div class="Item_and_his_value"> 
+        			<div class="item">
+                <div class="item_text">Performance index</div>
+              </div>
+        			<div id="performance_index">
+        				<form>
+							   <select name="performance_index">
+								    <option>Yield strengh Re
+								    <option>Ultimate strengh Rm
+								    <option>Lenghening A%
+                    <option>Young modulus E
+							   </select>
+						    </form>
+        			</div>
+        		</div>
+
+            <div class="slidebar">
+              <div class="Item_and_his_value">
+               <div>
+                 <label for="amount">Tolerance interval for the yield stregh</label>
+                <input type="text" id="amount" readonly style="border:0; color:#f9b642; font-weight:bold;">
+               </div>
+              </div>
+              <div style="position:relative; margin:10px 5px 30px 5px; ">
+               <div id="slider-range" style="margin-bottom:5px"></div>
+               <div class="value-bar" style=" left:40% "></div>
+               <div class="value-hint" style="left:40%">400 MPa</div>
+              </div>
+             </div>
+        		
+            <div class="slidebar">
+              <div class="Item_and_his_value">
+               <div>
+                 <label for="amount2">Tolerance interval for the maximum stregh</label>
+                <input type="text" id="amount2" readonly style="border:0; color:#f9b642; font-weight:bold;">
+               </div>
+              </div>
+              <div style="position:relative; margin:10px 5px 30px 5px; ">
+               <div id="slider-range2" style="margin-bottom:5px"></div>
+               <div class="value-bar" style="left:50%"></div>
+               <div class="value-hint" style="left: 50%">600 MPa</div>
+              </div>
+             </div>
+
+            <div class="slidebar">
+              <div class="Item_and_his_value">
+               <div>
+      				   <label for="amount3">Tolerance interval for the lenghening</label>
+  					    <input type="text" id="amount3" readonly style="border:0; color:#f9b642; font-weight:bold;">
+      			   </div>
+      		    </div>
+        		  <div style="position:relative; margin:10px 5px 30px 5px; ">
+	        	   <div id="slider-range3" style="margin-bottom:5px"></div>
+	        	   <div class="value-bar" style="left:40%"></div>
+	       		   <div class="value-hint" style="left:40%">12%</div>
+	      	    </div>
+             </div>
+
+             <div class="slidebar">
+              <div class="Item_and_his_value">
+               <div>
+                 <label for="amount4">Tolerance interval for the Young modulus</label>
+                <input type="text" id="amount4" readonly style="border:0; color:#f9b642; font-weight:bold;">
+               </div>
+              </div>
+              <div style="position:relative; margin:10px 5px 30px 5px; ">
+               <div id="slider-range4" style="margin-bottom:5px"></div>
+               <div class="value-bar" style="left:70%"></div>
+               <div class="value-hint" style="left:70%">350 MPa</div>
+              </div>
+             </div>
+
+        	</div>
+    		
+    		<div> 
+          <div class="title_level_2"><h2>Targeted price</h2></div>
+    		    
+          <div class="slidebar">
+            <div class="Item_and_his_value">
+              <div>
+                <label for="amount5">Tolerance interval for the price index</label>
+              <input type="text" id="amount5" readonly style="border:0; color:#f9b642; font-weight:bold;">
+              </div>  
+            </div>
+            <div style="position:relative; margin:10px 5px 30px 5px; ">
+              <div id="slider-range5" style="margin-bottom:5px"></div>
+              <div class="value-bar" style="left:60%"></div>
+              <div class="value-hint" style="left:60%">3</div>
+            </div>
+            </div>
+          </div>
+
+        <div> 
+          <div class="title_level_2"><h2>Other performances</h2></div>
+          <div class="widget">
+            <div class="radiobutton">
+              <fieldset>
+                <legend>Weldability</legend>
+                <label for="weldability_excellent">Excellent</label>
+                <input type="radio" name="weldability" id="weldability_excellent">
+                <label for="weldability_OK">OK</label>
+                <input type="radio" name="weldability" id="weldability_OK">
+                <label for="weldability_indifferent">Indifferent</label>
+                <input type="radio" name="weldability" id="weldability_indifferent">
+              </fieldset>
+            </div>
+            <div class="radiobutton">
+            <fieldset>
+                <legend>Heat treatment ability</legend>
+                <label for="HT_good">Good</label>
+                <input type="radio" name="heat treatment" id="HT_good">
+                <label for="HT_bad">Bad</label>
+                <input type="radio" name="heat treatment" id="HT_bad">
+                <label for="HT_indifferent">Indifferent</label>
+                <input type="radio" name="heat treatment" id="HT_indifferent">
+              </fieldset>
+            </div>
+          </div>
+
+
+        </div>
+
+
+    		</div>
+          <div id="Calculation_button">
+            <button class="ui-button ui-widget ui-corner-all">
+              Calculate the optimum material
+            </button>
+          </div>
+    	</div>
+
+
+
+    </body>
+
+
+
+
+</html>

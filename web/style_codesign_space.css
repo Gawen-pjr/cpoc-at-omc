@@ -1,0 +1,174 @@
+
+h1
+{
+	text-align: center;
+	font-family: 'Lato black';
+	color:#4014AF;
+	font-size: 22pt;
+	margin-top: 9px;
+	margin-bottom: 5px;
+}
+
+h2
+{ 
+	text-align: center;
+	font-family: 'Lato black';
+	color:#FFFFFF;
+	font-size: 20pt;
+	margin-top: 7px;
+	margin-bottom: 7px;
+}
+
+.container
+{
+	width: 700px;
+}
+
+#head
+{
+	background-color:#FFF700;
+	border : 3px solid black;
+	margin-bottom: 13px;
+}
+
+#body
+{
+	border : 2px solid black;	
+}
+
+.subtitle
+{
+	font-size: 10pt;
+	text-align: center;
+	font-style: italic; 
+	font-family: 'Lato black';
+	color:#4014AF;
+	margin-bottom: 10px;
+}
+
+.subtitle::before
+{
+	content: "(";
+}
+
+.subtitle::after
+{
+	content: ")";
+}
+
+.title_level_2
+{
+	background-color: #8383F2;
+	border : 1px solid black;
+}
+
+.Item_and_his_value
+{
+	display:flex;
+	justify-content: center;
+	font-family: 'Lato regular';
+}
+
+.item
+{
+	width: 181px;
+	text-align: right;
+	border : 1px solid black;
+}
+
+.item_text
+{
+	margin-right: 7.5pt;
+	font-size:12pt;
+	margin-top: 2.875pt;
+	margin-bottom: 2.875pt;
+}
+
+.widget
+{
+	border : 1px solid black;
+	font-family: 'Lato regular';
+}
+
+.slidebar
+{
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#performance_index
+{
+	width:520px;
+	text-align: center;
+	border : 1px solid black;
+	padding-top: 2.875pt;
+    padding-bottom: 2.875pt;
+    font-size: 12pt;
+}
+
+#slide-range
+{
+	width:300px;
+	
+}
+
+#Calculation_button
+{
+	text-align: center;
+	margin-top: 10px;
+}
+
+.radiobutton
+{
+	/* display:flex; */
+}
+
+.radiobutton .ui-controlgroup
+{
+	display: block;
+	margin: 10px;
+}
+
+.value-bar
+{
+	position:absolute;
+	background: #4014AF; 
+	width: 1px; 
+	border: none; 
+	height: 30px; 
+	top:-2px; 
+	z-index: 3;
+}
+
+.value-hint
+{
+	position: absolute;
+	margin-top: 10px;    
+	color: #4014AF;    
+	margin-left: -13px;
+	font-family: 'Lato regular'
+}
+
+
+@font-face {
+    font-family: 'Lato black';
+    src: url('Lato-Black.ttf');
+}
+
+@font-face {
+    font-family: 'Lato regular';
+    src: url('Lato-Regular.ttf');
+}
+
+
+@font-face {
+    font-family: 'Lato bold';
+    src: url('Lato-Bold.ttf');
+}
+
+
+@font-face {
+    font-family: 'Lato italic';
+    src: url('Lato-Italic.ttf');
+}
