@@ -9,18 +9,20 @@
 #axe_abscisses
 {
     width: 500px;
-    border: 5px solid #000000;
-    margin-top: -25px;
-    margin-left: -46px;
+    border: 10px solid #000000;
+    margin-top: -40px;
+    margin-left: -42.5px;
+    border-radius: 10px;
 }
 
 #axe_ordonnees
 {
     height: 500px;
     width: 0px;
-    border: 5px solid #000000;
-    margin-top: -260px;
-    margin-left: 204px;
+    border: 10px solid #000000;
+    margin-top: -270px;
+    margin-left: 210px;
+    border-radius: 10px;
 }
 
 #grand_cercle
@@ -28,7 +30,7 @@
   border-radius:50%;
   width:400px;
   height:400px;
-  border:10px solid #000000; 
+  border:20px solid #000000; 
 }
 
 #petit_cercle
@@ -36,9 +38,9 @@
     border-radius: 50%;
     width: 25px;
     height: 25px;
-    border: 10px solid #000000;
+    border: 20px solid #000000;
     background-color: #000000;
-    margin-top: -232.5px;
+    margin-top: -252.5px;
     margin-left: 187.5px;
 }
 
@@ -48,10 +50,10 @@
     width: 150px;
     height: 150px;
     border-radius: 100% 0 0;
-    border-top: 10px solid #000000;
-    border-left: 10px solid #000000;
-    margin-top: 40px;
-    margin-left: 40px;
+    border-top: 20px solid #000000;
+    border-left: 20px solid #000000;
+    margin-top: 30px;
+    margin-left: 30px;
  }
 
 .arc_haut_2
@@ -59,10 +61,10 @@
     width: 100px;
     height: 100px;
     border-radius: 100% 0 0;
-    border-top: 10px solid #000000;
-    border-left: 10px solid #000000;
-    margin-top: 40px;
-    margin-left: 40px;
+    border-top: 20px solid #000000;
+    border-left: 20px solid #000000;
+    margin-top: 30px;
+    margin-left: 30px;
  }
 
  .arc_haut_3
@@ -70,10 +72,10 @@
     width: 50px;
     height: 50px;
     border-radius: 100% 0 0;
-    border-top: 10px solid #000000;
-    border-left: 10px solid #000000;
-    margin-top: 40px;
-    margin-left: 40px;
+    border-top: 20px solid #000000;
+    border-left: 20px solid #000000;
+    margin-top: 30px;
+    margin-left: 30px;
  }
 
  .arc_bas_1
@@ -81,8 +83,8 @@
     width: 150px;
     height: 150px;
     border-radius: 0 0 100%;
-    border-right: 10px solid #000000;
-    border-bottom: 10px solid #000000;
+    border-right: 20px solid #000000;
+    border-bottom: 20px solid #000000;
     margin-left: 200px;
  }
 
@@ -91,8 +93,8 @@
     width: 100px;
     height: 100px;
     border-radius: 0 0 100%;
-    border-right: 10px solid #000000;
-    border-bottom: 10px solid #000000;
+    border-right: 20px solid #000000;
+    border-bottom: 20px solid #000000;
  }
 
   .arc_bas_3
@@ -100,6 +102,6 @@
     width: 50px;
     height: 50px;
     border-radius: 0 0 100%;
-    border-right: 10px solid #000000;
-    border-bottom: 10px solid #000000;
+    border-right: 20px solid #000000;
+    border-bottom: 20px solid #000000;
  }
