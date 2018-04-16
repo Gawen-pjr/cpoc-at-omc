@@ -1,0 +1,52 @@
+
+#overall
+{
+	margin-left: 100px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+#grandcercle
+{
+
+  border-radius:50%;
+  width:600px;
+  height:600px;
+  border:4px solid #000000; 
+}
+
+#moyencercle
+{
+
+  border-radius:50%;
+  width:475px;
+  height:475px;
+  border:4px solid #000000; 
+  margin:58.5px 58.5px;@
+}
+
+
+#petitcercle
+{
+  border-radius:50%;
+  width:350px;
+  height:350px;
+  border:4px solid #000000; 
+  margin:58.5px 58.5px;
+}
+
+#axe_abscisses
+{
+    width: 700px;
+    border-top: 5px #000000 solid;
+    margin-top: 171px;
+    margin-left: -175px;
+}
+
+#axe_ordonnées
+{
+    height: 700px;
+    border-right: 5px #000000 solid;
+    margin-top: -350px;
+    margin-right: 171px;
+}
