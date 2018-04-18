@@ -2,24 +2,24 @@
 
 @font-face {
     font-family: 'Lato black';
-    src: url('Lato-Black.ttf');
+    src: url('font/Lato-Black.ttf');
 }
 
 @font-face {
     font-family: 'Lato regular';
-    src: url('Lato-Regular.ttf');
+    src: url('font/Lato-Regular.ttf');
 }
 
 
 @font-face {
     font-family: 'Lato bold';
-    src: url('Lato-Bold.ttf');
+    src: url('font/Lato-Bold.ttf');
 }
 
 
 @font-face {
     font-family: 'Lato italic';
-    src: url('Lato-Italic.ttf');
+    src: url('font/Lato-Italic.ttf');
 }
 
 h1
