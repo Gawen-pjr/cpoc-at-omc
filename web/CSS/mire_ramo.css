@@ -52,7 +52,13 @@
     margin-right: 171px;
 }
 
-#Return_button
+#Homepage_button
+{
+  text-align: center;
+  margin-top: 10px;
+}
+
+#Back_button
 {
   text-align: center;
   margin-top: 60px;
@@ -61,12 +67,11 @@
 .ui-button.ui-widget.ui-corner-all
 {
 
-   padding: 8px 30px;
+   padding: 7px 30px;
    font-family: Arial,Helvetica,sans-serif;
    font-size: 1em;
    border-radius: 4px;
    border: 1px solid #c5c5c5;
    background: #f6f6f6;
    font-weight: normal;
-}
 }
