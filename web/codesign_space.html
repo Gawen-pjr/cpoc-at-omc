@@ -30,7 +30,7 @@
   			} );
       </script>
 
-<!--Max stregh slider-->
+<!--Ultimate stregh slider-->
       <script>
         $( function() {
           $( "#slider-range2" ).slider({
@@ -48,7 +48,7 @@
       </script>
 
 
-<!--Elongation slider-->
+<!--Cold drawning percentage slider-->
       <script>
         $( function() {
           $( "#slider-range3" ).slider({
@@ -65,20 +65,20 @@
         } );
       </script>
 
-<!--Young modulus slider-->
+<!--Hardeness slider-->
       <script>
         $( function() {
           $( "#slider-range4" ).slider({
               range: true,
               min: 0,
               max: 500,
-              values: [ 300, 400 ],
+              values: [ 150, 200 ],
               slide: function( event, ui ) {
-                $( "#amount4" ).val( ui.values[ 0 ] + " GPa"  + " - " + ui.values[ 1 ] + " GPa" );
+                $( "#amount4" ).val( ui.values[ 0 ] + " HB"  + " - " + ui.values[ 1 ] + " HB" );
               }
           });
-          $( "#amount4" ).val( $( "#slider-range4" ).slider( "values", 0 ) + " GPa" +
-              " - " + $( "#slider-range4" ).slider( "values", 1 ) + " GPa" );
+          $( "#amount4" ).val( $( "#slider-range4" ).slider( "values", 0 ) + " HB" +
+              " - " + $( "#slider-range4" ).slider( "values", 1 ) + " HB" );
         } );
       </script>
 
@@ -126,10 +126,10 @@
         			<div id="performance_index">
         				<form>
 							   <select name="performance_index">
-								    <option>Yield strengh Re
+								    <option>Proof limit Rp0.2
 								    <option>Ultimate strengh Rm
-								    <option>Elongation A%
-                    <option>Young modulus E
+								    <option>Cold drawning percentage
+                    <option>Hardeness HB
 							   </select>
 						    </form>
         			</div>
@@ -138,7 +138,7 @@
             <div class="slidebar">
               <div class="Item_and_his_value">
                <div>
-                 <label for="amount">Tolerance interval for the yield stregh</label>
+                 <label for="amount">Tolerance interval for the proof limit</label>
                 <input type="text" id="amount" readonly style="border:0; color:#f9b642; font-weight:bold;">
                </div>
               </div>
@@ -152,7 +152,7 @@
             <div class="slidebar">
               <div class="Item_and_his_value">
                <div>
-                 <label for="amount2">Tolerance interval for the maximum stregh</label>
+                 <label for="amount2">Tolerance interval for the ultimate stregh</label>
                 <input type="text" id="amount2" readonly style="border:0; color:#f9b642; font-weight:bold;">
                </div>
               </div>
@@ -166,7 +166,7 @@
             <div class="slidebar">
               <div class="Item_and_his_value">
                <div>
-      				   <label for="amount3">Tolerance interval for the elongation</label>
+      				   <label for="amount3">Tolerance interval for the cold drawning percentage</label>
   					    <input type="text" id="amount3" readonly style="border:0; color:#f9b642; font-weight:bold;">
       			   </div>
       		    </div>
@@ -180,14 +180,14 @@
              <div class="slidebar">
               <div class="Item_and_his_value">
                <div>
-                 <label for="amount4">Tolerance interval for the Young modulus</label>
+                 <label for="amount4">Tolerance interval for the hardness</label>
                 <input type="text" id="amount4" readonly style="border:0; color:#f9b642; font-weight:bold;">
                </div>
               </div>
               <div style="position:relative; margin:10px 5px 30px 5px; ">
                <div id="slider-range4" style="margin-bottom:5px"></div>
-               <div class="value-bar" style="left:70%"></div>
-               <div class="value-hint" style="left:70%">350 MPa</div>
+               <div class="value-bar" style="left:35%"></div>
+               <div class="value-hint" style="left:35%">175 HB</div>
               </div>
              </div>
 
