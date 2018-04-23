@@ -61,7 +61,26 @@
 #Back_button
 {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 20px;
+}
+
+#label_abscisses
+{
+  font-family: 'Lato black';
+  color:#000000;
+  font-size:15px;
+  margin-left: 665px;
+  margin-top: -295px;
+}
+
+#label_ordonnées
+{
+  font-family: 'Lato black';
+  color:#000000;
+  text-align: center;
+  font-size:15px;
+  margin-left: 115px;
+  margin-top: 330px;
 }
 
 .ui-button.ui-widget.ui-corner-all
@@ -74,4 +93,9 @@
    border: 1px solid #c5c5c5;
    background: #f6f6f6;
    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Lato black';
+    src: url('font/Lato-Black.ttf');
 }
