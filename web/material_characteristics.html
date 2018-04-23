@@ -1,261 +1,270 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-         <link rel="stylesheet" href="CSS/material_characteristics.css" />
-         <link rel="shortcut icon" href="CSS/favicon/engrenage.ico">
-        <title>Customer's material characteristics</title>
-    </head>
+<head>
 
-    <body>
-    	<div id="container">
-        	<div id="head">
-        		<h1>CUSTOMER'S MATERIAL CHARACTERISTICS</h1>
-        		<div class="subtitle">HMI CPOC2 v0.3 du 5 avril 2018</div>
-        	</div>
-        	
-            <div id="body">
-            <div>
-                <div class="title_level_2">
-                <h2>Part description</h2>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="CSS/material_characteristics.css" />
+    <link rel="shortcut icon" href="CSS/favicon/engrenage.ico">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/material_characteristics.js"></script>
+
+    <title>Customer's material characteristics</title>
+
+</head>
+<body>
+    
+	<div id="container">
+    	<div id="head">
+    		<h1>CUSTOMER'S MATERIAL CHARACTERISTICS</h1>
+    		<div class="subtitle">HMI CPOC2 v0.3 du 5 avril 2018</div>
+    	</div>
+    	
+        <div id="body">
+        <div>
+            <div class="title_level_2">
+            <h2>Part description</h2>
+            </div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Customer's file ID</div>
                 </div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Customer's file ID</div>
-                    </div>
-        			<div class="value">
-        				<form class="input_box">
-        					<input type="text" name="client_file_number" id="client_file_number">
-        				</form>
-        			</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Part name</div>
-                    </div>    
-        			<div class="value">
-        				<form class="input_box">
-        					<input type="text" name="part_number" id="part_number"></input>
-        				</form>
-        			</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Part drawing in PDF</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>    
-        			<div class="value">
-        				<input id="upload_button" type="button" value="Upload" onclick="window.location='http://......./fichier.zip';">
-        			</div>
-        		</div>
-        		<div id="part_drawing">
-        			<div id="part_draw"></div>
-                    <div id="part_legend">3D view of the part</div>
-        		</div>
-        	</div>
-        	
-        	<div> 
-                <div class="title_level_2">
-                <h2>Initial material description</h2>
+    			<div class="value">
+    				<form class="input_box">
+    					<input type="text" name="client_file_number" id="client_file_number">
+    				</form>
+    			</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Part name</div>
+                </div>    
+    			<div class="value">
+    				<form class="input_box">
+    					<input type="text" name="part_number" id="part_number"></input>
+    				</form>
+    			</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Part drawing in PDF</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>    
+    			<div class="value">
+    				<input id="upload_button" type="button" value="Upload" onclick="window.location='http://......./fichier.zip';">
+    			</div>
+    		</div>
+    		<div id="part_drawing">
+    			<div id="part_draw"></div>
+                <div id="part_legend">3D view of the part</div>
+    		</div>
+    	</div>
+    	
+    	<div> 
+            <div class="title_level_2">
+            <h2>Initial material description</h2>
+            </div>
+    		<div>
+            <div class="title_level_3"><h3>Material index</h3></div>
+            <div class="Item_and_his_value">
+    			<div class="item">
+                    <div class="item_text">Material family</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>    
+    			<div class="value">
+    				<form id="select_menu">
+						<select name="material_family">
+							<option>Steel
+                            <option>Aluminium
+                            <option>Stainless steel                                                                    
+							<option>Cast-iron
+                            <option>Brass
+						</select>
+					</form>
+    			</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Grade</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>                
+    			<div class="value">
+    				<form class="input_box">
+    					<input type="text" name="material_nuance" id="material_nuance"></input>
+    				</form>
+    			</div>
+    		</div>
+    	<div> 
+            <div class="title_level_3"><h3>Material price</h3></div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Raw material index</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
                 </div>
-        		<div>
-                <div class="title_level_3"><h3>Material index</h3></div>
-                <div class="Item_and_his_value">
-        			<div class="item">
-                        <div class="item_text">Material family</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>    
-        			<div class="value">
-        				<form id="select_menu">
-							<select name="material_family">
-								<option>Steel
-                                <option>Aluminium
-                                <option>Stainless steel                                                                    
-								<option>Cast-iron
-                                <option>Brass
-							</select>
-						</form>
-        			</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Grade</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>                
-        			<div class="value">
-        				<form class="input_box">
-        					<input type="text" name="material_nuance" id="material_nuance"></input>
-        				</form>
-        			</div>
-        		</div>
-        	<div> 
-                <div class="title_level_3"><h3>Material price</h3></div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Raw material index</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value_with_unit">
-        				<form class="input_box">
-        					<input type="text" name="material_price_per_ton" id="material_price_per_ton"></input>
-        				</form>
-        			</div>
-                    <div class="parameter_unit">-</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Price per part index</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value_with_unit">
-        				<form class="input_box">
-        					<input type="text" name="material_unitarian_price" id="material_unitarian_price"></input>
-        				</form>
-        			</div>
-                    <div class="parameter_unit">-</div>
-        		</div>
-        	</div>
-        	<div> 
-                <div class="title_level_3"><h3>Material performances</h3></div>
-				<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Tensile strengh (Rm)</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value_with_unit">
-                        <form class="input_box">
-                            <input type="text" name="material_unitarian_price" id="material_young_modulus"></input>
-                        </form>
-                    </div>
-        			<div class="parameter_unit">MPa</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Proof stress (Rp0.2)</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value_with_unit">
-                        <form class="input_box">
-                            <input type="text" name="material_unitarian_price" id="material_yield_stregh"></input>
-                        </form>
-                    </div>
-        			<div class="parameter_unit">MPa</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Hardeness</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value_with_unit">
-                        <form class="input_box">
-                            <input type="text" name="material_unitarian_price" id="material_ultimate_stregh"></input>
-                        </form>
-                    </div>
-        			<div class="parameter_unit">HB</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Cold drawning</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value_with_unit">
-                        <form class="input_box">
-                            <input type="text" name="material_unitarian_price" id="material_elongation"></input>
-                        </form>
-                    </div>
-        			<div class="parameter_unit">%</div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Weldability</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value">
-                        <form class="input_box">
-                            <input type="text" name="material_unitarian_price" id="weldability"></input>
-                        </form>         
-                    </div>
-        		</div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                        <div class="item_text">Heat treatability</div>
-                        <div class="info_logo">
-                          <button class="info-button" title="info_button">
-                            <img src="CSS/images/info.png" alt="icone information" />
-                         </button>
-                         </div>
-                    </div>
-        			<div class="value">
-                        <form class="input_box">
-                            <input type="text" name="material_unitarian_price" id="heat_treatement_ability"></input>
-                        </form>
-                    </div>
-        		</div>
-        	</div>
-            </div>
-            
+    			<div class="value_with_unit">
+    				<form class="input_box">
+    					<input type="text" name="material_price_per_ton" id="material_price_per_ton"></input>
+    				</form>
+    			</div>
+                <div class="parameter_unit">-</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Price per part index</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value_with_unit">
+    				<form class="input_box">
+    					<input type="text" name="material_unitarian_price" id="material_unitarian_price"></input>
+    				</form>
+    			</div>
+                <div class="parameter_unit">-</div>
+    		</div>
+    	</div>
+    	<div> 
+            <div class="title_level_3"><h3>Material performances</h3></div>
+			<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Tensile strengh (Rm)</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value_with_unit">
+                    <form class="input_box">
+                        <input type="text" name="material_unitarian_price" id="material_young_modulus"></input>
+                    </form>
+                </div>
+    			<div class="parameter_unit">MPa</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Proof stress (Rp0.2)</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value_with_unit">
+                    <form class="input_box">
+                        <input type="text" name="material_unitarian_price" id="material_yield_stregh"></input>
+                    </form>
+                </div>
+    			<div class="parameter_unit">MPa</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Hardeness</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value_with_unit">
+                    <form class="input_box">
+                        <input type="text" name="material_unitarian_price" id="material_ultimate_stregh"></input>
+                    </form>
+                </div>
+    			<div class="parameter_unit">HB</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Cold drawning</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value_with_unit">
+                    <form class="input_box">
+                        <input type="text" name="material_unitarian_price" id="material_elongation"></input>
+                    </form>
+                </div>
+    			<div class="parameter_unit">%</div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Weldability</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value">
+                    <form class="input_box">
+                        <input type="text" name="material_unitarian_price" id="weldability"></input>
+                    </form>         
+                </div>
+    		</div>
+    		<div class="Item_and_his_value"> 
+    			<div class="item">
+                    <div class="item_text">Heat treatability</div>
+                    <div class="info_logo">
+                      <button class="info-button" title="info_button">
+                        <img src="CSS/images/info.png" alt="icone information" />
+                     </button>
+                     </div>
+                </div>
+    			<div class="value">
+                    <form class="input_box">
+                        <input type="text" name="material_unitarian_price" id="heat_treatement_ability"></input>
+                    </form>
+                </div>
+    		</div>
+    	</div>
         </div>
+        
+    </div>
+    </div>
+
+        <div id="check_button">
+            <button class="ui-check-button ui-widget ui-corner-all" onclick="window.location='';">
+            Check customer material M0
+            </button>
         </div>
 
-            <div id="check_button">
-                <button class="ui-check-button ui-widget ui-corner-all" onclick="window.location='';">
-                Check customer material M0
-                </button>
-            </div>
-
-            <div id="visualisation_button">
-                <button class="ui-visualisation-button ui-widget ui-corner-all" onclick="window.location='visualisation_m0.html';">
-                Visualise material M0 position
-                </button>
-            </div>
-
-            <div id="next_step_button">
-                <button class="ui-next-step-button ui-widget ui-corner-all" onclick="window.location='codesign_space.html';">
-                Next step
-                </button>
-            </div>
-
+        <div id="visualisation_button">
+            <button class="ui-visualisation-button ui-widget ui-corner-all" onclick="window.location='visualisation_m0.html';">
+            Visualise material M0 position
+            </button>
         </div>
 
-    </body>
+        <div id="next_step_button">
+            <button class="ui-next-step-button ui-widget ui-corner-all" onclick="window.location='codesign_space.html';">
+            Next step
+            </button>
+        </div>
+
+    </div>
+
+</body>
 </html>
