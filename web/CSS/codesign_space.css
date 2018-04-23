@@ -156,6 +156,16 @@ h2
 	font-family: 'Lato regular'
 }
 
+.info-button
+{
+    border-color: rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255);
+    border-style: solid;
+    border-width: 1px;
+    width: 20px;
+    padding: 0px 0px 0px 0px;
+    margin: -1px 5px 0px -3px;
+
+}
 
 @font-face {
     font-family: 'Lato black';
