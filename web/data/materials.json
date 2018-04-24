@@ -1,0 +1,71 @@
+{
+    "families": [
+        {
+            "id": "steels",
+            "name": "Steels",
+            "subfamilies": [
+                {"id":"unalloyed_steel", "name": "Unalloyed Steel"},
+                {"id":"stainless_steel", "name": "Stainless Steel"},
+                {"id":"alloyed_steel", "name": "Alloyed Steel"}
+            ]
+        },
+        {
+            "id": "aluminiums",
+            "name": "Aluminiums",
+            "subfamilies": [
+                {"id":"aluminium", "name": "Aluminium"}
+            ]
+        }
+    ],
+
+    "grades": [
+        {
+            "id": "11smn30",
+            "name": "11SMn30",
+            "family": "alloyed_steel",
+            "characteristics": {
+                "e":  210,
+                "rm": 510,
+                "rp": 440,
+                "hb": 169,
+                "a":  0.06
+            }
+        },
+        {
+            "id": "11smn30pb",
+            "name": "11SMn30Pb",
+            "family": "alloyed_steel",
+            "characteristics": {
+                "e":  210,
+                "rm": 490,
+                "rp": 410,
+                "hb": 169,
+                "a":  0.07
+            }
+        },
+        {
+            "id": "c22",
+            "name": "C22",
+            "family": "unalloyed_steel",
+            "characteristics": {
+                "e":  210,
+                "rm": 580,
+                "rp": 460,
+                "hb": 170,
+                "a":  0.14
+            }
+        },
+        {
+            "id": "6262a",
+            "name": "6262A",
+            "family": "aluminium",
+            "characteristics": {
+                "e":  68.3,
+                "rm": 360,
+                "rp": 330,
+                "hb": 75,
+                "a":  0.04
+            }
+        }
+    ]
+}

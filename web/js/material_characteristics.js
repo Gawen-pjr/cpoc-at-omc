@@ -5,77 +5,90 @@ var KVOWEB_USER_TOKEN_HEADER = 'X-User-Token';
 
 var kvowebUserToken;
 var kvowebSession;
+var materialDB;
 
-function startSession()
+jQuery(function($)
 {
-	var sessionActivatedCallback = function(data)
-	{
-		console.debug('OMC', 'Active session: ' + JSON.stringify(data));
-		kvowebSession = data;
-	}; 
+    function startSession()
+    {
+        var sessionActivatedCallback = function(data)
+        {
+            console.debug('OMC', 'Active session: ' + JSON.stringify(data));
+            kvowebSession = data;
+        }; 
 
-	var sessionCreatedCallback = function(data)
-	{
-		console.debug('OMC', 'Session: ' + JSON.stringify(data));
-		var sessionId = data.id;
+        var sessionCreatedCallback = function(data)
+        {
+            console.debug('OMC', 'Session: ' + JSON.stringify(data));
+            var sessionId = data.id;
 
-		$.ajax(
-			KVOWEB_BASE_URL + '/session/' + sessionId + '/activate',
-			{
-				method  : 'POST',
-				headers : { [KVOWEB_USER_TOKEN_HEADER] : kvowebUserToken }
-			} 
-		).done(sessionActivatedCallback);
-	};
+            $.ajax(
+                KVOWEB_BASE_URL + '/session/' + sessionId + '/activate',
+                {
+                    method  : 'POST',
+                    headers : { [KVOWEB_USER_TOKEN_HEADER] : kvowebUserToken }
+                } 
+            ).done(sessionActivatedCallback);
+        };
 
-	var userLoggedCallback = function(data)
-	{
-		console.debug('OMC', 'Token: ' + JSON.stringify(data));
-		kvowebUserToken = data.token;
+        var userLoggedCallback = function(data)
+        {
+            console.debug('OMC', 'Token: ' + JSON.stringify(data));
+            kvowebUserToken = data.token;
 
-		$.ajax(
-			KVOWEB_BASE_URL + '/session',
-			{
-				method  : 'POST',
-				headers : { [KVOWEB_USER_TOKEN_HEADER] : kvowebUserToken },
-				data    : { name : 'POC AT-OMC' , amiId : 1 }
-			} 
-		).done(sessionCreatedCallback);
-	};
+            $.ajax(
+                KVOWEB_BASE_URL + '/session',
+                {
+                    method  : 'POST',
+                    headers : { [KVOWEB_USER_TOKEN_HEADER] : kvowebUserToken },
+                    data    : { name : 'POC AT-OMC' , amiId : 1 }
+                } 
+            ).done(sessionCreatedCallback);
+        };
 
-	$.ajax(
-		KVOWEB_BASE_URL + '/user/login',
-		{
-			method  : 'POST',
-			data    : { login : 'toto' , password : 'titi' }
-		} 
-	).done(userLoggedCallback);
-}
+        $.ajax(
+            KVOWEB_BASE_URL + '/user/login',
+            {
+                method  : 'POST',
+                data    : { login : 'toto' , password : 'titi' }
+            } 
+        ).done(userLoggedCallback);
+    }
 
-$(document).ready(startSession);
+    startSession();
 
-$( function clientFileNumber() {
-    var availableNumber = [
-    	'1111',
-    	'2222',
-    	'1234',
-    	'156'
-    ];
+    // Configuration du champs 'project number'
     $( "#client_file_number" ).autocomplete({
-      source: availableNumber
+        source: ['1111', '2222', '1234', '156']
     });
-  } );
 
-$( function partNumber() {
-    var availablePartNumber = [
-    	'10101-1250',
-    	'10101-1729',
-    	'10101-3981',
-    ];
+    // Configuration du champs 'part designation/part number'
     $( "#part_number" ).autocomplete({
-      source: availablePartNumber
+        source: ['10101-1250', '10101-1729', '10101-3981']
     });
-  } );
+
+    // Configuration des champs 'family' et 'grade' à partir de la base de données JSON
+    $.getJSON("data/materials.json", null, function(json) 
+    {
+        console.debug('OMC', 'materials.json loaded');
+        materialDB = json;
+
+        var $sel = $("#material_family");
+        materialDB.families.forEach(function(f) {
+            var $optGroup = $("<optgroup />").attr("label", f.name);
+            $optGroup.appendTo($sel);
+
+            f.subfamilies.forEach(function(sf) {
+                $("<option />").attr({value: sf.id, id: sf.id}).text(sf.name).appendTo($optGroup);
+            });
+        });
+
+        $sel.selectmenu();
+
+    });
+
+});
+
 
 $( function materialGrade() {
     var grade = [
@@ -105,7 +118,7 @@ $( function materialGrade() {
 
     ];
     $( "#material_grade" ).autocomplete({
-      source: grade
+      source: grade //changement valeur sélection de famille. On connait famille à l'instant t. 
     });
   } );
 
