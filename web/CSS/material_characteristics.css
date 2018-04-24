@@ -239,56 +239,69 @@ h3
 #client_file_number
 {
 	width:90%;
+	text-align: center;
 }
 
 #part_number
 {
 	width:90%;
+	text-align: center;
+	margin-top: 8px;
+    margin-bottom: 8px;
 }
 
-#material_nuance
+#material_grade
 {
 	width:90%;
+	text-align: center;
 }
 
 #material_price_per_ton
 {
 	width:90%;
+	text-align: center;
 }
 
-#material_unitarian_price
+#part_price
 {
 	width:90%;
+	text-align: center;
 }
 
-#material_young_modulus
+#material_tensile_stregth
 {
 	width:90%;
+	text-align: center;
 }
 
-#material_yield_stregh
+#material_hardness
 {
 	width:90%;
+	text-align: center;
 }
 
-#material_ultimate_stregh
+#material_proof_stress
 {
 	width:90%;
+	text-align: center;
 }
 
 #material_elongation
 {
 	width:90%;
+	text-align: center;
 }
 
 #weldability
 {
 	width:90%;
+	text-align: center;
 }
 
-#heat_treatement_ability
+#heat_treatability
 {
 	width:90%;
+	text-align: center;
 }
 
 .ui-next-step-button.ui-widget.ui-corner-all
@@ -326,6 +339,11 @@ h3
 
 #upload_button
 {
-	margin: 6px 5px 6px 5px;
+	margin: 5px 5px 0px 5px;
     width: 70px;
+}
+
+.ui-widget 
+{
+	text-align: center;
 }
