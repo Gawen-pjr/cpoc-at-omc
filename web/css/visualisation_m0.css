@@ -12,14 +12,34 @@
     height: 700px;
     border-left: 5px #000000 solid;
     border-bottom: 5px #000000 solid;
-
 }
 
 #Back_button
 {
   text-align: center;
-  margin-top: 35px;
-  width:700px;
+  margin-top: 25px;
+  width:735px;
+}
+
+#fleche_ordonnees
+{
+  width: 0;
+  height: 0;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-bottom: 30px solid black;
+  margin-left: -15.5px;
+}
+
+#fleche_abscisses
+{
+  width: 0;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+  border-left: 30px solid black;
+  margin-left: 705px;
+  margin-top: -20.5px;
 }
 
 .ui-button.ui-widget.ui-corner-all
