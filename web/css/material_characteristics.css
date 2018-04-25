@@ -9,12 +9,10 @@
     src: url('font/Lato-Regular.ttf');
 }
 
-
 @font-face {
     font-family: 'Lato bold';
     src: url('font/Lato-Bold.ttf');
 }
-
 
 @font-face {
     font-family: 'Lato italic';
@@ -345,4 +343,13 @@ h3
 .ui-widget 
 {
 	text-align: center;
+}
+
+#material_family-button
+{
+    text-align: center;
+    white-space: nowrap;
+    width: 91%;
+    padding: 4px 0px 4px 0px;
+    font-size: 11pt;
 }

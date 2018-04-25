@@ -1,4 +1,78 @@
 
+h1
+{
+  text-align: center;
+  font-family: 'Lato black';
+  color:#4014AF;
+  font-size: 22pt;
+  margin-top: 9px;
+  margin-bottom: 5px;
+}
+
+#head
+{
+  background-color:#FFF700;
+  border : 3px solid black;
+  width: 715px;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#additional_info
+{
+  width:715px;
+  display:flex;
+}
+
+#part_information
+{
+  border : 1px solid black;
+}
+
+.Item_and_his_value
+{
+  display:flex;
+  font-family: 'Lato regular';
+  font-size: 11pt;
+}
+
+.item
+{
+  width:112px;
+  border : 1px solid black;
+  padding: 0px 5px 0px 5px;
+}
+
+#part_number
+{
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.value
+{
+  border : 1px solid black;
+}
+
+.subtitle
+{
+  font-size: 10pt;
+  text-align: center;
+  font-style: italic; 
+  font-family: 'Lato black';
+  color:#4014AF;
+  margin-bottom: 10px;
+}
+.subtitle::before
+{
+  content: "(";
+}
+
+.subtitle::after
+{
+  content: ")";
+}
 
 #overall
 {
@@ -58,6 +132,12 @@
   margin-top: 10px;
 }
 
+#Print_button
+{
+  text-align: center;
+  margin-top: 10px;
+}
+
 #Back_button
 {
   text-align: center;
@@ -98,4 +178,9 @@
 @font-face {
     font-family: 'Lato black';
     src: url('font/Lato-Black.ttf');
+}
+
+@font-face {
+    font-family: 'Lato regular';
+    src: url('font/Lato-Regular.ttf');
 }
