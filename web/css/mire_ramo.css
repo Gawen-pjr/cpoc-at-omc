@@ -55,6 +55,12 @@ h1
   border : 1px solid black;
 }
 
+#AT_logo
+{
+  margin-left: 340px;
+  height: 60px;
+}
+
 .subtitle
 {
   font-size: 10pt;
