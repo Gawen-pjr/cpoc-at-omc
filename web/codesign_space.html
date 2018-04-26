@@ -11,7 +11,12 @@
 <!-- Radiobox -->
   		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  		
+<!-- -->  		
+      <script> 
+        $( function() {
+          $( "#speed" ).selectmenu();
+      } );
+      </script>
 
 <!--Yield stregh slider-->
       <script>
@@ -125,12 +130,14 @@
               </div>
         			<div id="performance_index">
         				<form>
-							   <select name="performance_index">								  
-								    <option>Tensile strengh Rm
-                    <option>Proof stress Rp0.2  
-                    <option>Hardness HB  
-								    <option>Elongation percentage
-							   </select>
+                  <fieldset>
+                    <select name="performance_index" id="performance_index">
+                      <option>Tensile strengh Rm
+                      <option>Proof stress Rp0.2  
+                      <option>Hardness HB  
+                      <option>Elongation percentage
+                    </select>
+                  </fieldset>
 						    </form>
         			</div>
         		</div>
