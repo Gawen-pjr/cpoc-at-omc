@@ -1,12 +1,9 @@
-
-#overall
-{
-	margin-top: 40px;
+#overall {
+    margin-top: 40px;
     margin-left: 45px;
 }
 
-#axe_abscisses
-{
+#axe_abscisses {
     width: 500px;
     border: 10px solid #000000;
     margin-top: -40px;
@@ -14,8 +11,7 @@
     border-radius: 10px;
 }
 
-#axe_ordonnees
-{
+#axe_ordonnees {
     height: 500px;
     width: 0px;
     border: 10px solid #000000;
@@ -24,16 +20,14 @@
     border-radius: 10px;
 }
 
-#grand_cercle
-{
-  border-radius:50%;
-  width:400px;
-  height:400px;
-  border:20px solid #000000; 
+#grand_cercle {
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+    border: 20px solid #000000;
 }
 
-#petit_cercle
-{
+#petit_cercle {
     border-radius: 50%;
     width: 25px;
     height: 25px;
@@ -43,9 +37,7 @@
     margin-left: 187.5px;
 }
 
-
-.arc_haut_1
-{
+.arc_haut_1 {
     width: 150px;
     height: 150px;
     border-radius: 100% 0 0;
@@ -53,10 +45,9 @@
     border-left: 20px solid #000000;
     margin-top: 30px;
     margin-left: 30px;
- }
+}
 
-.arc_haut_2
-{
+.arc_haut_2 {
     width: 100px;
     height: 100px;
     border-radius: 100% 0 0;
@@ -64,10 +55,9 @@
     border-left: 20px solid #000000;
     margin-top: 30px;
     margin-left: 30px;
- }
+}
 
- .arc_haut_3
-{
+.arc_haut_3 {
     width: 50px;
     height: 50px;
     border-radius: 100% 0 0;
@@ -75,32 +65,29 @@
     border-left: 20px solid #000000;
     margin-top: 30px;
     margin-left: 30px;
- }
+}
 
- .arc_bas_1
-{
+.arc_bas_1 {
     width: 150px;
     height: 150px;
     border-radius: 0 0 100%;
     border-right: 20px solid #000000;
     border-bottom: 20px solid #000000;
     margin-left: 200px;
- }
+}
 
-  .arc_bas_2
-{
+.arc_bas_2 {
     width: 100px;
     height: 100px;
     border-radius: 0 0 100%;
     border-right: 20px solid #000000;
     border-bottom: 20px solid #000000;
- }
+}
 
-  .arc_bas_3
-{
+.arc_bas_3 {
     width: 50px;
     height: 50px;
     border-radius: 0 0 100%;
     border-right: 20px solid #000000;
     border-bottom: 20px solid #000000;
- }
+}

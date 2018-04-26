@@ -1,22 +1,18 @@
-
 @font-face {
     font-family: 'Lato black';
     src: url('font/Lato-Black.ttf');
 }
 
-
-h1
-{
-	font-family: 'Lato black';
-	font-size: 22pt;
-	margin-top: 9px;
-	margin-bottom: 5px;
+h1 {
+    font-family: 'Lato black';
+    font-size: 22pt;
+    margin-top: 9px;
+    margin-bottom: 5px;
 }
 
-h2
-{
-	font-family: 'Lato black';
-	font-size: 12pt;
-	margin-top: 7px;
-	margin-bottom: 7px;
+h2 {
+    font-family: 'Lato black';
+    font-size: 12pt;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }

@@ -67,7 +67,8 @@ jQuery(function($)
         source: ['10101-1250', '10101-1729', '10101-3981']
     });
 
-    // Configuration des champs 'family' et 'grade' à partir de la base de données JSON
+    // Configuration des champs 'family' et 'grade' à partir de la base de
+    // données JSON
     $.getJSON("data/materials.json", null, function(json) 
     {
         console.debug('OMC', 'materials.json loaded');
@@ -125,7 +126,8 @@ $( function materialGrade() {
 
     ];
     $( "#material_grade" ).autocomplete({
-      source: grade //changement valeur sélection de famille. On connait famille à l'instant t. 
+      source: grade // changement valeur sélection de famille. On connait
+                    // famille à l'instant t.
     });
   } );
 

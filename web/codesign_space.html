@@ -1,301 +1,309 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" href="css/codesign_space.css" />
-        <link rel="shortcut icon" href="css/favicon/engrenage.ico">
-        <title>Co-Design material space AT Customer</title>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/codesign_space.css" />
+<link rel="shortcut icon" href="css/favicon/engrenage.ico">
+<title>Co-Design material space AT Customer</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> <!--Sliders-->
-  		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!--Sliders-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--Sliders-->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--Sliders-->
 <!-- Radiobox -->
-  		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- -->  		
-      <script> 
-        $( function() {
-          $( "#speed" ).selectmenu();
-      } );
-      </script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- -->
+<script>
+    $(function()
+    {
+        $("#speed").selectmenu();
+    });
+</script>
 
 <!--Yield stregh slider-->
-      <script>
-  			$( function() {
-    			$( "#slider-range" ).slider({
-      				range: true,
-      				min: 0,
-      				max: 1200,
-      				values: [ 300, 600 ],
-      				slide: function( event, ui ) {
-        				$( "#amount" ).val( ui.values[ 0 ] + " MPa"  + " - " + ui.values[ 1 ] + " MPa" );
-      				}
-    			});
-    			$( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) + " MPa" +
-      				" - " + $( "#slider-range" ).slider( "values", 1 ) + " MPa" );
-  			} );
-      </script>
+<script>
+    $(function()
+    {
+        $("#slider-range").slider(
+        {
+            range : true,
+            min : 0,
+            max : 1200,
+            values : [ 300, 600 ],
+            slide : function(event, ui)
+            {
+                $("#amount").val(ui.values[0] + " MPa" + " - " + ui.values[1] + " MPa");
+            }
+        });
+        $("#amount").val(
+                $("#slider-range").slider("values", 0) + " MPa" + " - " + $("#slider-range").slider("values", 1)
+                        + " MPa");
+    });
+</script>
 
 <!--Ultimate stregh slider-->
-      <script>
-        $( function() {
-          $( "#slider-range2" ).slider({
-              range: true,
-              min: 0,
-              max: 1200,
-              values: [ 550, 700 ],
-              slide: function( event, ui ) {
-                $( "#amount2" ).val( ui.values[ 0 ] + " MPa"  + " - " + ui.values[ 1 ] + " MPa" );
-              }
-          });
-          $( "#amount2" ).val( $( "#slider-range2" ).slider( "values", 0 ) + " MPa" +
-              " - " + $( "#slider-range2" ).slider( "values", 1 ) + " MPa" );
-        } );
-      </script>
+<script>
+    $(function()
+    {
+        $("#slider-range2").slider(
+        {
+            range : true,
+            min : 0,
+            max : 1200,
+            values : [ 550, 700 ],
+            slide : function(event, ui)
+            {
+                $("#amount2").val(ui.values[0] + " MPa" + " - " + ui.values[1] + " MPa");
+            }
+        });
+        $("#amount2").val(
+                $("#slider-range2").slider("values", 0) + " MPa" + " - " + $("#slider-range2").slider("values", 1)
+                        + " MPa");
+    });
+</script>
 
 
 <!--Cold drawning percentage slider-->
-      <script>
-        $( function() {
-          $( "#slider-range3" ).slider({
-              range: true,
-              min: 0,
-              max: 30,
-              values: [ 10, 15 ],
-              slide: function( event, ui ) {
-                $( "#amount3" ).val( ui.values[ 0 ] + " %"  + " - " + ui.values[ 1 ] + " %" );
-              }
-          });
-          $( "#amount3" ).val( $( "#slider-range3" ).slider( "values", 0 ) + " %" +
-              " - " + $( "#slider-range3" ).slider( "values", 1 ) + " %" );
-        } );
-      </script>
+<script>
+    $(function()
+    {
+        $("#slider-range3").slider(
+        {
+            range : true,
+            min : 0,
+            max : 30,
+            values : [ 10, 15 ],
+            slide : function(event, ui)
+            {
+                $("#amount3").val(ui.values[0] + " %" + " - " + ui.values[1] + " %");
+            }
+        });
+        $("#amount3")
+                .val(
+                        $("#slider-range3").slider("values", 0) + " %" + " - "
+                                + $("#slider-range3").slider("values", 1) + " %");
+    });
+</script>
 
 <!--Hardness slider-->
-      <script>
-        $( function() {
-          $( "#slider-range4" ).slider({
-              range: true,
-              min: 0,
-              max: 500,
-              values: [ 150, 200 ],
-              slide: function( event, ui ) {
-                $( "#amount4" ).val( ui.values[ 0 ] + " HB"  + " - " + ui.values[ 1 ] + " HB" );
-              }
-          });
-          $( "#amount4" ).val( $( "#slider-range4" ).slider( "values", 0 ) + " HB" +
-              " - " + $( "#slider-range4" ).slider( "values", 1 ) + " HB" );
-        } );
-      </script>
+<script>
+    $(function()
+    {
+        $("#slider-range4").slider(
+        {
+            range : true,
+            min : 0,
+            max : 500,
+            values : [ 150, 200 ],
+            slide : function(event, ui)
+            {
+                $("#amount4").val(ui.values[0] + " HB" + " - " + ui.values[1] + " HB");
+            }
+        });
+        $("#amount4").val(
+                $("#slider-range4").slider("values", 0) + " HB" + " - " + $("#slider-range4").slider("values", 1)
+                        + " HB");
+    });
+</script>
 
 <!--Slider prix pièce-->
-      <script>
-        $( function() {
-          $( "#slider-range5" ).slider({
-              range: true,
-              min: 0,
-              max: 200,
-              values: [ 75, 115 ],
-              slide: function( event, ui ) {
-                $( "#amount5" ).val( Math.round((ui.values[ 0 ])) + " - " + Math.round((ui.values[ 1 ])) );
-              }
-          });
-          $( "#amount5" ).val( $( "#slider-range5" ).slider( "values", 0 ) +
-              " - " + $( "#slider-range5" ).slider( "values", 1 ) );
-        } );
-      </script>
+<script>
+    $(function()
+    {
+        $("#slider-range5").slider(
+        {
+            range : true,
+            min : 0,
+            max : 200,
+            values : [ 75, 115 ],
+            slide : function(event, ui)
+            {
+                $("#amount5").val(Math.round((ui.values[0])) + " - " + Math.round((ui.values[1])));
+            }
+        });
+        $("#amount5").val($("#slider-range5").slider("values", 0) + " - " + $("#slider-range5").slider("values", 1));
+    });
+</script>
 
 <!-- Radiobox -->
-      <script> 
-      $( function() { 
-        $( "input[type='radio']" ).checkboxradio(); // inupt.classe_des_radioboutons
-        $( "fieldset" ).controlgroup();
-      } );
-      </script>
-    </head>
+<script>
+    $(function()
+    {
+        $("input[type='radio']").checkboxradio(); // inupt.classe_des_radioboutons
+        $("fieldset").controlgroup();
+    });
+</script>
+</head>
 
 
-    <body>
-    	<div class="container">
-    		<div id="head">
-    			<h1>FUNCTIONAL TOLERANCES <br> ON MATERIAL M0</h1>
-          <div class="subtitle">HMI CPOC2 v0.5 du 10 avril 2018</div>
-    		</div>
-        	
-        <div id="body">
-          <div> 
-            <div class="title_level_2"><h2>Performance characteristics</h2></div>
-        		<div class="Item_and_his_value"> 
-        			<div class="item">
-                <div class="item_text">Performance index</div>
-              </div>
-        			<div id="performance_index">
-        				<form>
-                  <fieldset>
-                    <select name="performance_index" id="performance_index">
-                      <option>Tensile strengh Rm
-                      <option>Proof stress Rp0.2  
-                      <option>Hardness HB  
-                      <option>Elongation percentage
-                    </select>
-                  </fieldset>
-						    </form>
-        			</div>
-        		</div>
-        		
-            <div class="slidebar">
-              <div class="Item_and_his_value">
-               <div>
-                 <button class="info-button" title="info_button">
-                 <img src="CSS/images/info.png" alt="icone information" />
-                 </button>
-                </div>
-                <div>
-                 <label for="amount2">Tolerance interval for the tensile stregth : </label>
-                <input type="text" id="amount2" readonly style="border:0; color:#f9b642; font-weight:bold;">
-               </div>
-              </div>
-              <div style="position:relative; margin:10px 5px 30px 5px; ">
-               <div id="slider-range2" style="margin-bottom:5px"></div>
-               <div class="value-bar" style="left:50%"></div>
-               <div class="value-hint" style="left: 50%">600 MPa</div>
-              </div>
-             </div>
+<body>
+  <div class="container">
+    <div id="head">
+      <h1>
+        FUNCTIONAL TOLERANCES <br> ON MATERIAL M0
+      </h1>
+      <div class="subtitle">HMI CPOC2 v0.5 du 10 avril 2018</div>
+    </div>
 
-            <div class="slidebar">
-              <div class="Item_and_his_value">
-               <div>
-                 <button class="info-button" title="info_button">
-                 <img src="CSS/images/info.png" alt="icone information" />
-                 </button>
-                </div>
-                <div>
-                 <label for="amount">Tolerance interval for the proof stress : </label>
-                <input type="text" id="amount" readonly style="border:0; color:#f9b642; font-weight:bold;">
-               </div>
-              </div>
-              <div style="position:relative; margin:10px 5px 30px 5px; ">
-               <div id="slider-range" style="margin-bottom:5px"></div>
-               <div class="value-bar" style=" left:40% "></div>
-               <div class="value-hint" style="left:40%">400 MPa</div>
-              </div>
-             </div>             
-
-             <div class="slidebar">
-              <div class="Item_and_his_value">
-                <div>
-                 <button class="info-button" title="info_button">
-                 <img src="CSS/images/info.png" alt="icone information" />
-                 </button>
-                </div>
-               <div>
-                 <label for="amount4">Tolerance interval for the hardness : </label>
-                <input type="text" id="amount4" readonly style="border:0; color:#f9b642; font-weight:bold;">
-               </div>
-              </div>
-              <div style="position:relative; margin:10px 5px 30px 5px; ">
-               <div id="slider-range4" style="margin-bottom:5px"></div>
-               <div class="value-bar" style="left:35%"></div>
-               <div class="value-hint" style="left:35%">175 HB</div>
-              </div>
-             </div>
-
-            <div class="slidebar">
-              <div class="Item_and_his_value">
-                <div>
-                 <button class="info-button" title="info_button">
-                 <img src="CSS/images/info.png" alt="icone information" />
-                 </button>
-                </div>
-               <div>
-                 <label for="amount3">Tolerance interval for the elongation percentage : </label>
-                <input type="text" id="amount3" readonly style="border:0; color:#f9b642; font-weight:bold;">
-               </div>
-              </div>
-              <div style="position:relative; margin:10px 5px 30px 5px; ">
-               <div id="slider-range3" style="margin-bottom:5px"></div>
-               <div class="value-bar" style="left:40%"></div>
-               <div class="value-hint" style="left:40%">12%</div>
-              </div>
-             </div>
-
-        	</div>
-    		
-    		<div> 
-          <div class="title_level_2"><h2>Targeted price</h2></div>
-    		    
-          <div class="slidebar">
-            <div class="Item_and_his_value">
-              <div>
-                 <button class="info-button" title="info_button">
-                 <img src="CSS/images/info.png" alt="icone information" />
-                 </button>
-                </div>
-              <div>
-                <label for="amount5">Tolerance interval for the price index : </label>
-              <input type="text" id="amount5" readonly style="border:0; color:#f9b642; font-weight:bold;">
-              </div>  
-            </div>
-            <div style="position:relative; margin:10px 5px 30px 5px; ">
-              <div id="slider-range5" style="margin-bottom:5px"></div>
-              <div class="value-bar" style="left:50%"></div>
-              <div class="value-hint" style="left:50%">100</div>
-            </div>
-            </div>
+    <div id="body">
+      <div>
+        <div class="title_level_2">
+          <h2>Performance characteristics</h2>
+        </div>
+        <div class="Item_and_his_value">
+          <div class="item">
+            <div class="item_text">Performance index</div>
           </div>
-
-        <div> 
-          <div class="title_level_2"><h2>Other performances</h2></div>
-          <div class="widget">
-            <div class="radiobutton">
+          <div id="performance_index">
+            <form>
               <fieldset>
-                <legend>Weldability</legend>
-                <label for="weldability_excellent"> + + </label>
-                <input type="radio" name="weldability" id="weldability_excellent">
-                <label for="weldability_OK"> + </label>
-                <input type="radio" name="weldability" id="weldability_OK">
-                <label for="weldability_bad"> - - </label>
-                <input type="radio" name="weldability" id="weldability_bad">
-                <label for="weldability_indifferent">Indifferent</label>
-                <input type="radio" name="weldability" id="weldability_indifferent">
+                <select name="performance_index" id="performance_index">
+                  <option>Tensile strengh Rm
+                  <option>Proof stress Rp0.2
+                  <option>Hardness HB
+                  <option>Elongation percentage
+                </select>
               </fieldset>
-            </div>
-            <div class="radiobutton">
-            <fieldset>
-                <legend>Heat treatment</legend>
-                <label for="HT_good"> + + </label>
-                <input type="radio" name="heat treatment" id="HT_good">
-                <label for="HT_OK"> + </label>
-                <input type="radio" name="heat treatment" id="HT_OK">
-                <label for="HT_bad"> - - </label>
-                <input type="radio" name="heat treatment" id="HT_bad">
-                <label for="HT_indifferent">Indifferent</label>
-                <input type="radio" name="heat treatment" id="HT_indifferent">
-              </fieldset>
-            </div>
+            </form>
           </div>
-
-
         </div>
 
-
-    		</div>
-          <div id="Calculation_button">
-            <button class="ui-button ui-widget ui-corner-all" onclick="window.location='mire_ramo.html';">
-              See Alpen'Tech's material suggestions
-            </button>
+        <div class="slidebar">
+          <div class="Item_and_his_value">
+            <div>
+              <button class="info-button" title="info_button">
+                <img src="CSS/images/info.png" alt="icone information" />
+              </button>
+            </div>
+            <div>
+              <label for="amount2">Tolerance interval for the tensile stregth : </label> <input type="text" id="amount2" readonly style="border: 0; color: #f9b642; font-weight: bold;">
+            </div>
           </div>
-          <div id="Return_button">
-            <button class="ui-button ui-widget ui-corner-all" onclick="window.location='material_characteristics.html';">
-              Homepage
-            </button>
+          <div style="position: relative; margin: 10px 5px 30px 5px;">
+            <div id="slider-range2" style="margin-bottom: 5px"></div>
+            <div class="value-bar" style="left: 50%"></div>
+            <div class="value-hint" style="left: 50%">600 MPa</div>
           </div>
-    	</div>
+        </div>
 
+        <div class="slidebar">
+          <div class="Item_and_his_value">
+            <div>
+              <button class="info-button" title="info_button">
+                <img src="CSS/images/info.png" alt="icone information" />
+              </button>
+            </div>
+            <div>
+              <label for="amount">Tolerance interval for the proof stress : </label> <input type="text" id="amount" readonly style="border: 0; color: #f9b642; font-weight: bold;">
+            </div>
+          </div>
+          <div style="position: relative; margin: 10px 5px 30px 5px;">
+            <div id="slider-range" style="margin-bottom: 5px"></div>
+            <div class="value-bar" style="left: 40%"></div>
+            <div class="value-hint" style="left: 40%">400 MPa</div>
+          </div>
+        </div>
 
+        <div class="slidebar">
+          <div class="Item_and_his_value">
+            <div>
+              <button class="info-button" title="info_button">
+                <img src="CSS/images/info.png" alt="icone information" />
+              </button>
+            </div>
+            <div>
+              <label for="amount4">Tolerance interval for the hardness : </label> <input type="text" id="amount4" readonly style="border: 0; color: #f9b642; font-weight: bold;">
+            </div>
+          </div>
+          <div style="position: relative; margin: 10px 5px 30px 5px;">
+            <div id="slider-range4" style="margin-bottom: 5px"></div>
+            <div class="value-bar" style="left: 35%"></div>
+            <div class="value-hint" style="left: 35%">175 HB</div>
+          </div>
+        </div>
 
-    </body>
+        <div class="slidebar">
+          <div class="Item_and_his_value">
+            <div>
+              <button class="info-button" title="info_button">
+                <img src="CSS/images/info.png" alt="icone information" />
+              </button>
+            </div>
+            <div>
+              <label for="amount3">Tolerance interval for the elongation percentage : </label> <input type="text" id="amount3" readonly style="border: 0; color: #f9b642; font-weight: bold;">
+            </div>
+          </div>
+          <div style="position: relative; margin: 10px 5px 30px 5px;">
+            <div id="slider-range3" style="margin-bottom: 5px"></div>
+            <div class="value-bar" style="left: 40%"></div>
+            <div class="value-hint" style="left: 40%">12%</div>
+          </div>
+        </div>
 
+      </div>
 
+      <div>
+        <div class="title_level_2">
+          <h2>Targeted price</h2>
+        </div>
 
+        <div class="slidebar">
+          <div class="Item_and_his_value">
+            <div>
+              <button class="info-button" title="info_button">
+                <img src="CSS/images/info.png" alt="icone information" />
+              </button>
+            </div>
+            <div>
+              <label for="amount5">Tolerance interval for the price index : </label> <input type="text" id="amount5" readonly style="border: 0; color: #f9b642; font-weight: bold;">
+            </div>
+          </div>
+          <div style="position: relative; margin: 10px 5px 30px 5px;">
+            <div id="slider-range5" style="margin-bottom: 5px"></div>
+            <div class="value-bar" style="left: 50%"></div>
+            <div class="value-hint" style="left: 50%">100</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="title_level_2">
+          <h2>Other performances</h2>
+        </div>
+        <div class="widget">
+          <div class="radiobutton">
+            <fieldset>
+              <legend>Weldability</legend>
+              <label for="weldability_excellent"> + + </label> <input type="radio" name="weldability" id="weldability_excellent"> <label for="weldability_OK"> + </label> <input type="radio"
+                name="weldability" id="weldability_OK"
+              > <label for="weldability_bad"> - - </label> <input type="radio" name="weldability" id="weldability_bad"> <label for="weldability_indifferent">Indifferent</label> <input
+                type="radio" name="weldability" id="weldability_indifferent"
+              >
+            </fieldset>
+          </div>
+          <div class="radiobutton">
+            <fieldset>
+              <legend>Heat treatment</legend>
+              <label for="HT_good"> + + </label> <input type="radio" name="heat treatment" id="HT_good"> <label for="HT_OK"> + </label> <input type="radio" name="heat treatment" id="HT_OK">
+              <label for="HT_bad"> - - </label> <input type="radio" name="heat treatment" id="HT_bad"> <label for="HT_indifferent">Indifferent</label> <input type="radio" name="heat treatment"
+                id="HT_indifferent"
+              >
+            </fieldset>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div id="Calculation_button">
+      <button class="ui-button ui-widget ui-corner-all" onclick="window.location='mire_ramo.html';">See Alpen'Tech's material suggestions</button>
+    </div>
+    <div id="Return_button">
+      <button class="ui-button ui-widget ui-corner-all" onclick="window.location='material_characteristics.html';">Homepage</button>
+    </div>
+  </div>
+
+</body>
 
 </html>

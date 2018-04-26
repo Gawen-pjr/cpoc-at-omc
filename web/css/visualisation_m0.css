@@ -1,129 +1,112 @@
-
-h1
-{
-  text-align: center;
-  font-family: 'Lato black';
-  color:#4014AF;
-  font-size: 22pt;
-  margin-top: 9px;
-  margin-bottom: 5px;
+h1 {
+    text-align: center;
+    font-family: 'Lato black';
+    color: #4014AF;
+    font-size: 22pt;
+    margin-top: 9px;
+    margin-bottom: 5px;
 }
 
-#overall
-{
+#overall {
     margin-top: 20px;
     margin-left: 45px;
     width: 608px;
 }
 
-#head
-{
-  background-color:#FFF700;
-  border : 3px solid black;
-  width : 800px;
+#head {
+    background-color: #FFF700;
+    border: 3px solid black;
+    width: 800px;
 }
 
-.subtitle
-{
-  font-size: 10pt;
-  text-align: center;
-  font-style: italic; 
-  font-family: 'Lato black';
-  color:#4014AF;
-  margin-bottom: 10px;
+.subtitle {
+    font-size: 10pt;
+    text-align: center;
+    font-style: italic;
+    font-family: 'Lato black';
+    color: #4014AF;
+    margin-bottom: 10px;
 }
 
-.subtitle::before
-{
-  content: "(";
+.subtitle::before {
+    content: "(";
 }
 
-.subtitle::after
-{
-  content: ")";
+.subtitle::after {
+    content: ")";
 }
 
-#repere
-{
+#repere {
     width: 700px;
     height: 700px;
     border-left: 5px #000000 solid;
     border-bottom: 5px #000000 solid;
 }
 
-#Back_button
-{
-  text-align: center;
-  margin-top: 40px;
-  width:735px;
+#Back_button {
+    text-align: center;
+    margin-top: 40px;
+    width: 735px;
 }
 
-#fleche_abscisses
-{
-  width: 0;
-  height: 0;
-  border-top: 18px solid transparent;
-  border-bottom: 18px solid transparent;
-  border-left: 30px solid black;
-  margin-left: 705px;
-  margin-top: -20.5px;
+#fleche_abscisses {
+    width: 0;
+    height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-left: 30px solid black;
+    margin-left: 705px;
+    margin-top: -20.5px;
 }
 
-#label_abscisses
-{
-  font-family: 'Lato black';
-  color:#000000;
-  font-size:15px;
-  margin-left: 670px;
-  margin-top: 10px;
+#label_abscisses {
+    font-family: 'Lato black';
+    color: #000000;
+    font-size: 15px;
+    margin-left: 670px;
+    margin-top: 10px;
 }
 
-#zero_abscisses
-{
-  font-family: 'Lato regular';
-  color:#000000;
-  font-size:22px;
-  margin-top: -44px;
+#zero_abscisses {
+    font-family: 'Lato regular';
+    color: #000000;
+    font-size: 22px;
+    margin-top: -44px;
 }
 
-#fleche_ordonnees
-{
-  width: 0;
-  height: 0;
-  border-left: 18px solid transparent;
-  border-right: 18px solid transparent;
-  border-bottom: 30px solid black;
-  margin-left: -15.5px;
+#fleche_ordonnees {
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 30px solid black;
+    margin-left: -15.5px;
 }
 
-#label_ordonnees
-{
-  font-family: 'Lato black';
-  color:#000000;
-  font-size:15px;
-  margin-bottom: 15px;
-  margin-left: -40px;
+#label_ordonnees {
+    font-family: 'Lato black';
+    color: #000000;
+    font-size: 15px;
+    margin-bottom: 15px;
+    margin-left: -40px;
 }
 
-#zero_ordonnees
-{
-  font-family: 'Lato regular';
-  color:#000000;
-  font-size:22px;
-  margin-top: -51px;
-  margin-left: -17px;
+#zero_ordonnees {
+    font-family: 'Lato regular';
+    color: #000000;
+    font-size: 22px;
+    margin-top: -51px;
+    margin-left: -17px;
 }
 
-.ui-button.ui-widget.ui-corner-all
-{
-
-   padding: 7px 30px;
-   font-family: Arial,Helvetica,sans-serif;
-   font-size: 1em;
-   border-radius: 4px;
-   border: 1px solid #c5c5c5;
-   background: #f6f6f6;
-   font-weight: normal;
+.ui-button.ui-widget.ui-corner-all {
+    padding: 7px 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    border-radius: 4px;
+    border: 1px solid #c5c5c5;
+    background: #f6f6f6;
+    font-weight: normal;
 }
 
 @font-face {
