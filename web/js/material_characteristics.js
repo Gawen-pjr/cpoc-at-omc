@@ -35,6 +35,30 @@ jQuery(function($)
     var $gradeInput = $('#material_grade');
     var $familySelect = $('#material_family');
 
+    function setGradeAutocompletion(family)
+    {
+        var familyGrades = [];
+
+        if (!currentGrade || (family != currentGrade.family))
+        {
+            $gradeInput.val('');
+            clearMaterialFields();
+        }
+
+        materialDB.grades.forEach(function(grade)
+        {
+            if (grade.family == family)
+            {
+                familyGrades.push(grade.name);
+            }
+        });
+
+        $gradeInput.autocomplete(
+        {
+            source : familyGrades
+        });
+    }
+
     // Configuration des champs 'family' et 'grade' à partir de la base de
     // données JSON
     $.getJSON("data/materials.json", null, function(json)
@@ -60,6 +84,7 @@ jQuery(function($)
             $familySelect.val(currentGrade.family);
             $gradeInput.val(currentGrade.name);
             setMaterialFields(currentGrade);
+            setGradeAutocompletion(currentGrade.family);
         }
 
         $familySelect.selectmenu('refresh');
@@ -81,27 +106,7 @@ jQuery(function($)
     {
         select : function(event, ui)
         {
-            var familyGrades = [];
-            var selectedFamily = ui.item.value;
-
-            if (!currentGrade || (selectedFamily != currentGrade.family))
-            {
-                $gradeInput.val('');
-                clearMaterialFields();
-            }
-
-            materialDB.grades.forEach(function(grade)
-            {
-                if (grade.family == selectedFamily)
-                {
-                    familyGrades.push(grade.name);
-                }
-            });
-
-            $gradeInput.autocomplete(
-            {
-                source : familyGrades
-            });
+            setGradeAutocompletion(ui.item.value);
         }
     });
 
