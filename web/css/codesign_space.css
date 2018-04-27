@@ -67,8 +67,8 @@ h2 {
 .item_text {
     margin-right: 7.5pt;
     font-size: 12pt;
-    margin-top: 2.875pt;
-    margin-bottom: 2.875pt;
+    padding-top: 11.155px;
+    padding-bottom: 11.155px;
 }
 
 .widget {
@@ -86,8 +86,8 @@ h2 {
     width: 520px;
     text-align: center;
     border: 1px solid black;
-    padding-top: 2.875pt;
-    padding-bottom: 2.875pt;
+    padding-top: 2pt;
+    padding-bottom: 2pt;
     font-size: 12pt;
 }
 
@@ -113,6 +113,17 @@ h2 {
 .radiobutton .ui-controlgroup {
     display: block;
     margin: 10px;
+}
+
+#performance_index-button {
+    border-style: solid;
+    padding: 5px 5px 5px 5px;
+}
+
+.ui-controlgroup.ui-controlgroup-horizontal.ui-helper-clearfix {
+    border-width: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 .value-bar {
