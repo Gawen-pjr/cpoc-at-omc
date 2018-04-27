@@ -1,3 +1,9 @@
+body {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
 h1 {
     text-align: center;
     font-family: 'Lato black';
@@ -13,10 +19,13 @@ h1 {
     width: 608px;
 }
 
-#head {
+#header {
     background-color: #FFF700;
     border: 3px solid black;
     width: 800px;
+    background-image: url("images/at.png");
+    background-repeat: no-repeat;
+    background-position: 97%;
 }
 
 .subtitle {
@@ -38,15 +47,15 @@ h1 {
 
 #repere {
     width: 700px;
-    height: 700px;
+    height: 500px;
     border-left: 5px #000000 solid;
     border-bottom: 5px #000000 solid;
 }
 
-#Back_button {
+#bottom_buttons {
     text-align: center;
     margin-top: 40px;
-    width: 735px;
+    width: 800px;
 }
 
 #fleche_abscisses {

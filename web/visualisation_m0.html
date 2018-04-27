@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8" />
+
 <link rel="stylesheet" href="css/visualisation_m0.css" />
+<link rel="stylesheet" href="css/mire.css" />
 <link rel="shortcut icon" href="css/favicon/cible.ico">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="js/lib/jquery-3.3.1.js"></script>
+<script src="js/lib/jquery-ui-1.12.1.js"></script>
+<script src="js/kvoweb.js"></script>
+<script src="js/mire.js"></script>
+<script src="js/visualisation_m0.js"></script>
+
 <title>M0 Visualisation</title>
 
 </head>
 <body>
 
-  <div id="head">
+  <div id="header">
     <h1>
       MATERIAL M0 <br> ABSOLUTE POSITION
     </h1>
     <div class="subtitle">HMI CPOC2 v0.3 du 5 avril 2018</div>
   </div>
+
   <div id="overall">
     <div id="label_ordonnees">Material price</div>
     <div id="fleche_ordonnees"></div>
@@ -25,11 +37,9 @@
     <div id="zero_ordonnees">0</div>
   </div>
 
-
-  <div id="Back_button">
-    <button class="ui-button ui-widget ui-corner-all" onclick="window.location='material_characteristics.html';">Back</button>
+  <div id="bottom_buttons">
+    <button id="back_button">Back</button>
   </div>
 
 </body>
-
 </html>
