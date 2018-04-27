@@ -25,7 +25,7 @@ function setMaterialFields(grade)
     $('#material_tensile_strength').val(grade.characteristics.rm);
     $('#material_proof_stress').val(grade.characteristics.rp);
     $('#material_hardness').val(grade.characteristics.hb);
-    $('#material_elongation').val(grade.characteristics.a * 100);
+    $('#material_elongation').val(Number(grade.characteristics.a * 100).toFixed(2));
     $('#material_weldability').val(materialDB.messages['weldability_' + grade.characteristics.s]);
     $('#material_heat_treatability').val(materialDB.messages['heat_treatability_' + grade.characteristics.ts]);
 }
