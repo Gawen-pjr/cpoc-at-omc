@@ -19,7 +19,7 @@
 <body>
 
   <div id="container">
-    <div id="head">
+    <div id="header">
       <h1>
         MATERIAL M0 <br> CHARACTERISTICS
       </h1>
@@ -55,15 +55,12 @@
         </div>
         <div class="Item_and_his_value">
           <div class="item">
-            <div class="item_text">Part design</div>
-            <div class="info_logo">
-              <button class="info-button" title="info_button">
-                <img src="css/images/info.png" alt="icone information" />
-              </button>
+            <div class="item_text">
+              Part design <img src="css/images/info.png" alt="icone information" class="info_logo" title="info_button" />
             </div>
           </div>
           <div class="value">
-            <input id="upload_button" type="button" value="Upload" onclick="window.location='http://......./fichier.zip';">
+            <button id="upload_button">Upload</button>
           </div>
         </div>
         <div id="part_drawing">
@@ -82,11 +79,8 @@
           </div>
           <div class="Item_and_his_value">
             <div class="item">
-              <div class="item_text">Material family</div>
-              <div class="info_logo">
-                <button class="info-button" title="General class of the material">
-                  <img src="css/images/info.png" alt="icone information" />
-                </button>
+              <div class="item_text">
+                Material family <img src="css/images/info.png" alt="icone information" class="info_logo" title="General class of the material" />
               </div>
             </div>
             <div class="value">
@@ -95,11 +89,8 @@
           </div>
           <div class="Item_and_his_value">
             <div class="item">
-              <div class="item_text">Grade</div>
-              <div class="info_logo">
-                <button class="info-button" title="(nuance)">
-                  <img src="css/images/info.png" alt="icone information" />
-                </button>
+              <div class="item_text">
+                Grade <img src="css/images/info.png" alt="icone information" class="info_logo" title="(nuance)" />
               </div>
             </div>
             <div class="value">
@@ -114,32 +105,28 @@
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Raw material index</div>
-                <div class="info_logo">
-                  <button class="info-button" title="Index based on the price per ton of the raw material, do not depend on the diameter of the bar">
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                <div class="item_text">
+                  Raw material index <img src="css/images/info.png" alt="icone information" class="info_logo"
+                    title="Index based on the price per ton of the raw material, do not depend on the diameter of the bar"
+                  />
                 </div>
               </div>
               <div class="value_with_unit">
                 <div class="ui-widget">
-                  <label for="material_price_per_ton"></label> <input id="material_price_per_ton">
+                  <label for="material_price_per_ton"></label> <input id="material_price_per_ton" readonly="readonly" value="-">
                 </div>
               </div>
               <div class="parameter_unit">-</div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Price per part index</div>
-                <div class="info_logo">
-                  <button class="info-button" title="Index which gives a base of 100 for the initial material">
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                <div class="item_text">
+                  Price per part index <img src="css/images/info.png" alt="icone information" class="info_logo" title="Index which gives a base of 100 for the initial material" />
                 </div>
               </div>
               <div class="value_with_unit">
                 <div class="ui-widget">
-                  <label for="part_price"></label> <input id="part_price">
+                  <label for="part_price"></label> <input id="part_price" readonly="readonly" value="-">
                 </div>
               </div>
               <div class="parameter_unit">-</div>
@@ -151,99 +138,84 @@
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Tensile strength (Rm)</div>
-                <div class="info_logo">
-                  <button class="info-button" title="Capacity of a material or structure to withstand loads tending to elongate">
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                <div class="item_text">
+                  Tensile strength (Rm) <img src="css/images/info.png" alt="icone information" class="info_logo" title="Capacity of a material or structure to withstand loads tending to elongate" />
                 </div>
               </div>
               <div class="value_with_unit">
                 <div class="ui-widget">
-                  <label for="material_tensile_stregth"></label> <input id="material_tensile_stregth">
+                  <label for="material_tensile_strength"></label> <input id="material_tensile_strength" readonly="readonly" value="-">
                 </div>
               </div>
               <div class="parameter_unit">MPa</div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Proof stress (Rp0.2)</div>
-                <div class="info_logo">
-                  <button class="info-button" title="Load per unit area that a structure can withstand without being permanently deformed by more than 0.2%">
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                <div class="item_text">
+                  Proof stress (Rp0.2) <img src="css/images/info.png" alt="icone information" class="info_logo"
+                    title="Load per unit area that a structure can withstand without being permanently deformed by more than 0.2%"
+                  />
                 </div>
               </div>
               <div class="value_with_unit">
                 <div class="ui-widget">
-                  <label for="material_proof_stress"></label> <input id="material_proof_stress">
+                  <label for="material_proof_stress"></label> <input id="material_proof_stress" readonly="readonly" value="-">
                 </div>
               </div>
               <div class="parameter_unit">MPa</div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Hardness</div>
-                <div class="info_logo">
-                  <button class="info-button" title="Indentation hardness of materials through the scale of penetration of an indenter, loaded on a material test-piece">
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                <div class="item_text">
+                  Hardness <img src="css/images/info.png" alt="icone information" class="info_logo"
+                    title="Indentation hardness of materials through the scale of penetration of an indenter, loaded on a material test-piece"
+                  />
                 </div>
               </div>
               <div class="value_with_unit">
                 <div class="ui-widget">
-                  <label for="material_hardness"></label> <input id="material_hardness">
+                  <label for="material_hardness"></label> <input id="material_hardness" readonly="readonly" value="-">
                 </div>
               </div>
               <div class="parameter_unit">HB</div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Elongation</div>
-                <div class="info_logo">
-                  <button class="info-button" title="Shaping process of the raw material">
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                <div class="item_text">
+                  Elongation <img src="css/images/info.png" alt="icone information" class="info_logo" title="Shaping process of the raw material" />
                 </div>
               </div>
               <div class="value_with_unit">
                 <div class="ui-widget">
-                  <label for="material_elongation"></label> <input id="material_elongation">
+                  <label for="material_elongation"></label> <input id="material_elongation" readonly="readonly" value="-">
                 </div>
               </div>
               <div class="parameter_unit">%</div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Weldability</div>
-                <div class="info_logo">
-                  <button class="info-button"
+                <div class="item_text">
+                  Weldability <img src="css/images/info.png" alt="icone information" class="info_logo"
                     title="A material is considered to be weldable when welding provides metal integrity by a corresponding technological process for welded parts to meet technical requirements as to their own qualities as well as to their influence on a structure they form"
-                  >
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
+                  />
                 </div>
               </div>
               <div class="value">
                 <div class="ui-widget">
-                  <label for="weldability"></label> <input id="weldability">
+                  <label for="material_weldability"></label> <input id="material_weldability" readonly="readonly" value="-">
                 </div>
               </div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">
-                <div class="item_text">Heat treatment</div>
-                <div class="info_logo">
-                  <button class="info-button"
-                    title="Heat treating (or heat treatment) is a group of industrial and metalworking processes used to alter the physical, and sometimes chemical, properties of a material."
-                  >
-                    <img src="css/images/info.png" alt="icone information" />
-                  </button>
-                </div>
+                <label for="material_heat_treatability" class="item_text">Heat treatment <img src="css/images/info.png" alt="icone information" class="info_logo"
+                  title="Heat treating (or heat treatment) is a group of industrial and metalworking processes used to alter the physical, and sometimes chemical, properties of a material."
+                />
+                </label>
               </div>
               <div class="value">
                 <div class="ui-widget">
-                  <label for="heat_treatability"></label> <input id="heat_treatability">
+                  <input id="material_heat_treatability" readonly="readonly" value="-">
                 </div>
               </div>
             </div>
@@ -253,23 +225,14 @@
       </div>
     </div>
 
-    <div id="check_button">
-      <button class="ui-check-button ui-widget ui-corner-all" onclick="window.location='';">Check initial material M0</button>
-    </div>
-
-    <div id="visualisation_button">
-      <button class="ui-visualisation-button ui-widget ui-corner-all" onclick="window.location='visualisation_m0.html';">View material M0 position</button>
-    </div>
-
-    <div id="next_step_button">
-      <button class="ui-next-step-button ui-widget ui-corner-all" onclick="window.location='codesign_space.html';">Set tolerance intervals on M0</button>
-    </div>
-
-    <div id="restart_button">
+    <div id="button_container">
       <button id="restart_session_button">Reset study</button>
+      <button id="check_button" disabled="disabled">Check initial material M0</button>
+      <br />
+      <button id="visualisation_button">View material M0 position</button>
+      <button id="next_step_button">Set tolerance intervals on M0</button>
     </div>
 
   </div>
-
 </body>
 </html>
