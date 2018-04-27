@@ -1,6 +1,11 @@
 {
 	"messages": {
-		"weldability_1": "Mon message"
+		"weldability_1": "Easily weldable",
+		"weldability_2": "Weldable with heating",
+		"weldability_3": "Unweldable",
+		"heat_treatability_1": "Easily treatable",
+		"heat_treatability_2": "Treatable with specific conditions",
+		"heat_treatability_3": "Not easily treatable",
 	},
 	"families": [
 		{
@@ -35,7 +40,7 @@
 	"grades": [
 		{
 			"id": "16crni4spb",
-			"name": "16CRNi4SPb",
+			"name": "16CrNi4SPb",
 			"family": "alloyed_steel",
 			"characteristics": {
 				"e": 210,
