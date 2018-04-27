@@ -67,10 +67,11 @@ var _kvoweb =
     {
         _kvoweb.login(function()
         {
-            _kvoweb.session = JSON.parse(window.localStorage.getItem("kvoweb.session"));
+            var lastSession = window.localStorage.getItem("kvoweb.session");
 
-            if (_kvoweb.session)
+            if (lastSession)
             {
+                _kvoweb.session = JSON.parse(lastSession);
                 console.info('OMC', 'Retrieved session #' + _kvoweb.session.id);
             }
             else
