@@ -3,7 +3,7 @@ kvoweb.init();
 
 $( function() 
 {
-    $( "#performance_index" ).selectmenu();
+    $( "#performance_index_select" ).selectmenu();
 });
 
 jQuery(function($)
