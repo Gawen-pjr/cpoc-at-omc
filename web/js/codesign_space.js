@@ -1,117 +1,100 @@
 
 kvoweb.init();
 
-
-//Yield stregh slider
-    $(function()
-    {
-        $("#slider-range").slider(
-        {
-            range : true,
-            min : 0,
-            max : 1200,
-            values : [ 300, 600 ],
-            slide : function(event, ui)
-            {
-                $("#amount").val(ui.values[0] + " MPa" + " - " + ui.values[1] + " MPa");
-            }
-        });
-        $("#amount").val(
-                $("#slider-range").slider("values", 0) + " MPa" + " - " + $("#slider-range").slider("values", 1)
-                        + " MPa");
-    });
-
-//Ultimate stregh slider
-    $(function()
-    {
-        $("#slider-range2").slider(
-        {
-            range : true,
-            min : 0,
-            max : 1200,
-            values : [ 550, 700 ],
-            slide : function(event, ui)
-            {
-                $("#amount2").val(ui.values[0] + " MPa" + " - " + ui.values[1] + " MPa");
-            }
-        });
-        $("#amount2").val(
-                $("#slider-range2").slider("values", 0) + " MPa" + " - " + $("#slider-range2").slider("values", 1)
-                        + " MPa");
-    });
-
-//Elongation percentage slider
-    $(function()
-    {
-        $("#slider-range3").slider(
-        {
-            range : true,
-            min : 0,
-            max : 30,
-            values : [ 10, 15 ],
-            slide : function(event, ui)
-            {
-                $("#amount3").val(ui.values[0] + " %" + " - " + ui.values[1] + " %");
-            }
-        });
-        $("#amount3")
-                .val(
-                        $("#slider-range3").slider("values", 0) + " %" + " - "
-                                + $("#slider-range3").slider("values", 1) + " %");
-    });
-
-//Hardness slider
-    $(function()
-    {
-        $("#slider-range4").slider(
-        {
-            range : true,
-            min : 0,
-            max : 500,
-            values : [ 150, 200 ],
-            slide : function(event, ui)
-            {
-                $("#amount4").val(ui.values[0] + " HB" + " - " + ui.values[1] + " HB");
-            }
-        });
-        $("#amount4").val(
-                $("#slider-range4").slider("values", 0) + " HB" + " - " + $("#slider-range4").slider("values", 1)
-                        + " HB");
-    });
-
-//Slider prix pièce
-    $(function()
-    {
-        $("#slider-range5").slider(
-        {
-            range : true,
-            min : 0,
-            max : 200,
-            values : [ 75, 115 ],
-            slide : function(event, ui)
-            {
-                $("#amount5").val(Math.round((ui.values[0])) + " - " + Math.round((ui.values[1])));
-            }
-        });
-        $("#amount5").val($("#slider-range5").slider("values", 0) + " - " + $("#slider-range5").slider("values", 1));
-    });
+var sessionGrade = window.localStorage.getItem("omc.referenceGrade");
+var currentGrade = sessionGrade ? JSON.parse(sessionGrade) : undefined;
 
 jQuery(function($)
 {
-//Radiobox
-    $(function()
+    $('.slidebar').each(function()
     {
-        $("input[type='radio']").checkboxradio(); // inupt.classe_des_radioboutons
-        $("fieldset").controlgroup();
+        var $container = $(this);
+        
+        var characteristic = $container.attr('data-characteristic');
+        var min = Number($container.attr('data-min')) || 0;
+        var max = Number($container.attr('data-max')) || 10000;
+        var unit = $container.attr('data-unit') || '';
+        var multiplier = Number($container.attr('data-multiplier')) || 1;
+        
+        var $tooltipImage = $('img.info_logo', $container);
+        var $textInput = $('input', $container);
+        var $slider = $('div.slider-range', $container);
+        var $valueBar = $('div.value-bar', $container);
+        var $valueHint = $('div.value-hint', $container);
+        
+        $tooltipImage.attr('title',$tooltipImage.attr('title') + ' [' + min + unit + '; ' + max + unit + ']');
+        
+        function updateText(v1, v2)
+        {
+            $textInput.val(v1.toFixed(0) + unit + " - " + v2.toFixed(0) + unit);
+        }
+        
+        var val = Number($valueHint.text());
+        if(currentGrade && currentGrade.characteristics[characteristic])
+        {
+            val = currentGrade.characteristics[characteristic] * multiplier;
+        }
+        if(!val)
+        {
+            val = (min + max) / 2;
+        }
+
+        console.debug('OMC',characteristic + ' = ' + val);
+
+        var delta = 0.1 * (max - min);
+        var v1Init = Math.floor(Math.max(min, val - delta));
+        var v2Init = Math.ceil(Math.min(max, val + delta));
+
+        var relativePosition = (val - min) / (max - min) * 100;
+        $valueBar.css('left',relativePosition + '%');
+        $valueHint.css('left',relativePosition + '%');
+        $valueHint.text(val + unit);
+        updateText(v1Init, v2Init);
+
+        $slider.slider(
+        {
+            animate: "fast",
+            range : true,
+            min : min,
+            max : max,
+            values : [ v1Init, v2Init ],
+            slide : function(event, ui)
+            {
+                var v1 = ui.values[0];
+                var v2 = ui.values[1];
+                var centralValueReached = false;
+                
+                if(v1 > val)
+                {
+                    v1 = val;
+                    $slider.slider("values", 0, v1);
+                    centralValueReached = true;
+                }
+
+                if(v2 < val)
+                {
+                    v2 = val;
+                    $slider.slider("values", 1, v2);
+                    centralValueReached = true;
+                }
+                
+                updateText(v1, v2);
+                return !centralValueReached;
+            }
+        });
     });
 
+    //Radiobox
+    $("input[type='radio']").checkboxradio(); // inupt.classe_des_radioboutons
+    $("fieldset").controlgroup();
+
     $('#calculation_button').button().click(function()
-      {
-          window.location = 'mire_ramo.html';
-      });
+    {
+        window.location = 'mire_ramo.html';
+    });
 
     $('#return_button').button().click(function()
-      {
-          window.location = 'material_characteristics.html';
-      });
+    {
+        window.location = 'material_characteristics.html';
+    });
 });
