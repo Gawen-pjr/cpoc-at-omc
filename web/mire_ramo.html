@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8" />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="css/mire_ramo.css" />
 <link rel="shortcut icon" href="css/favicon/cible.ico">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/kvoweb.js"></script>
+<script src="js/mire_ramo.js"></script>
+
 <title>Suggested solutions for a material optimal choice</title>
 
 </head>
 
 <body>
-  <div id="head">
+  <div id="header">
     <h1>
       ALPEN'TECH'S MATERIAL<br>SUGGESTIONS
     </h1>
@@ -40,8 +49,18 @@
         </div>
       </div>
     </div>
-    <div id="AT_logo">
-      <img src="css/images/at.png" alt="logo at" />
+    <div id="performance_index">
+      <form>
+        <fieldset class="parameter_selection">
+          <select name="performance_index" id="performance_index">
+            <option selected="selected"> - </option>
+            <option>Tensile strengh Rm</option>
+            <option>Proof stress Rp0.2</option>
+            <option>Hardness HB</option>
+            <option>Elongation percentage</option>
+          </select>
+        </fieldset>
+      </form>
     </div>
   </div>
 
@@ -60,17 +79,10 @@
 
     <div id=label_ordonnées>Material price</div>
 
-
-    <div id="Back_button">
-      <button class="ui-button ui-widget ui-corner-all" onclick="window.location='codesign_space.html';">Back</button>
-    </div>
-
-    <div id="Print_button">
-      <button class="ui-button ui-widget ui-corner-all" onclick="window.location='material_characteristics.html';">Print the study</button>
-    </div>
-
-    <div id="Homepage_button">
-      <button class="ui-button ui-widget ui-corner-all" onclick="window.location='material_characteristics.html';">New study</button>
+    <div id="button_container">
+      <button id="back_button">Back</button>
+      <button id="print_button">Print the study</button>
+      <button id="homepage_button">New study</button>
     </div>
 
   </div>

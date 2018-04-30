@@ -206,37 +206,7 @@ img.info_logo {
     margin-bottom: 8px;
 }
 
-#material_grade {
-    width: 90%;
-    text-align: center;
-}
-
-#material_price_per_ton {
-    width: 90%;
-    text-align: center;
-}
-
-#part_price {
-    width: 90%;
-    text-align: center;
-}
-
-#material_tensile_strength {
-    width: 90%;
-    text-align: center;
-}
-
-#material_hardness {
-    width: 90%;
-    text-align: center;
-}
-
-#material_proof_stress {
-    width: 90%;
-    text-align: center;
-}
-
-#material_elongation {
+.material_property {
     width: 90%;
     text-align: center;
 }

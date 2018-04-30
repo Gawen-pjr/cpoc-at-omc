@@ -7,13 +7,28 @@ h1 {
     margin-bottom: 5px;
 }
 
-#head {
+body {
+    margin-left: auto;
+    margin-right: auto;
+    width:715px;
+}
+
+#header {
     background-color: #FFF700;
     border: 3px solid black;
     width: 715px;
     margin-bottom: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
+    background-image: url("images/at.png");
+    background-repeat: no-repeat;
+    background-position: 97%;
+}
+
+.parameter_selection
+{
+    width:300px;
+    font-size: 12pt;
 }
 
 #additional_info {
@@ -44,11 +59,6 @@ h1 {
 
 .value {
     border: 1px solid black;
-}
-
-#AT_logo {
-    margin-left: 340px;
-    height: 60px;
 }
 
 .subtitle {
@@ -112,19 +122,19 @@ h1 {
     margin-right: 171px;
 }
 
-#Homepage_button {
+#homepage_button {
     text-align: center;
     margin-top: 10px;
 }
 
-#Print_button {
+#print_button {
     text-align: center;
     margin-top: 10px;
 }
 
-#Back_button {
+#back_button {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #label_abscisses {
@@ -152,6 +162,20 @@ h1 {
     border: 1px solid #c5c5c5;
     background: #f6f6f6;
     font-weight: normal;
+}
+
+#button_container {
+    margin-top: 5px;
+    text-align: center;
+}
+
+#button_container button {
+    margin-bottom: 5px;
+}
+
+#performance_index {
+    font-size: 12pt;
+    width:200px;
 }
 
 @font-face {

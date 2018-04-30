@@ -18,12 +18,17 @@ h2 {
 
 .container {
     width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#head {
+#header {
     background-color: #FFF700;
     border: 3px solid black;
     margin-bottom: 13px;
+    background-image: url("images/at.png");
+    background-repeat: no-repeat;
+    background-position: 97%;
 }
 
 #body {
@@ -95,12 +100,12 @@ h2 {
     width: 300px;
 }
 
-#Calculation_button {
+#calculation_button {
     text-align: center;
     margin-top: 10px;
 }
 
-#Return_button {
+#return_button {
     text-align: center;
     margin-top: 10px;
 }
@@ -144,12 +149,19 @@ h2 {
     font-family: 'Lato regular'
 }
 
-.info-button {
-    border-color: rgb(255, 255, 255) rgb(255, 255, 255) rgb(255, 255, 255);
-    border-style: solid;
-    border-width: 1px;
+#button_container {
+    margin-top: 5px;
+    text-align: center;
+}
+
+#button_container button {
+    margin-bottom: 5px;
+}
+
+img.info_logo {
+    vertical-align: top;
+    cursor: pointer;
     width: 20px;
-    padding: 0px 0px 0px 0px;
     margin: -1px 5px 0px -3px;
 }
 
