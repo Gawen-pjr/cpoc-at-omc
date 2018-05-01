@@ -158,6 +158,10 @@ h2 {
     margin-bottom: 5px;
 }
 
+.radiobutton span.ui-checkboxradio-icon {
+    display: none;
+}
+
 img.info_logo {
     vertical-align: top;
     cursor: pointer;
