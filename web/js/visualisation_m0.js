@@ -1,9 +1,6 @@
 // Code-behind du repère M0
 
-kvoweb.init();
-
-var sessionGrade = window.localStorage.getItem("omc.referenceGrade");
-var currentGrade = sessionGrade ? JSON.parse(sessionGrade) : undefined;
+omc.init();
 
 function easterEgg()
 {
@@ -44,13 +41,13 @@ jQuery(function($)
         return;
     }
 
-    if (currentGrade)
+    if (omc.userMaterial)
     {
-        var x0 = currentGrade.characteristics.rm;
-        var y0 = currentGrade.characteristics.pricePerTon;
+        var x0 = omc.userMaterial.characteristics.rm;
+        var y0 = omc.userMaterial.characteristics.pricePerTon;
         var x = (800.0 * x0) / 1200.0;
         var y = (500.0 * y0) / 5000.0;
-        var title = currentGrade.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
+        var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
         mireFactory.create('#repere', 'm0_material', x, 500 - y).attr('title', title);
     }
 });
