@@ -28,12 +28,8 @@ function easterEgg()
     }
 }
 
-jQuery(function($)
-{
-    $('#back_button').button().click(function()
-    {
-        window.location = 'material_characteristics.html';
-    });
+jQuery($ => {
+    $('#back_button').button().click(() => window.location = 'material_characteristics.html');
 
     if (window.location.search.indexOf('easterEgg') > 0)
     {

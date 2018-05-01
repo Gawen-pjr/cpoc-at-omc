@@ -55,10 +55,9 @@ var _kvoweb =
             password : _kvoweb.PASS
         };
 
-        _kvoweb.apiPost('/user/login', data, function(data)
-        {
-            console.debug('OMC', 'User token: ' + data.token);
-            _kvoweb.userToken = data.token;
+        _kvoweb.apiPost('/user/login', data, resp => {
+            console.debug('OMC', 'User token: ' + resp.token);
+            _kvoweb.userToken = resp.token;
             callback();
         });
     },
@@ -111,13 +110,11 @@ var _kvoweb =
             amiId : 1
         };
 
-        _kvoweb.apiPost('/session', data, function(data)
-        {
-            _kvoweb.apiPost('/session/' + data.id + '/activate', undefined, function(data)
-            {
-                _kvoweb.session = data;
-                window.localStorage.setItem("kvoweb.session", JSON.stringify(data));
-                console.info('OMC', 'Activated session #' + data.id);
+        _kvoweb.apiPost('/session', data, session => {
+            _kvoweb.apiPost('/session/' + session.id + '/activate', undefined, activatedSession => {
+                _kvoweb.session = activatedSession;
+                window.localStorage.setItem("kvoweb.session", JSON.stringify(activatedSession));
+                console.info('OMC', 'Activated session #' + activatedSession.id);
             });
         });
     },

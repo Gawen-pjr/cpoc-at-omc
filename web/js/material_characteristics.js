@@ -26,8 +26,7 @@ function setMaterialFields(grade)
     $('#material_heat_treatability').val(omc.materialDB.messages['heat_treatability_' + grade.characteristics.ts]);
 }
 
-jQuery(function($)
-{
+jQuery($ => {
     var $gradeInput = $('#material_grade');
     var $familySelect = $('#material_family');
     
@@ -76,11 +75,7 @@ jQuery(function($)
         db.families.forEach(f => {
             var $optGroup = $('<optgroup />').attr('label', f.name);
             $optGroup.appendTo($familySelect);
-
-            f.subfamilies.forEach(function(sf)
-            {
-                $('<option />').val(sf.id).text(sf.name).appendTo($optGroup);
-            });
+            f.subfamilies.forEach(sf => $('<option />').val(sf.id).text(sf.name).appendTo($optGroup));
         });
 
         if (omc.userMaterial)
@@ -95,37 +90,27 @@ jQuery(function($)
     });
 
     // Configuration du champs 'project number'
-    $("#client_file_number").autocomplete(
-    {
+    $("#client_file_number").autocomplete({
         source : [ '1111', '2222', '1234', '156' ]
     });
 
     // Configuration du champs 'part designation/part number'
-    $("#part_number").autocomplete(
-    {
+    $("#part_number").autocomplete({
         source : [ '10101-1250', '10101-1729', '10101-3981' ]
     });
 
     $gradeInput.change(() => gradeChanged($gradeInput.val()));
 
-    $('#restart_session_button').button().click(function()
-    {
+    $('#restart_session_button').button().click(() => {
         omc.resetStudy();
         $familySelect.val('-');
         $gradeInput.val('');
         $familySelect.selectmenu('refresh');
     });
 
+    // Configuration des boutons de navigation
     $('#check_button').button();
     $('#upload_button').button();
-
-    $('#visualisation_button').button().click(function()
-    {
-        window.location = 'visualisation_m0.html';
-    });
-
-    $('#next_step_button').button().click(function()
-    {
-        window.location = 'codesign_space.html';
-    });
+    $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
+    $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
 });
