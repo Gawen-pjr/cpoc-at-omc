@@ -27,7 +27,7 @@
     <div class="subtitle">HMI CPOC2 v0.3 du 5 avril 2018</div>
   </div>
   <div id="additional_info">
-    <div id="part_information">
+    <div class="part_information">
       <div class="Item_and_his_value">
         <div class="item">
           <div class="item_text" id="part_designation">Project number</div>
@@ -51,18 +51,24 @@
         </div>
       </div>
     </div>
-    <div id="performance_index">
-      <form>
-        <fieldset class="parameter_selection">
-          <select name="performance_index" id="performance_index_select">
-            <option selected="selected"> - </option>
-            <option>Tensile strengh Rm</option>
-            <option>Proof stress Rp0.2</option>
-            <option>Hardness HB</option>
-            <option>Elongation percentage</option>
-          </select>
-        </fieldset>
-      </form>
+    <div class="part_information">
+      <div class="performance_index">
+        <div id="performance_label">Performance parameter
+        </div>
+      </div>
+      <div class="performance_index">
+        <form>
+          <fieldset class="parameter_selection">
+            <select name="performance_index" id="performance_index_select">
+              <option selected="selected"> - </option>
+              <option>Tensile strengh Rm</option>
+              <option>Proof stress Rp0.2</option>
+              <option>Hardness HB</option>
+              <option>Elongation percentage</option>
+            </select>
+          </fieldset>
+        </form>
+      </div>
     </div>
   </div>
 
