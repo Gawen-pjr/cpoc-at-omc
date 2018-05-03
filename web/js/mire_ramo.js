@@ -103,6 +103,8 @@ function displayMatchingMaterial(material)
 
     var y0 = omc.userMaterial.characteristics.pricePerTon;
     var yAmp = Math.max(y0 - 750.0, 4600.0 - y0);
+    
+    var pi = Number(material.characteristics.pi);
 
     var intervals = omc.toleranceIntervals || omc.defaultIntervals;
     if(intervals)
@@ -114,8 +116,8 @@ function displayMatchingMaterial(material)
     var y = Number(material.characteristics.pricePerTon);
     var xs = (x - x0) * (350.0 / xAmp);
     var ys = (y - y0) * (350.0 / yAmp);
-    var title = material.name + ' (Rm = ' + x.toFixed(0) + ' Mpa, Price per ton = ' + y.toFixed(0) + ', Price index = ' + Number(material.characteristics.pi).toFixed(0) + ')';
-    mireFactory.create('#axe_abscisses', 'mire_' + material.name, 350 + xs, -5 - ys,'#008800').attr('title', title);
+    var title = material.name + ' (Rm = ' + x.toFixed(0) + ' Mpa, Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
+    mireFactory.create('#axe_abscisses', 'mire_' + material.name, 350 + xs, -5 - ys, (pi <= 100) ? '#008800' : '#EAA60C').attr('title', title);
 }
 
 window.localStorage.removeItem("kvoweb.session");
