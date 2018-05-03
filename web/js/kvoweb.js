@@ -65,8 +65,7 @@ var _kvoweb =
 
     init : function()
     {
-        _kvoweb.login(function()
-        {
+        _kvoweb.login(() => {
             var lastSession = window.localStorage.getItem("kvoweb.session");
             if (lastSession)
             {
@@ -105,6 +104,20 @@ var _kvoweb =
             _kvoweb.session = undefined;
             _kvoweb.apiDelete('/session/' + id, _kvoweb.createAndActivateSession, _kvoweb.createAndActivateSession);
         }
+    },
+
+    setAttributeValue : function(object, attribute, value, callback)
+    {
+        if (!_kvoweb.session)
+        {
+            console.warn('OMC',"No Kvoweb active session");
+            return;
+        }
+
+        _kvoweb.apiPatch('/session/' + _kvoweb.session.id + '/object/' + object + '/attribute/' + attribute, '"' + value  + '"', session => {
+            _kvoweb.session = session;
+            callback(session);
+        });
     },
 
     createAndActivateSession : function()
