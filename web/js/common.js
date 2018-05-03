@@ -8,6 +8,7 @@ var _omc =
     materialDB: undefined,
     userMaterial: undefined,
     toleranceIntervals: undefined,
+    defaultIntervals: undefined,
 
     init: function()
     {
@@ -26,6 +27,9 @@ var _omc =
 
         var sessionIntervals = window.localStorage.getItem("omc.toleranceIntervals");
         _omc.toleranceIntervals = sessionIntervals ? JSON.parse(sessionIntervals) : undefined;
+
+        var defIntervals = window.localStorage.getItem("omc.defaultIntervals");
+        _omc.defaultIntervals = defIntervals ? JSON.parse(defIntervals) : undefined;
     },
 
     reloadMaterialDB: function()
@@ -66,6 +70,12 @@ var _omc =
     {
         _omc.toleranceIntervals = intervals;
         window.localStorage.setItem("omc.toleranceIntervals", JSON.stringify(intervals));
+    },
+
+    saveDefaultIntervals: function(intervals)
+    {
+        _omc.defaultIntervals = intervals;
+        window.localStorage.setItem("omc.defaultIntervals", JSON.stringify(intervals));
     },
 
     deleteToleranceIntervals: function()

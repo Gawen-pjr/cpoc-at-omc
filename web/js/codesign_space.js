@@ -8,6 +8,7 @@ jQuery($ => {
     }
 
     var currentState = omc.toleranceIntervals || {};
+    var defaultIntervals = {};
 
     // Configuration des slidebars
     $('.slidebar').each((index, container) => {
@@ -59,16 +60,19 @@ jQuery($ => {
             $valueBar.css('display','none');
             $valueHint.css('display','none');
         }
+
+        defaultIntervals[characteristic] = [v1Init / multiplier, v2Init / multiplier];
         
         if(currentState && currentState[characteristic])
         {
-            v1Init = Math.min(val || max,currentState[characteristic][0]);
-            v2Init = Math.max(val || min,currentState[characteristic][1]);
+            v1Init = Math.min(val || max,currentState[characteristic][0] * multiplier);
+            v2Init = Math.max(val || min,currentState[characteristic][1] * multiplier);
         }
         else
         {
             currentState[characteristic] = [v1Init, v2Init];
         }
+        
 
         updateText(v1Init, v2Init);
 
@@ -102,11 +106,13 @@ jQuery($ => {
                 return !centralValueReached;
             },
             change: (event, ui) => {
-                currentState[characteristic] = ui.values;
+                currentState[characteristic] = ui.values.map(v => v / multiplier);
                 omc.saveToleranceIntervals(currentState);
             },
         });
     });
+    
+    omc.saveDefaultIntervals(defaultIntervals);
 
     // Configuration des radio buttons
     $('.radiobutton').each((index, container) => {
