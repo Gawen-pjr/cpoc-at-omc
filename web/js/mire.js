@@ -26,8 +26,8 @@ var _mireFactory =
     create : function(targetSelector, id, x, y, color)
     {
         color = color || '#000000';
-        x -= 17.5;
-        y -= 17.5;
+        x -= 18.75;
+        y -= 18.75;
 
         $target = $(targetSelector);
         $target.css('position', 'relative');
