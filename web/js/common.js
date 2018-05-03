@@ -12,7 +12,6 @@ var _omc =
     init: function()
     {
         _omc.kvoweb = window.kvoweb;
-        _omc.kvoweb.init();
         
         var cachedDB = window.localStorage.getItem("omc.materialDB");
         _omc.materialDB = cachedDB ? JSON.parse(cachedDB) : undefined;

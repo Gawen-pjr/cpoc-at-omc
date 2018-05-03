@@ -9,7 +9,7 @@ var _kvoweb =
     userToken : undefined,
     session : undefined,
 
-    apiCall : function(endpoint, method, data, callback, errorHandler)
+    apiCall : function(endpoint, method, data, contentType, callback, errorHandler)
     {
         $.ajax(_kvoweb.KVOWEB_BASE_URL + endpoint, {
             method : method,
@@ -18,6 +18,7 @@ var _kvoweb =
                 'X-User-Token' : _kvoweb.userToken
             },
             data : data,
+            contentType: contentType,
             success: callback,
             error: errorHandler,
         });
@@ -25,27 +26,27 @@ var _kvoweb =
 
     apiGet : function(endpoint, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'GET', undefined, callback, errorHandler);
+        _kvoweb.apiCall(endpoint, 'GET', undefined, false, callback, errorHandler);
     },
 
-    apiPost : function(endpoint, data, callback, errorHandler)
+    apiPost : function(endpoint, data, contentType, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'POST', data, callback, errorHandler);
+        _kvoweb.apiCall(endpoint, 'POST', data, contentType, callback, errorHandler);
     },
 
     apiDelete : function(endpoint, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'DELETE', undefined, callback, errorHandler);
+        _kvoweb.apiCall(endpoint, 'DELETE', undefined, false, callback, errorHandler);
     },
 
-    apiPatch : function(endpoint, data, callback, errorHandler)
+    apiPatch : function(endpoint, data, contentType, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'PATCH', data, callback, errorHandler);
+        _kvoweb.apiCall(endpoint, 'PATCH', data, contentType, callback, errorHandler);
     },
 
-    apiPut : function(endpoint, data, callback, errorHandler)
+    apiPut : function(endpoint, data, contentType, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'PUT', data, callback, errorHandler);
+        _kvoweb.apiCall(endpoint, 'PUT', data, contentType, callback, errorHandler);
     },
 
     login : function(callback)
@@ -56,7 +57,7 @@ var _kvoweb =
             password : _kvoweb.PASS
         };
 
-        _kvoweb.apiPost('/user/login', data, resp => {
+        _kvoweb.apiPost('/user/login', data, 'application/x-www-form-urlencoded; charset=UTF-8', resp => {
             console.debug('OMC', 'User token: ' + resp.token);
             _kvoweb.userToken = resp.token;
             callback();
@@ -114,10 +115,22 @@ var _kvoweb =
             return;
         }
 
-        _kvoweb.apiPatch('/session/' + _kvoweb.session.id + '/object/' + object + '/attribute/' + attribute, '"' + value  + '"', session => {
+        _kvoweb.apiPatch('/session/' + _kvoweb.session.id + '/object/' + object + '/attribute/' + attribute, '"' + value  + '"', 'text/plain; charset=UTF-8', session => {
             _kvoweb.session = session;
             callback(session);
         });
+    },
+    
+    withSession: function(callback)
+    {
+        if(_kvoweb.session)
+        {
+            callback(_kvoweb.session);
+        }
+        else
+        {
+            setTimeout(() => _kvoweb.withSession(callback), 250);
+        }
     },
 
     createAndActivateSession : function()
@@ -128,8 +141,8 @@ var _kvoweb =
             amiId : 1
         };
 
-        _kvoweb.apiPost('/session', data, session => {
-            _kvoweb.apiPost('/session/' + session.id + '/activate', undefined, activatedSession => {
+        _kvoweb.apiPost('/session', data, 'application/x-www-form-urlencoded; charset=UTF-8', session => {
+            _kvoweb.apiPost('/session/' + session.id + '/activate', undefined, false, activatedSession => {
                 _kvoweb.session = activatedSession;
                 window.localStorage.setItem("kvoweb.session", JSON.stringify(activatedSession));
                 console.info('OMC', 'Activated session #' + activatedSession.id);
