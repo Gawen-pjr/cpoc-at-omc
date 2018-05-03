@@ -9,42 +9,43 @@ var _kvoweb =
     userToken : undefined,
     session : undefined,
 
-    apiCall : function(endpoint, method, data, callback)
+    apiCall : function(endpoint, method, data, callback, errorHandler)
     {
-        $.ajax(_kvoweb.KVOWEB_BASE_URL + endpoint,
-        {
+        $.ajax(_kvoweb.KVOWEB_BASE_URL + endpoint, {
             method : method,
             headers :
             {
                 'X-User-Token' : _kvoweb.userToken
             },
-            data : data
-        }).done(callback);
+            data : data,
+            success: callback,
+            error: errorHandler,
+        });
     },
 
-    apiGet : function(endpoint, callback)
+    apiGet : function(endpoint, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'GET', undefined, callback);
+        _kvoweb.apiCall(endpoint, 'GET', undefined, callback, errorHandler);
     },
 
-    apiPost : function(endpoint, data, callback)
+    apiPost : function(endpoint, data, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'POST', data, callback);
+        _kvoweb.apiCall(endpoint, 'POST', data, callback, errorHandler);
     },
 
-    apiDelete : function(endpoint, callback)
+    apiDelete : function(endpoint, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'DELETE', undefined, callback);
+        _kvoweb.apiCall(endpoint, 'DELETE', undefined, callback, errorHandler);
     },
 
-    apiPatch : function(endpoint, data, callback)
+    apiPatch : function(endpoint, data, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'PATCH', data, callback);
+        _kvoweb.apiCall(endpoint, 'PATCH', data, callback, errorHandler);
     },
 
-    apiPut : function(endpoint, data, callback)
+    apiPut : function(endpoint, data, callback, errorHandler)
     {
-        _kvoweb.apiCall(endpoint, 'PUT', data, callback);
+        _kvoweb.apiCall(endpoint, 'PUT', data, callback, errorHandler);
     },
 
     login : function(callback)
@@ -67,11 +68,16 @@ var _kvoweb =
         _kvoweb.login(function()
         {
             var lastSession = window.localStorage.getItem("kvoweb.session");
-
             if (lastSession)
             {
-                _kvoweb.session = JSON.parse(lastSession);
-                console.info('OMC', 'Retrieved session #' + _kvoweb.session.id);
+                _kvoweb.apiGet('/session/' + JSON.parse(lastSession).id, session => {
+                    _kvoweb.session = session;
+                    console.info('OMC', 'Retrieved session #' + _kvoweb.session.id);
+                },() => {
+                    console.info('OMC', 'Session deleted on server. Creating a new one');
+                    _kvoweb.createAndActivateSession();
+                    // TODO restaurer la session avec les valeurs en cache
+                });
             }
             else
             {
@@ -82,7 +88,7 @@ var _kvoweb =
 
     saveSession : function()
     {
-    // TODO à implémenter
+        // TODO à implémenter
     },
 
     deleteOldSessions : function()
@@ -92,13 +98,12 @@ var _kvoweb =
 
     restartSession : function()
     {
+        window.localStorage.removeItem("kvoweb.session");
         if (_kvoweb.session)
         {
-            _kvoweb.apiDelete('/session/' + _kvoweb.session.id, _kvoweb.createAndActivateSession);
-        }
-        else
-        {
-            _kvoweb.createAndActivateSession()
+            var id = _kvoweb.session.id;
+            _kvoweb.session = undefined;
+            _kvoweb.apiDelete('/session/' + id, _kvoweb.createAndActivateSession, _kvoweb.createAndActivateSession);
         }
     },
 
