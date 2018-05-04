@@ -16,6 +16,16 @@ h2 {
     margin-bottom: 7px;
 }
 
+a {
+    font-family: 'Lato black';
+    color: black;
+    text-align: center;
+}
+
+a:hover {
+    color: blue;
+}
+
 .container {
     width: 700px;
     margin-left: auto;

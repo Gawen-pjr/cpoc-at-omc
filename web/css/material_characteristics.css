@@ -51,6 +51,16 @@ body {
     width: 600px;
 }
 
+a {
+    font-family: 'Lato black';
+    color: black;
+    text-align: center;
+}
+
+a:hover {
+    color: blue;
+}
+
 #container {
     width: 600px;
 }

@@ -13,6 +13,16 @@ body {
     width:715px;
 }
 
+a {
+    font-family: 'Lato black';
+    color: black;
+    text-align: center;
+}
+
+a:hover {
+    color: blue;
+}
+
 #header {
     background-color: #FFF700;
     border: 3px solid black;
