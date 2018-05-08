@@ -2,7 +2,7 @@
 
 var _omc =
 {
-    MATERIAL_DB_URL : 'data/materials.json',
+    MATERIAL_DB_URL: 'data/materials.json',
 
     kvoweb: undefined,
     materialDB: undefined,
@@ -12,6 +12,7 @@ var _omc =
 
     init: function()
     {
+        // Restauration de session
         _omc.kvoweb = window.kvoweb;
         
         var cachedDB = window.localStorage.getItem("omc.materialDB");

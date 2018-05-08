@@ -2,6 +2,28 @@
 var KV_ATTRIBUTES = [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ];
 var JS_ATTRIBUTES = [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTon' ];
 
+// // On récupère les text nodes correspondant aux input clients de la part designation
+// var client_file_number = material_characteristics.getElementsByClassName("ui-widget")[0].lastChild;
+// var client_part_designation = material_characteristics.getElementsByClassName("ui-widget")[1].lastChild;
+
+
+// function setPartDescription(client_file_number,client_part_designation) 
+// {
+//     // Prend en entrée des text nodes contenant les inputs client et les affiche dans les cases
+//     var project_number = document.createElement('a');
+//     var part_designation = document.createElement('a');
+//     var contener = document.getElementsByClassName("ui-widget");
+
+//     project_number.appendChild(client_file_number);
+//     part_designation.appendChild(client_part_designation);
+
+//     contener[0].appendChild(project_number);
+//     contener[1].appendChild(part_designation);
+
+// }
+
+// setPartDescription()
+
 function setAttributeInterval(index, object, characteristics, callback)
 {
     if(index >= JS_ATTRIBUTES.length)
@@ -132,3 +154,5 @@ jQuery($ => {
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
 });
+
+

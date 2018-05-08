@@ -99,6 +99,13 @@ jQuery($ => {
         source : [ '10101-1250', '10101-1729', '10101-3981' ]
     });
 
+    var $partDesignation = $("#part_designation");
+    var $clientFileNumber = $("#client_file_number");
+
+    $partDesignation.change(() => localStorage.setItem("omc.partDesignation", $partDesignation.val()));
+    $clientFileNumber.change(() => localStorage.setItem("omc.clientFileNumber", $clientFileNumber.val()));
+
+
     $gradeInput.change(() => gradeChanged($gradeInput.val()));
 
     $('#restart_session_button').button().click(() => {

@@ -35,7 +35,7 @@
         </div>
         <div class="value">
           <div class="ui-widget">
-            <label for="client_file_number"></label> <input id="client_file_number">
+            <!-- <label for="client_file_number"></label> -->
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="value">
           <div class="ui-widget">
-            <label for="part_number"></label> <input id="part_number">
+            <!-- <label for="part_number"></label> -->
           </div>
         </div>
       </div>
@@ -61,11 +61,11 @@
         <form>
           <fieldset class="parameter_selection">
             <select name="performance_index" id="performance_index_select">
-              <option selected="selected"> - </option>
-              <option>Tensile strengh Rm</option>
-              <option>Proof stress Rp0.2</option>
-              <option>Hardness HB</option>
-              <option>Elongation percentage</option>
+              <option value="parameter" selected="selected">Parameter</option>
+              <option value="tensile_strength">Tensile strengh Rm</option>
+              <option value="proof_stress">Proof stress Rp0.2</option>
+              <option value="hardness_HB">Hardness HB</option>
+              <option value="elongation_percentage">Elongation percentage</option>
             </select>
           </fieldset>
         </form>
