@@ -13,13 +13,13 @@ body {
     width:715px;
 }
 
-a {
+#link {
     font-family: 'Lato black';
     color: black;
     text-align: center;
 }
 
-a:hover {
+#link:hover {
     color: blue;
 }
 

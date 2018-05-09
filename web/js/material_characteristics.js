@@ -89,22 +89,22 @@ jQuery($ => {
         $familySelect.selectmenu('refresh');
     });
 
-    // Configuration du champs 'project number'
+    // Configuration du champs 'part number'
     $("#client_file_number").autocomplete({
         source : [ '1111', '2222', '1234', '156' ]
     });
 
-    // Configuration du champs 'part designation/part number'
-    $("#part_number").autocomplete({
+    // Configuration du champs 'part description'
+    $("#client_part_description").autocomplete({
         source : [ '10101-1250', '10101-1729', '10101-3981' ]
     });
 
-    var $partDesignation = $("#part_designation");
     var $clientFileNumber = $("#client_file_number");
-
-    $partDesignation.change(() => localStorage.setItem("omc.partDesignation", $partDesignation.val()));
+    var $clientPartDescription = $("#client_part_description");
+    
     $clientFileNumber.change(() => localStorage.setItem("omc.clientFileNumber", $clientFileNumber.val()));
-
+    $clientPartDescription.change(() => localStorage.setItem("omc.clientPartDescription", $clientPartDescription.val()));
+    
 
     $gradeInput.change(() => gradeChanged($gradeInput.val()));
 

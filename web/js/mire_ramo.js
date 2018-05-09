@@ -24,6 +24,7 @@ var JS_ATTRIBUTES = [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u',
 
 // setPartDescription()
 
+
 function setAttributeInterval(index, object, characteristics, callback)
 {
     if(index >= JS_ATTRIBUTES.length)
@@ -142,6 +143,21 @@ function displayMatchingMaterial(material)
     mireFactory.create('#axe_abscisses', 'mire_' + material.name, 350 + xs, -5 - ys, (pi <= 100) ? '#008800' : '#EAA60C').attr('title', title);
 }
 
+// function setPartDescription() 
+// {
+//     // Prend en entrée des text nodes contenant les inputs client et les affiche dans les cases
+//     var project_number = document.createElement('a');
+//     var part_designation = document.createElement('a');
+//     var contener = document.getElementsByClassName("ui-widget");
+
+//     project_number.appendChild(document.createTextNode($clientFileNumber));
+//     part_designation.appendChild(document.createTextNode($partDesignation));
+
+//     contener[0].appendChild(project_number);
+//     contener[1].appendChild(part_designation);
+
+// }
+
 window.localStorage.removeItem("kvoweb.session");
 omc.init();
 kvoweb.init();
@@ -153,6 +169,11 @@ jQuery($ => {
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
+
+    // Récupération des données clients
+    $('#client_part_description').append(localStorage.getItem("omc.clientPartDescription"));
+    $('#client_file_number').append(localStorage.getItem("omc.clientFileNumber"));
+
 });
 
 
