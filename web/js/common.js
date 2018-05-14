@@ -12,7 +12,6 @@ var _omc =
 
     init: function()
     {
-        // Restauration de session
         _omc.kvoweb = window.kvoweb;
         
         var cachedDB = window.localStorage.getItem("omc.materialDB");
@@ -23,6 +22,7 @@ var _omc =
             _omc.reloadMaterialDB();
         }
 
+        // Restauration de session
         var sessionGrade = window.localStorage.getItem("omc.userMaterial");
         _omc.userMaterial = sessionGrade ? JSON.parse(sessionGrade) : undefined;
 
@@ -35,6 +35,7 @@ var _omc =
 
     reloadMaterialDB: function()
     {
+        // Requête asynchrone
         $.getJSON(_omc.MATERIAL_DB_URL, null, function(json)
         {
             console.debug('OMC', 'material DB loaded from server');
