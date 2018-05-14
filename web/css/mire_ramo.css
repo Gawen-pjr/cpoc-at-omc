@@ -76,6 +76,8 @@ body {
 
 .value {
     border: 1px solid black;
+    width: 70px;
+    text-align: center;
 }
 
 .subtitle {

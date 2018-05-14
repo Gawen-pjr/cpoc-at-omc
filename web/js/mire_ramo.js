@@ -134,7 +134,7 @@ jQuery($ => {
 
     // Event fieldset
     $('#performance_index_select').change(() => id_select = parseInt(($('#performance_index_select option:selected').val())));
-    $('#performance_index_select').change(() => $('label_abscisses').text($('#performance_index_select option:selected').text()));
+    $('#performance_index_select').change(() => $('#label_abscisses').text($('#performance_index_select option:selected').text()));
 
     // Récupération des données clients
     $('#client_part_description').append(localStorage.getItem("omc.clientPartDescription"));
