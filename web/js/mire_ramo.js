@@ -1,7 +1,7 @@
 
 var KV_ATTRIBUTES = [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ];
 var JS_ATTRIBUTES = [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTon' ];
-var id_select = 1;
+var extremeIntervals = JSON.parse(localStorage.getItem("omc.extremeIntervals"));
 
 function setAttributeInterval(index, object, characteristics, callback)
 {
@@ -92,14 +92,15 @@ function processFilteredGrades()
     console.debug('OMC', grades);
     
     kvoweb.restartSession();
-    kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades,displayMatchingMaterial)));
+    kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades, mat => displayMatchingMaterial(mat, 'rm'))));
 }
 
-function displayMatchingMaterial(material)
+function displayMatchingMaterial(material, displayCharacteristic)
 {
     console.debug('OMC', material);
 
-    var x0 = omc.userMaterial.characteristics.rm;
+    var x0 = omc.userMaterial.characteristics[displayCharacteristic];
+    // var xAmp = Math.max(x0 - extremeIntervals[displayCharacteristics][0], 1200.0 - extremeIntervals[displayCharacteristics][1]);
     var xAmp = Math.max(x0 - 360.0, 1200.0 - x0);
 
     var y0 = omc.userMaterial.characteristics.pricePerTon;
@@ -110,14 +111,14 @@ function displayMatchingMaterial(material)
     var intervals = omc.toleranceIntervals || omc.defaultIntervals;
     if(intervals)
     {
-        xAmp = Math.max(x0 - intervals.rm[0], intervals.rm[1] - x0);
+        xAmp = Math.max(x0 - intervals[displayCharacteristic][0], intervals[displayCharacteristic][1] - x0);
     }
 
-    var x = Number(material.characteristics.JS_ATTRIBUTES[id_select]); // TODO pouvoir choisir l'axe y
+    var x = Number(material.characteristics[displayCharacteristic]);
     var y = Number(material.characteristics.pricePerTon);
     var xs = (x - x0) * (350.0 / xAmp);
     var ys = (y - y0) * (350.0 / yAmp);
-    var title = material.name + ' (Rm = ' + x.toFixed(0) + ' Mpa, Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
+    var title = material.name + ' (' + $('#performance_index_select option:selected').text() + '= ' + x.toFixed(0) + ' Mpa, Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
     mireFactory.create('#axe_abscisses', 'mire_' + material.name, 350 + xs, -5 - ys, (pi <= 100) ? '#008800' : '#EAA60C').attr('title', title);
 }
 
@@ -133,13 +134,11 @@ jQuery($ => {
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
 
     // Event fieldset
-    $('#performance_index_select').change(() => id_select = parseInt(($('#performance_index_select option:selected').val())));
     $('#performance_index_select').change(() => $('#label_abscisses').text($('#performance_index_select option:selected').text()));
 
     // Récupération des données clients
     $('#client_part_description').append(localStorage.getItem("omc.clientPartDescription"));
     $('#client_file_number').append(localStorage.getItem("omc.clientFileNumber"));
-
 });
 
 

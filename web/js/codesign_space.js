@@ -1,5 +1,6 @@
 
 omc.init();
+var extremeIntervals = {};
 
 jQuery($ => {
     if(!omc.userMaterial)
@@ -25,7 +26,8 @@ jQuery($ => {
         var unit = $container.attr('data-unit') || '';
         var multiplier = Number($container.attr('data-multiplier')) || 1;
         var delta = 0.1 * (max - min);
-        
+
+        extremeIntervals[characteristic] = [min, max];
 
         $tooltipImage.attr('title',$tooltipImage.attr('title') + ' [' + min + unit + '; ' + max + unit + ']');
         
@@ -155,4 +157,7 @@ jQuery($ => {
     // Configuration des boutons de navigation
     $('#calculation_button').button().click(() => window.location = 'mire_ramo.html');
     $('#return_button').button().click(() => window.location = 'material_characteristics.html');
+
+    // Stockage en local storage des intervalles extrêmes
+    localStorage.setItem("omc.extremeIntervals", JSON.stringify(extremeIntervals));
 });
