@@ -2,6 +2,8 @@
 
 omc.init();
 
+var $clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
+
 function easterEgg()
 {
     function getRandomInt(max)
@@ -44,6 +46,6 @@ jQuery($ => {
         var x = (800.0 * x0) / 1200.0;
         var y = (500.0 * y0) / 5000.0;
         var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
-        mireFactory.create('#repere', 'm0_material', x, 500 - y).attr('title', title);
+        mireFactory.create('#repere', 'm0_material', x, 500 - y, $clientFavoriteColor).attr('title', title);
     }
 });

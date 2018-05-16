@@ -120,4 +120,9 @@ jQuery($ => {
     $('#upload_button').button();
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
     $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
+
+
+    // Configuration color picker
+    var $clientFavoriteColor = $("#colorpicker");
+    $('#colorpicker').change(() => localStorage.setItem("omc.clientFavoriteColor", $clientFavoriteColor.val()));
 });

@@ -16,13 +16,13 @@ h2 {
     margin-bottom: 7px;
 }
 
-a {
+#about {
     font-family: 'Lato black';
     color: black;
     text-align: center;
 }
 
-a:hover {
+#about:hover {
     color: blue;
 }
 
@@ -38,7 +38,7 @@ a:hover {
     margin-bottom: 13px;
     background-image: url("images/at.png");
     background-repeat: no-repeat;
-    background-position: 97%;
+    background-position: 3%;
 }
 
 #body {
@@ -123,7 +123,7 @@ a:hover {
 }
 
 .radiobutton {
-    /* display:flex; */
+     display:flex; 
     
 }
 

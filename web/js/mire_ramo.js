@@ -2,7 +2,9 @@
 var KV_ATTRIBUTES = [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ];
 var JS_ATTRIBUTES = [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTon' ];
 var extremeIntervals = JSON.parse(localStorage.getItem("omc.extremeIntervals"));
+var $clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
 var matchingMaterials = {};
+    
 
 function setAttributeInterval(index, object, characteristics, callback)
 {
@@ -135,6 +137,13 @@ omc.init();
 kvoweb.init();
 
 kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
+
+
+// Affichage matériau M0
+// var x0 = omc.userMaterial.characteristics[displayCharacteristic];
+// var y0 = omc.userMaterial.characteristics.pricePerTon;
+// var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
+window.mireFactory.create('#axe_abscisses', 'mire_M0', 350, -5, $clientFavoriteColor).attr('title', 'MO material');
 
 jQuery($ => {
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
