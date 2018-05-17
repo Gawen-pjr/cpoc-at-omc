@@ -2,9 +2,9 @@
 var KV_ATTRIBUTES = [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ];
 var JS_ATTRIBUTES = [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTon' ];
 var extremeIntervals = JSON.parse(localStorage.getItem("omc.extremeIntervals"));
-var $clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
 var matchingMaterials = {};
-    
+var $clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
+
 
 function setAttributeInterval(index, object, characteristics, callback)
 {
@@ -95,7 +95,7 @@ function processFilteredGrades()
     console.debug('OMC', grades);
     
     kvoweb.restartSession();
-    kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades, mat => selectMatchingMaterial(mat, 'rm'))));
+    kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades, mat => selectMatchingMaterial(mat, $('#performance_index_select option:selected').val()))));
 }
 
 function selectMatchingMaterial(material, displayCharacteristic)
@@ -143,7 +143,7 @@ kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilt
 // var x0 = omc.userMaterial.characteristics[displayCharacteristic];
 // var y0 = omc.userMaterial.characteristics.pricePerTon;
 // var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
-window.mireFactory.create('#axe_abscisses', 'mire_M0', 350, -5, $clientFavoriteColor).attr('title', 'MO material');
+// window.mireFactory.create('#axe_abscisses', 'mire_M0', 350, -5, $clientFavoriteColor).attr('title', 'MO material');
 
 jQuery($ => {
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
@@ -152,6 +152,7 @@ jQuery($ => {
 
     // Event fieldset
     $('#performance_index_select').change(() => $('#label_abscisses').text($('#performance_index_select option:selected').text()));
+    $('#apply_button').button().click(() => kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades))));
 
     // Récupération des données clients
     $('#client_part_description').append(localStorage.getItem("omc.clientPartDescription"));
