@@ -49,6 +49,7 @@ function displayMatchingMaterials(matchingMaterials)
 
 jQuery($ => {
     $('#back_button').button().click(() => window.location = 'material_characteristics.html');
+    $('#ramo_button').button().click(() => window.location = 'mire_ramo.html')
 
     if (window.location.search.indexOf('easterEgg') > 0)
     {

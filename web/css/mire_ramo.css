@@ -17,6 +17,7 @@ body {
     font-family: 'Lato black';
     color: black;
     text-align: center;
+    margin-left: 44%;
 }
 
 #about:hover {
@@ -151,6 +152,11 @@ body {
 }
 
 #back_button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#visualisation_button {
     text-align: center;
     margin-top: 10px;
 }

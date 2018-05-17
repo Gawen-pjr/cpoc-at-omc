@@ -140,7 +140,6 @@ kvoweb.init();
 
 kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
 
-
 // Affichage matériau M0
 // var x0 = omc.userMaterial.characteristics[displayCharacteristic];
 // var y0 = omc.userMaterial.characteristics.pricePerTon;
@@ -151,14 +150,22 @@ jQuery($ => {
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
-
-    // Event fieldset
-    $('#performance_index_select').change(() => $('#label_abscisses').text($('#performance_index_select option:selected').text()));
-    $('#apply_button').button().click(() => kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades))));
+    $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
 
     // Récupération des données clients
     $('#client_part_description').append(localStorage.getItem("omc.clientPartDescription"));
     $('#client_file_number').append(localStorage.getItem("omc.clientFileNumber"));
+
+    // Event fieldset
+    $('#performance_index_select').change(() => $('#label_abscisses').text($('#performance_index_select option:selected').text()));
+    $('#apply_button').button().click(() => 
+        {
+            window.localStorage.removeItem("kvoweb.session");
+            omc.init();
+            kvoweb.init();
+            kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
+        });
+
 });
 
-
+alert('Please wait while suggestions are being calculated. \nIt will appear on the target below. Click "Ok" to go on.');
