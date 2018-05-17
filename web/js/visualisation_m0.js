@@ -3,6 +3,7 @@
 omc.init();
 
 var $clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
+var matchingMaterials = JSON.parse(localStorage.getItem("omc.matchingMaterials"));
 
 function easterEgg()
 {
@@ -27,6 +28,22 @@ function easterEgg()
         var x = getRandomInt(700);
         var y = getRandomInt(500);
         mireFactory.create('#repere', 'test_mire_' + i, x, 500 - y, getRandomColor());
+    }
+}
+
+function displayMatchingMaterials(matchingMaterials)
+{
+    if(typeof matchingMaterials === "undefined")
+    {
+        console.log("Les solutions n'ont pas encore été calculées.");
+    }
+
+    if(matchingMaterials)
+    {
+        for (var materiau in matchingMaterials)
+        {
+            mireFactory.create('#repère', 'mire_' + materiau, 350 + materiau["xs"], -5 - materiau["ys"], (materiau["pi"] <= 100) ? '#008800' : '#EAA60C').attr('title', materiau["title"]);
+        }
     }
 }
 

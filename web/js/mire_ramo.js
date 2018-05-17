@@ -130,6 +130,8 @@ function selectMatchingMaterial(material, displayCharacteristic)
     matchingMaterials[material.name]["ys"] = ys;
     matchingMaterials[material.name]["pi"] = pi;
     matchingMaterials[material.name]["title"] = title;
+
+    localStorage.setItem("omc.matchingMaterials", JSON.stringify(matchingMaterials));
 }
 
 window.localStorage.removeItem("kvoweb.session");
