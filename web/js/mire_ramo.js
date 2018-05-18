@@ -95,12 +95,13 @@ function processFilteredGrades()
     console.debug('OMC', grades);
     
     kvoweb.restartSession();
-    kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades, mat => selectMatchingMaterial(mat, $('#performance_index_select option:selected').val()))));
+    kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades, mat => displayMatchingMaterial(mat, $('#performance_index_select option:selected').val()))));
 }
 
-function selectMatchingMaterial(material, displayCharacteristic)
+function displayMatchingMaterial(material, displayCharacteristic)
 {
     console.debug('OMC', material);
+    console.debug('OMC', displayCharacteristic);
 
     var x0 = omc.userMaterial.characteristics[displayCharacteristic];
     var xAmp = Math.max(x0 - extremeIntervals[displayCharacteristic][0], extremeIntervals[displayCharacteristic][1] - x0);
@@ -125,13 +126,7 @@ function selectMatchingMaterial(material, displayCharacteristic)
     mireFactory.create('#axe_abscisses', 'mire_' + material.name, 350 + xs, -5 - ys, (pi <= 100) ? '#008800' : '#EAA60C').attr('title', title);
     
     // Stockage des données matériaux dans l'objet global
-    matchingMaterials[material.name] = {};
-    matchingMaterials[material.name]["xs"] = xs;
-    matchingMaterials[material.name]["ys"] = ys;
-    matchingMaterials[material.name]["pi"] = pi;
-    matchingMaterials[material.name]["title"] = title;
-
-    localStorage.setItem("omc.matchingMaterials", JSON.stringify(matchingMaterials));
+    omc.saveMatchingMaterials(material.name, x, y, pi, title);
 }
 
 window.localStorage.removeItem("kvoweb.session");
@@ -140,11 +135,6 @@ kvoweb.init();
 
 kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
 
-// Affichage matériau M0
-// var x0 = omc.userMaterial.characteristics[displayCharacteristic];
-// var y0 = omc.userMaterial.characteristics.pricePerTon;
-// var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
-// window.mireFactory.create('#axe_abscisses', 'mire_M0', 350, -5, $clientFavoriteColor).attr('title', 'MO material');
 
 jQuery($ => {
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
@@ -158,14 +148,16 @@ jQuery($ => {
 
     // Event fieldset
     $('#performance_index_select').change(() => $('#label_abscisses').text($('#performance_index_select option:selected').text()));
-    $('#apply_button').button().click(() => 
-        {
-            window.localStorage.removeItem("kvoweb.session");
-            omc.init();
-            kvoweb.init();
-            kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
-        });
-
+    $('#apply_button').button().click(() => {
+        kvoweb.restartSession();
+        kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
+    });
+    
+    // Affichage matériau M0
+    var x0 = omc.userMaterial.characteristics['rm'];
+    var y0 = omc.userMaterial.characteristics.pricePerTon;
+    var title = 'MO material is ' + omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
+    window.mireFactory.create('#axe_abscisses', 'mire_M0', 352, -3, $clientFavoriteColor).attr('title', title);
 });
 
 alert('Please wait while suggestions are being calculated. \nIt will appear on the target below. Click "Ok" to go on.');

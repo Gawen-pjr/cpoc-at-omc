@@ -158,6 +158,6 @@ jQuery($ => {
     $('#calculation_button').button().click(() => window.location = 'mire_ramo.html');
     $('#return_button').button().click(() => window.location = 'material_characteristics.html');
 
-    // Stockage en local storage des intervalles extrêmes
+    // Stockage en localStorage des intervalles extrêmes
     localStorage.setItem("omc.extremeIntervals", JSON.stringify(extremeIntervals));
 });

@@ -2,8 +2,7 @@
 
 omc.init();
 
-var $clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
-var matchingMaterials = JSON.parse(localStorage.getItem("omc.matchingMaterials"));
+var clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
 
 function easterEgg()
 {
@@ -36,20 +35,21 @@ function displayMatchingMaterials(matchingMaterials)
     if(typeof matchingMaterials === "undefined")
     {
         console.log("Les solutions n'ont pas encore été calculées.");
+        return;
     }
 
-    if(matchingMaterials)
+    for (var key in matchingMaterials)
     {
-        for (var materiau in matchingMaterials)
-        {
-            mireFactory.create('#repère', 'mire_' + materiau, 350 + materiau["xs"], -5 - materiau["ys"], (materiau["pi"] <= 100) ? '#008800' : '#EAA60C').attr('title', materiau["title"]);
-        }
+        var material = matchingMaterials[key];
+        var x = (800.0 * material.x) / 1200.0;
+        var y = (500.0 * material.y) / 5000.0;
+        mireFactory.create('#repere', 'mire_' + key, x, 500 - y, (material.pi <= 100) ? '#008800' : '#EAA60C').attr('title', material.title);
     }
 }
 
 jQuery($ => {
     $('#back_button').button().click(() => window.location = 'material_characteristics.html');
-    $('#ramo_button').button().click(() => window.location = 'mire_ramo.html')
+    $('#ramo_button').button().click(() => window.location = 'mire_ramo.html');
 
     if (window.location.search.indexOf('easterEgg') > 0)
     {
@@ -64,6 +64,8 @@ jQuery($ => {
         var x = (800.0 * x0) / 1200.0;
         var y = (500.0 * y0) / 5000.0;
         var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' Mpa, Raw material price index = ' + y0 + ')';
-        mireFactory.create('#repere', 'm0_material', x, 500 - y, $clientFavoriteColor).attr('title', title);
+        mireFactory.create('#repere', 'm0_material', x, 500 - y, clientFavoriteColor).attr('title', title);
     }
+
+    displayMatchingMaterials(omc.matchingMaterials);
 });

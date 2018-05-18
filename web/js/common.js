@@ -9,6 +9,7 @@ var _omc =
     userMaterial: undefined,
     toleranceIntervals: undefined,
     defaultIntervals: undefined,
+    matchingMaterials: undefined,
 
     init: function()
     {
@@ -31,6 +32,9 @@ var _omc =
 
         var defIntervals = window.localStorage.getItem("omc.defaultIntervals");
         _omc.defaultIntervals = defIntervals ? JSON.parse(defIntervals) : undefined;
+
+        var sessionMatches = window.localStorage.getItem("omc.matchingMaterials");
+        _omc.matchingMaterials = sessionMatches ? JSON.parse(sessionMatches) : undefined;
     },
 
     reloadMaterialDB: function()
@@ -78,6 +82,15 @@ var _omc =
     {
         _omc.defaultIntervals = intervals;
         window.localStorage.setItem("omc.defaultIntervals", JSON.stringify(intervals));
+    },
+
+    saveMatchingMaterials: function(name, param, pricePerTon, pi, title)
+    {
+        _omc.matchingMaterials[name] = {};
+        _omc.matchingMaterials[name][param] = param;
+        _omc.matchingMaterials[name]["pricePerTon"] = pricePerTon;
+        _omc.matchingMaterials[name]["pi"] = pi;
+        _omc.matchingMaterials[name]["title"] = title;
     },
 
     deleteToleranceIntervals: function()
