@@ -67,5 +67,5 @@ jQuery($ => {
         mireFactory.create('#repere', 'm0_material', x, 500 - y, clientFavoriteColor).attr('title', title);
     }
 
-    displayMatchingMaterials(omc.matchingMaterials);
+    // displayMatchingMaterials(omc.matchingMaterials);
 });
