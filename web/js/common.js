@@ -3,6 +3,8 @@
 var _omc =
 {
     MATERIAL_DB_URL: 'data/materials.json',
+	KV_ATTRIBUTES: [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ],
+	JS_ATTRIBUTES: [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTon' ],
 
     kvoweb: undefined,
     materialDB: undefined,
@@ -10,6 +12,7 @@ var _omc =
     toleranceIntervals: undefined,
     defaultIntervals: undefined,
     matchingMaterials: undefined,
+	matchingMaterialsCallbacks: [],
 
     init: function()
     {
@@ -78,34 +81,167 @@ var _omc =
         window.localStorage.setItem("omc.toleranceIntervals", JSON.stringify(intervals));
     },
 
-    saveDefaultIntervals: function(intervals)
-    {
-        _omc.defaultIntervals = intervals;
-        window.localStorage.setItem("omc.defaultIntervals", JSON.stringify(intervals));
-    },
-
-    saveMatchingMaterials: function(name, param, pricePerTon, pi, title)
-    {
-        _omc.matchingMaterials[name] = {};
-        _omc.matchingMaterials[name][param] = param;
-        _omc.matchingMaterials[name]["pricePerTon"] = pricePerTon;
-        _omc.matchingMaterials[name]["pi"] = pi;
-        _omc.matchingMaterials[name]["title"] = title;
-    },
-
     deleteToleranceIntervals: function()
     {
         _omc.toleranceIntervals = undefined;
         window.localStorage.removeItem("omc.toleranceIntervals");
     },
 
+    saveDefaultIntervals: function(intervals)
+    {
+        _omc.defaultIntervals = intervals;
+        window.localStorage.setItem("omc.defaultIntervals", JSON.stringify(intervals));
+    },
+
+    deleteDefaultIntervals: function()
+    {
+        _omc.defaultIntervals = undefined;
+        window.localStorage.removeItem("omc.defaultIntervals");
+    },
+
+    addMatchingMaterial: function(material)
+    {
+		if(typeof _omc.matchingMaterials === "undefined")
+		{
+			_omc.matchingMaterials = {};
+		}
+        _omc.matchingMaterials[material.name] = material;
+		window.localStorage.setItem("omc.matchingMaterials", JSON.stringify(_omc.matchingMaterials));
+    },
+	
+	deleteMatchingMaterials: function()
+    {
+        _omc.matchingMaterials = undefined;
+        window.localStorage.removeItem("omc.matchingMaterials");
+    },
+
+    computeMatchingMaterials: function()
+	{
+		function setAttributeInterval(index, object, characteristics, callback)
+		{
+			if(index >= _omc.JS_ATTRIBUTES.length)
+			{
+				callback();
+				return;
+			}
+
+			var interval = characteristics[_omc.JS_ATTRIBUTES[index]];
+			if(typeof interval === "undefined")
+			{
+				setAttributeInterval(index + 1, object, characteristics, callback);
+				return;
+			}
+			
+			if(typeof interval !== "object")
+			{
+				interval = [interval];
+			}
+
+			var kvValue = ((interval.length > 1) && (interval[0] != interval[1])) ? ('[ ' + interval[0] + ' ; ' + interval[1] + ' ]') : interval[0];
+			_omc.kvoweb.setAttributeValue(object, _omc.KV_ATTRIBUTES[index], kvValue, () => setAttributeInterval(index + 1, object, characteristics, callback));
+		}
+
+		function sendMaterialCharacteristics(object, characteristics, callback)
+		{
+			setAttributeInterval(0, object, characteristics, callback);
+		}
+
+		function sendToleranceIntervals(callback)
+		{
+			var intervals = _omc.toleranceIntervals || _omc.defaultIntervals;
+			if(!intervals)
+			{
+				return;
+			}
+			sendMaterialCharacteristics('mat', intervals, callback);
+		}
+
+		function prepareM0Grade(callback)
+		{
+			if(!_omc.userMaterial)
+			{
+				return;
+			}
+			sendMaterialCharacteristics('mat_m0', _omc.userMaterial.characteristics, callback);
+		}
+
+		function sendMatchingGrade(grades, index)
+		{
+			if(index >= grades.length)
+			{
+				_omc.matchingMaterialsCallbacks = [];
+				return;
+			}
+
+			_omc.kvoweb.setAttributeValue('mat', 'Nuance', grades[index], () => {
+
+				sendMatchingGrade(grades, index + 1);
+
+				var kvMat = _omc.kvoweb.session.activeObjects.mat;
+				var mat = {
+					characteristics: {},
+					name: grades[index],
+				};
+
+				for(var i = 0; i < _omc.KV_ATTRIBUTES.length; i++)
+				{
+					mat.characteristics[_omc.JS_ATTRIBUTES[i]] = kvMat.attributes[_omc.KV_ATTRIBUTES[i]].value;
+				}
+
+				var intervals = _omc.toleranceIntervals || _omc.defaultIntervals;
+				if(!intervals || ((mat.characteristics.pi >= intervals.pi[0]) && (mat.characteristics.pi <= intervals.pi[1])))
+				{
+					_omc.addMatchingMaterial(mat);
+					_omc.matchingMaterialsCallbacks.forEach(callback => callback(mat));
+				}
+			});
+		}
+
+		function sendMatchingGrades(grades)
+		{
+			sendMatchingGrade(grades, 0);
+		}
+
+		function processFilteredGrades()
+		{
+			var grades = _omc.kvoweb.session.activeObjects.mat.attributes.Nuance.value.split('\n').filter(g => (g != 'Inconnue') && (g != _omc.userMaterial.name));
+			console.debug('OMC', grades);
+			
+			kvoweb.restartSession();
+			kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades)));
+		}
+		
+		alert('Please wait while suggestions are being calculated.\nClick "Ok" to go on.');
+		window.localStorage.removeItem("kvoweb.session");
+		_omc.kvoweb.init();
+		_omc.kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
+	},
+
+	withMatchingMaterials: function(callback)
+	{
+		_omc.matchingMaterialsCallbacks.push(callback);
+		
+		if(typeof _omc.matchingMaterials !== 'undefined')
+		{
+			for(key in _omc.matchingMaterials)
+			{
+				callback(_omc.matchingMaterials[key]);
+			}
+		}
+		else
+		{
+			_omc.deleteMatchingMaterials();
+			_omc.matchingMaterials = {};
+			_omc.computeMatchingMaterials();
+		}
+	},
+
     resetStudy: function()
     {
-        _omc.userMaterial = undefined;
-        _omc.toleranceIntervals = undefined;
-        _omc.kvoweb.restartSession();
-        window.localStorage.removeItem("omc.userMaterial");
-        window.localStorage.removeItem("omc.toleranceIntervals");
+        _omc.deleteUserMaterial();
+        _omc.deleteToleranceIntervals();
+        _omc.deleteDefaultIntervals();
+        _omc.deleteMatchingMaterials();
     },
 };
 
