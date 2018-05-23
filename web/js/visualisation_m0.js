@@ -63,11 +63,21 @@ jQuery($ => {
 
     if (omc.userMaterial)
     {
-        var x0 = omc.userMaterial.characteristics[$chosenParameter];
+        if($chosenParameter)
+        {
+            var x0 = omc.userMaterial.characteristics[$chosenParameter];
+            var title = omc.userMaterial.name + ' (' + $chosenParameterText + '= ' + x0 + ', Raw material price index = ' + y0 + ')';
+        }
+        else
+        {
+            var x0 = omc.userMaterial.characteristics.rm;
+            var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' MPa, Raw material price index = ' + y0 + ')';
+        }
+        
         var y0 = omc.userMaterial.characteristics.pricePerTon;
         var x = (800.0 * x0) / 1200.0;
         var y = (500.0 * y0) / 5000.0;
-        var title = omc.userMaterial.name + ' (' + $chosenParameterText + '= ' + x0 + ', Raw material price index = ' + y0 + ')';
+
         mireFactory.create('#repere', 'm0_material', x, 500 - y, clientFavoriteColor).attr('title', title);
     }
 
@@ -75,6 +85,9 @@ jQuery($ => {
     {
         displayMatchingMaterials(omc.matchingMaterials, $chosenParameter);
         $('#label_abscisses').text($chosenParameterText);
-
+    }
+    else
+    {
+        $('#ramo_button').attr("disabled","disabled");
     }
 });
