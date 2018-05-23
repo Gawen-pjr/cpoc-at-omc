@@ -39,7 +39,9 @@ omc.init();
 jQuery($ => {
 
 	$('#label_abscisses').text($('#performance_index_select option:selected').text());
-	displayMatchingMaterial(omc.userMaterial);
+	localStorage.setItem("omc.chosenParameter", $('#performance_index_select option:selected').val());
+    localStorage.setItem("omc.chosenParameterText", $('#performance_index_select option:selected').text());
+    displayMatchingMaterial(omc.userMaterial);
 	omc.withMatchingMaterials(displayMatchingMaterial);
 	
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
@@ -54,7 +56,14 @@ jQuery($ => {
     // Event fieldset
     $('#performance_index_select').change(() => {
 		$('#label_abscisses').text($('#performance_index_select option:selected').text());
-		displayMatchingMaterial(omc.userMaterial);
+		localStorage.setItem("omc.chosenParameter", $('#performance_index_select option:selected').val());
+        localStorage.setItem("omc.chosenParameterText", $('#performance_index_select option:selected').text());
+        displayMatchingMaterial(omc.userMaterial);
 		omc.withMatchingMaterials(displayMatchingMaterial);
 	});
+
+    if (Object.keys(omc.matchingMaterials).length == 0)
+    {
+        alert('Le problème ne présente pas de matériau satisfaisant dans la base de données.')
+    }
 });

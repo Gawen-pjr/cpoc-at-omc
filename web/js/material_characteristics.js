@@ -70,6 +70,26 @@ jQuery($ => {
     $('<option value="-">-</option>').appendTo($familySelect);
     $familySelect.selectmenu({ select: (event, ui) => setGradeAutocompletion(ui.item.value)});
 
+    // Configuration color picker
+    var $clientFavoriteColor = $("#colorpicker");
+    $('#colorpicker').change(() => localStorage.setItem("omc.clientFavoriteColor", $clientFavoriteColor.val()));
+
+    // Affichage des données user si déjà entrées
+    if (localStorage["omc.clientFileNumber"] != undefined)
+    {
+        $('#client_file_number').val(localStorage["omc.clientFileNumber"]);
+    }
+
+    if (localStorage["omc.clientPartDescription"] != undefined)
+    {
+        $('#client_part_description').val(localStorage["omc.clientPartDescription"]);
+    }
+
+    if (localStorage["omc.clientFavoriteColor"] != undefined)
+    {
+        $('#colorpicker').val(localStorage["omc.clientFavoriteColor"]);
+    }
+
     omc.withMaterialDB(db => {
         
         db.families.forEach(f => {
@@ -120,9 +140,4 @@ jQuery($ => {
     $('#upload_button').button();
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
     $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
-
-
-    // Configuration color picker
-    var $clientFavoriteColor = $("#colorpicker");
-    $('#colorpicker').change(() => localStorage.setItem("omc.clientFavoriteColor", $clientFavoriteColor.val()));
 });
