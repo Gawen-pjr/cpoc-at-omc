@@ -63,7 +63,7 @@ jQuery($ => {
 
     if (omc.userMaterial)
     {
-        var x0 = omc.userMaterial.characteristics.rm;
+        var x0 = omc.userMaterial.characteristics[$chosenParameter];
         var y0 = omc.userMaterial.characteristics.pricePerTon;
         var x = (800.0 * x0) / 1200.0;
         var y = (500.0 * y0) / 5000.0;

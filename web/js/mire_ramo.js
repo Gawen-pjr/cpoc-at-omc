@@ -26,7 +26,7 @@ function displayMatchingMaterial(material)
     var y = Number(material.characteristics.pricePerTon);
     var xs = (x - x0) * (350.0 / xAmp);
     var ys = (y - y0) * (350.0 / yAmp);
-    var title = material.name + ' (' + $('#performance_index_select option:selected').text() + '= ' + x.toFixed(0) + ' Mpa, Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
+    var title = material.name + ' (' + $('#performance_index_select option:selected').text() + '= ' + x.toFixed(0) + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
 
 	var color = (material.name == omc.userMaterial.name) ? clientFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
 	var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
@@ -43,7 +43,7 @@ jQuery($ => {
     localStorage.setItem("omc.chosenParameterText", $('#performance_index_select option:selected').text());
     displayMatchingMaterial(omc.userMaterial);
 	omc.withMatchingMaterials(displayMatchingMaterial);
-	
+
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
@@ -61,9 +61,4 @@ jQuery($ => {
         displayMatchingMaterial(omc.userMaterial);
 		omc.withMatchingMaterials(displayMatchingMaterial);
 	});
-
-    if (Object.keys(omc.matchingMaterials).length == 0)
-    {
-        alert('Le problème ne présente pas de matériau satisfaisant dans la base de données.')
-    }
 });

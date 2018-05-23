@@ -126,7 +126,10 @@ jQuery($ => {
     $clientPartDescription.change(() => localStorage.setItem("omc.clientPartDescription", $clientPartDescription.val()));
     
 
-    $gradeInput.change(() => gradeChanged($gradeInput.val()));
+    $gradeInput.change(() => {
+        omc.deleteMatchingMaterials();
+        gradeChanged($gradeInput.val());
+    });
 
     $('#restart_session_button').button().click(() => {
         omc.resetStudy();
