@@ -1,6 +1,7 @@
 // Code-behind pour le formulaire material_characteristics
 
 omc.init();
+user.init();
 
 function clearMaterialFields()
 {
@@ -71,23 +72,15 @@ jQuery($ => {
     $familySelect.selectmenu({ select: (event, ui) => setGradeAutocompletion(ui.item.value)});
 
     // Configuration color picker
-    var $clientFavoriteColor = $("#colorpicker");
-    $('#colorpicker').change(() => localStorage.setItem("omc.clientFavoriteColor", $clientFavoriteColor.val()));
+    $('#colorpicker').change(() => user.saveFavoriteColor($('#colorpicker').val()));
 
-    // Affichage des données user si déjà entrées
-    if (localStorage["omc.clientFileNumber"] != undefined)
+    if (user.userFavoriteColor != undefined)
     {
-        $('#client_file_number').val(localStorage["omc.clientFileNumber"]);
+        $('#colorpicker').val(user.userFavoriteColor);
     }
-
-    if (localStorage["omc.clientPartDescription"] != undefined)
+    else
     {
-        $('#client_part_description').val(localStorage["omc.clientPartDescription"]);
-    }
-
-    if (localStorage["omc.clientFavoriteColor"] != undefined)
-    {
-        $('#colorpicker').val(localStorage["omc.clientFavoriteColor"]);
+        user.saveFavoriteColor($('#colorpicker').val());
     }
 
     omc.withMaterialDB(db => {
@@ -119,12 +112,19 @@ jQuery($ => {
         source : [ '10101-1250', '10101-1729', '10101-3981' ]
     });
 
-    var $clientFileNumber = $("#client_file_number");
-    var $clientPartDescription = $("#client_part_description");
+    $("#client_file_number").change(() => omc.saveFileNumber($("#client_file_number").val()));
+    $("#client_part_description").change(() => omc.savePartDescription($("#client_part_description").val()));
     
-    $clientFileNumber.change(() => localStorage.setItem("omc.clientFileNumber", $clientFileNumber.val()));
-    $clientPartDescription.change(() => localStorage.setItem("omc.clientPartDescription", $clientPartDescription.val()));
-    
+    // Affichage des données user si déjà entrées
+    if (window.localStorage["omc.clientFileNumber"] != undefined)
+    {
+        $('#client_file_number').val(window.localStorage["omc.clientFileNumber"]);
+    }
+
+    if (window.localStorage["omc.clientPartDescription"] != undefined)
+    {
+        $('#client_part_description').val(window.localStorage["omc.clientPartDescription"]);
+    }
 
     $gradeInput.change(() => {
         omc.deleteMatchingMaterials();
@@ -133,6 +133,8 @@ jQuery($ => {
 
     $('#restart_session_button').button().click(() => {
         omc.resetStudy();
+        $("#client_file_number").val(null);
+        $("#client_part_description").val(null);
         $familySelect.val('-');
         $gradeInput.val('');
         $familySelect.selectmenu('refresh');

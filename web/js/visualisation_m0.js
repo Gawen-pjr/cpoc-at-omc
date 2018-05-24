@@ -1,10 +1,7 @@
 // Code-behind du repère M0
 
 omc.init();
-
-var clientFavoriteColor = localStorage.getItem("omc.clientFavoriteColor");
-var $chosenParameter = localStorage.getItem("omc.chosenParameter");
-var $chosenParameterText = localStorage.getItem("omc.chosenParameterText");
+user.init();
 
 function easterEgg()
 {
@@ -64,10 +61,10 @@ jQuery($ => {
 
     if (omc.userMaterial)
     {
-        if($chosenParameter)
+        if(user.displayCharacteristic)
         {
-            var x0 = omc.userMaterial.characteristics[$chosenParameter];
-            var tooltipValue = $chosenParameter + " = " + (x0 * omc.ATTR_MULT[$chosenParameter]).toFixed(0); // TODO manque l'unité
+            var x0 = omc.userMaterial.characteristics[user.displayCharacteristic];
+            var tooltipValue = user.displayCharacteristic + " = " + (x0 * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0); // TODO manque l'unité
 			var title = omc.userMaterial.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
         }
         else
@@ -77,16 +74,16 @@ jQuery($ => {
         }
         
         var y0 = omc.userMaterial.characteristics.pricePerTon;
-        var x = (800.0 * x0) / omc.ATTR_AMP[$chosenParameter];
+        var x = (800.0 * x0) / omc.ATTR_AMP[user.displayCharacteristic];
         var y = (500.0 * y0) / omc.ATTR_AMP.pricePerTon;
 
-        mireFactory.create('#repere', 'm0_material', x, 500 - y, clientFavoriteColor).attr('title', title);
+        mireFactory.create('#repere', 'm0_material', x, 500 - y, user.userFavoriteColor).attr('title', title);
     }
 
     if (document.referrer.endsWith("mire_ramo.html"))
     {
-        displayMatchingMaterials(omc.matchingMaterials, $chosenParameter);
-        $('#label_abscisses').text($chosenParameterText);
+        displayMatchingMaterials(omc.matchingMaterials, localStorage["user.displayCharacteristic"]);
+        $('#label_abscisses').text(localStorage["user.displayCharacteristicText"]);
         $('#back_button').css("display","none");
     }
     else

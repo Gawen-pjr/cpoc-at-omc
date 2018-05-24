@@ -15,6 +15,9 @@ var _omc =
     defaultIntervals: undefined,
     matchingMaterials: undefined,
 	matchingMaterialsCallbacks: [],
+	clientFileNumber: undefined,
+	clientPartDescription: undefined,
+
 
     init: function()
     {
@@ -89,6 +92,30 @@ var _omc =
         window.localStorage.removeItem("omc.toleranceIntervals");
     },
 
+    saveFileNumber: function(number)
+    {
+        _omc.clientFileNumber = number;
+        window.localStorage.setItem("omc.clientFileNumber", number);
+    },
+
+    deleteFileNumber: function()
+    {
+        _omc.clientFileNumber = undefined;
+        window.localStorage.removeItem("omc.clientFileNumber");
+    },
+
+    savePartDescription: function(description)
+    {
+        _omc.clientPartDescription = description;
+        window.localStorage.setItem("omc.clientPartDescription", description);
+    },
+
+    deletePartDescription: function()
+    {
+        _omc.clientPartDescription = undefined;
+        window.localStorage.removeItem("omc.clientPartDescription");
+    },
+
     saveDefaultIntervals: function(intervals)
     {
         _omc.defaultIntervals = intervals;
@@ -116,6 +143,15 @@ var _omc =
         _omc.matchingMaterials = undefined;
         window.localStorage.removeItem("omc.matchingMaterials");
     },
+
+ //    getDisplayValue: function(material, displayCharacteristic, unit, shortname)
+ //    {
+ //    	var x = Number(material.characteristics[displayCharacteristic]);
+ //    	var y = Number(material.characteristics.pricePerTon);
+	// 	var tooltipValue = unit + " = " + (x * omc.ATTR_MULT[displayCharacteristic]).toFixed(0) + shortname;
+	//     var title = material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';    	
+ //    	return title
+	// }
 
     computeMatchingMaterials: function()
 	{
@@ -244,7 +280,44 @@ var _omc =
         _omc.deleteToleranceIntervals();
         _omc.deleteDefaultIntervals();
         _omc.deleteMatchingMaterials();
+        _omc.deletePartDescription();
+        _omc.deleteFileNumber();
     },
 };
 
+var _user =
+{
+	userFavoriteColor: undefined,
+	displayCharacteristic: undefined,
+	displayCharacteristicText: undefined,
+
+	init: function()
+    {
+        var sessionColor = window.localStorage.getItem("user.userFavoriteColor");
+        _user.userFavoriteColor = sessionColor ? sessionColor : undefined;
+    
+        var sessionCharacteristic = window.localStorage.getItem("user.displayCharacteristic");
+        _user.displayCharacteristic = sessionCharacteristic ? sessionCharacteristic : undefined;
+    },
+
+	saveFavoriteColor: function(color)
+	{
+		_user.userFavoriteColor = color;
+        window.localStorage.setItem("user.userFavoriteColor", color);
+    },
+
+    saveDisplayCharacteristic: function(characteristic)
+    {
+    	_user.displayCharacteristic = characteristic;
+        window.localStorage.setItem("user.displayCharacteristic", characteristic);
+    },
+
+    saveDisplayCharacteristicText: function(text)
+    {
+    	_user.displayCharacteristicText = text;
+        window.localStorage.setItem("user.displayCharacteristicText", text);
+    },
+}
+
 window.omc = _omc;
+window.user = _user;
