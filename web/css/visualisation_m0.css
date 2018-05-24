@@ -55,6 +55,20 @@ h1 {
     content: ")";
 }
 
+.performance_index {
+    width: 100px;
+    margin-left: 70%;
+    margin-top:  20px;
+}
+
+.parameter_selection
+{
+    text-align: center;
+    padding: 3px 5px 3px 5px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 4px 0px;
+}
+
 #repere {
     width: 700px;
     height: 500px;

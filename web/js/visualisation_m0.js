@@ -85,9 +85,29 @@ jQuery($ => {
         displayMatchingMaterials(omc.matchingMaterials, localStorage["user.displayCharacteristic"]);
         $('#label_abscisses').text(localStorage["user.displayCharacteristicText"]);
         $('#back_button').css("display","none");
+        $("#performance_index_select option:selected").removeAttr("selected");
+        $("#performance_index_select option[value='"+ localStorage["user.displayCharacteristic"] +"']").attr('selected', 'selected');
     }
     else
     {
-        $('#ramo_button').css("display","none");
+        $('#ramo_button').css("display","none")
     }
+
+    // Event fieldset
+    $('#performance_index_select').change(() => {
+        $('#label_abscisses').text($('#performance_index_select option:selected').text());
+        $('.mire_container').remove();
+        localStorage.setItem("user.displayCharacteristic", $('#performance_index_select option:selected').val());
+        localStorage.setItem("user.displayCharacteristicText", $('#performance_index_select option:selected').text());
+
+        var x0 = omc.userMaterial.characteristics[user.displayCharacteristic];
+        var y0 = omc.userMaterial.characteristics.pricePerTon;
+        var x = (800.0 * x0) / omc.ATTR_AMP[localStorage["user.displayCharacteristic"]];
+        var y = (500.0 * y0) / omc.ATTR_AMP.pricePerTon;
+        var tooltipValue = user.displayCharacteristic + " = " + (x0 * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0); // TODO manque l'unité
+        var title = omc.userMaterial.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
+        mireFactory.create('#repere', 'm0_material', x, 500 - y, user.userFavoriteColor).attr('title', title);
+
+        displayMatchingMaterials(omc.matchingMaterials, localStorage["user.displayCharacteristic"]);
+    });
 });
