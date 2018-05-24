@@ -43,10 +43,11 @@ function displayMatchingMaterials(matchingMaterials, param)
     for (var key in matchingMaterials)
     {
         var material = matchingMaterials[key];
-        var x = (800.0 * material.characteristics[param]) / 1200.0;
-        var y = (500.0 * material.characteristics.pricePerTon) / 5000.0;
+        var x = (800.0 * material.characteristics[param]) / omc.ATTR_AMP[param];
+        var y = (500.0 * material.characteristics.pricePerTon) / omc.ATTR_AMP.pricePerTon;
         var pi = material.characteristics.pi;
-        var title = material.name + ' (' + $chosenParameterText + '= ' + x.toFixed(0) + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi + ')';
+        var tooltipValue = param + " = " + (material.characteristics[param] * omc.ATTR_MULT[param]).toFixed(0); // TODO manque l'unité
+        var title = material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi + ')';
         mireFactory.create('#repere', 'mire_' + key, x, 500 - y, (pi <= 100) ? '#008800' : '#EAA60C').attr('title', title);
     }
 }
@@ -66,7 +67,8 @@ jQuery($ => {
         if($chosenParameter)
         {
             var x0 = omc.userMaterial.characteristics[$chosenParameter];
-            var title = omc.userMaterial.name + ' (' + $chosenParameterText + '= ' + x0 + ', Raw material price index = ' + y0 + ')';
+            var tooltipValue = $chosenParameter + " = " + (x0 * omc.ATTR_MULT[$chosenParameter]).toFixed(0); // TODO manque l'unité
+			var title = omc.userMaterial.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
         }
         else
         {
@@ -75,19 +77,20 @@ jQuery($ => {
         }
         
         var y0 = omc.userMaterial.characteristics.pricePerTon;
-        var x = (800.0 * x0) / 1200.0;
-        var y = (500.0 * y0) / 5000.0;
+        var x = (800.0 * x0) / omc.ATTR_AMP[$chosenParameter];
+        var y = (500.0 * y0) / omc.ATTR_AMP.pricePerTon;
 
         mireFactory.create('#repere', 'm0_material', x, 500 - y, clientFavoriteColor).attr('title', title);
     }
 
-    if (document.referrer == "http://localhost/at-omc-v1.5/mire_ramo.html" || document.referrer == "http://omc.at-codesign.com/web/mire_ramo.html")
+    if (document.referrer.endsWith("mire_ramo.html"))
     {
         displayMatchingMaterials(omc.matchingMaterials, $chosenParameter);
         $('#label_abscisses').text($chosenParameterText);
+        $('#back_button').css("display","none");
     }
     else
     {
-        $('#ramo_button').attr("disabled","disabled");
+        $('#ramo_button').css("display","none");
     }
 });

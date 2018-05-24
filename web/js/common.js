@@ -5,6 +5,8 @@ var _omc =
     MATERIAL_DB_URL: 'data/materials.json',
 	KV_ATTRIBUTES: [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ],
 	JS_ATTRIBUTES: [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTon' ],
+	ATTR_MULT: { 'e':1.0, 'rm':1.0, 'rp':1.0, 'hb':1.0, 'a':100.0, 'pi':1.0, 's':1.0, 'ts':1.0, 'iTool':1.0, 'u':1.0, 'pricePerTon':1.0 },
+	ATTR_AMP: { 'e':250.0, 'rm':1200.0, 'rp':1200.0, 'hb':1.0, 'a':0.5, 'pi':200.0, 's':3.0, 'ts':3.0, 'iTool':0.15, 'u':100.0, 'pricePerTon':5000.0 },
 
     kvoweb: undefined,
     materialDB: undefined,
