@@ -71,18 +71,6 @@ jQuery($ => {
     $('<option value="-">-</option>').appendTo($familySelect);
     $familySelect.selectmenu({ select: (event, ui) => setGradeAutocompletion(ui.item.value)});
 
-    // Configuration color picker
-    $('#colorpicker').change(() => user.saveFavoriteColor($('#colorpicker').val()));
-
-    if (user.userFavoriteColor != undefined)
-    {
-        $('#colorpicker').val(user.userFavoriteColor);
-    }
-    else
-    {
-        user.saveFavoriteColor($('#colorpicker').val());
-    }
-
     omc.withMaterialDB(db => {
         
         db.families.forEach(f => {
@@ -143,6 +131,7 @@ jQuery($ => {
     // Configuration des boutons de navigation
     $('#check_button').button();
     $('#upload_button').button();
+    $('#back_button').button().click(() => window.location = 'page_zero.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
     $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
 });
