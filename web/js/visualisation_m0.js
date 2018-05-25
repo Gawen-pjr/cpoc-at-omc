@@ -1,8 +1,5 @@
 // Code-behind du repère M0
 
-omc.init();
-user.init();
-
 function easterEgg()
 {
     function getRandomInt(max)
@@ -29,29 +26,76 @@ function easterEgg()
     }
 }
 
-function displayMatchingMaterials(matchingMaterials, param)
+function displayMaterial(material, param, color)
 {
-    if(typeof matchingMaterials === "undefined")
+    var x0 = material.characteristics[param];
+    var unit = $('#performance_index_select option:selected').attr('data-unit');
+    
+    var y0 = material.characteristics.pricePerTon;
+    var x = (800.0 * x0) / omc.ATTR_AMP[param];
+    var y = (500.0 * y0) / omc.ATTR_AMP.pricePerTon;
+
+    var shortName = $('#performance_index_select option:selected').attr('data-shortname');
+    var tooltipValue = shortName + " = " + (x0 * omc.ATTR_MULT[param]).toFixed(0) + unit;
+    var title = material.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
+
+    mireFactory.create('#repere', 'm0_material', x, 500 - y, color).attr('title', title);
+}
+
+function displayUserMaterial(param)
+{
+    displayMaterial(omc.userMaterial,param,user.userFavoriteColor || '#000000');
+}
+
+function displayMatchingMaterials(param)
+{
+    if(typeof omc.matchingMaterials === "undefined")
     {
         console.log("Les solutions n'ont pas encore été calculées.");
         return;
     }
 
-    for (var key in matchingMaterials)
+    for (var key in omc.matchingMaterials)
     {
-        var material = matchingMaterials[key];
-        var x = (800.0 * material.characteristics[param]) / omc.ATTR_AMP[param];
-        var y = (500.0 * material.characteristics.pricePerTon) / omc.ATTR_AMP.pricePerTon;
-        var pi = material.characteristics.pi;
-        var tooltipValue = param + " = " + (material.characteristics[param] * omc.ATTR_MULT[param]).toFixed(0); // TODO manque l'unité
-        var title = material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi + ')';
-        mireFactory.create('#repere', 'mire_' + key, x, 500 - y, (pi <= 100) ? '#008800' : '#EAA60C').attr('title', title);
+        var material = omc.matchingMaterials[key];
+        displayMaterial(material,param,(material.characteristics.pi <= 100) ? '#008800' : '#EAA60C');
     }
 }
 
+function displayAll(param, displayAllMaterials)
+{
+    var $selectedChar = $('#performance_index_select option:selected');
+    $('#label_abscisses').text($selectedChar.text());
+    $('.mire_container').remove();
+
+    if (omc.userMaterial)
+    {
+        displayUserMaterial(param);
+    }
+
+    if (displayAllMaterials)
+    {
+        displayMatchingMaterials(param);
+    }
+}
+
+omc.init();
+user.init();
+
 jQuery($ => {
-    $('#back_button').button().click(() => window.location = 'material_characteristics.html');
-    $('#ramo_button').button().click(() => window.location = 'mire_ramo.html');
+
+    var displayAllMaterials = document.referrer.endsWith("mire_ramo.html");
+
+    if (displayAllMaterials)
+    {
+        $('#back_button').css("display","none");
+        $('#ramo_button').button().click(() => window.location = 'mire_ramo.html');
+    }
+    else
+    {
+        $('#ramo_button').css("display","none")
+        $('#back_button').button().click(() => window.location = 'material_characteristics.html');
+    }
 
     if (window.location.search.indexOf('easterEgg') > 0)
     {
@@ -59,60 +103,13 @@ jQuery($ => {
         return;
     }
 
-    if (omc.userMaterial)
-    {
-        if(localStorage["user.displayCharacteristic"])
-        {
-            var x0 = omc.userMaterial.characteristics[localStorage["user.displayCharacteristic"]];
-            var tooltipValue = localStorage["user.displayCharacteristic"] + " = " + (x0 * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0); // TODO manque l'unité
-			var title = omc.userMaterial.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
-            
-            $("#performance_index_select option:selected").removeAttr("selected");
-            $("#performance_index_select option[value='"+ localStorage["user.displayCharacteristic"] +"']").attr('selected', 'selected');
-            $('#label_abscisses').text($('#performance_index_select option:selected').text());
-        }
-        else
-        {
-            var x0 = omc.userMaterial.characteristics.rm;
-            var title = omc.userMaterial.name + ' (Rm = ' + x0 + ' MPa, Raw material price index = ' + y0 + ')';
-            $('#label_abscisses').text($('#performance_index_select option:selected').text());
-        }
-        
-        var y0 = omc.userMaterial.characteristics.pricePerTon;
-        var x = (800.0 * x0) / omc.ATTR_AMP[localStorage["user.displayCharacteristic"]];
-        var y = (500.0 * y0) / omc.ATTR_AMP.pricePerTon;
+    var displayCharacteristic = user.displayCharacteristic || 'rm';
+    $("#performance_index_select").val(displayCharacteristic);
 
-        mireFactory.create('#repere', 'm0_material', x, 500 - y, user.userFavoriteColor).attr('title', title);
-    }
+    displayAll(displayCharacteristic, displayAllMaterials);
 
-    if (document.referrer.endsWith("mire_ramo.html"))
-    {
-        displayMatchingMaterials(omc.matchingMaterials, localStorage["user.displayCharacteristic"]);
-        $('#label_abscisses').text(localStorage["user.displayCharacteristicText"]);
-        $('#back_button').css("display","none");
-        $("#performance_index_select option:selected").removeAttr("selected");
-        $("#performance_index_select option[value='"+ localStorage["user.displayCharacteristic"] +"']").attr('selected', 'selected');
-    }
-    else
-    {
-        $('#ramo_button').css("display","none")
-    }
-
-    // Event fieldset
-    $('#performance_index_select').change(() => {
-        $('#label_abscisses').text($('#performance_index_select option:selected').text());
-        $('.mire_container').remove();
-        localStorage.setItem("user.displayCharacteristic", $('#performance_index_select option:selected').val());
-        localStorage.setItem("user.displayCharacteristicText", $('#performance_index_select option:selected').text());
-
-        var x0 = omc.userMaterial.characteristics[localStorage["user.displayCharacteristic"]];
-        var y0 = omc.userMaterial.characteristics.pricePerTon;
-        var x = (800.0 * x0) / omc.ATTR_AMP[localStorage["user.displayCharacteristic"]];
-        var y = (500.0 * y0) / omc.ATTR_AMP.pricePerTon;
-        var tooltipValue = localStorage["user.displayCharacteristic"] + " = " + (x0 * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0); // TODO manque l'unité
-        var title = omc.userMaterial.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
-        mireFactory.create('#repere', 'm0_material', x, 500 - y, user.userFavoriteColor).attr('title', title);
-
-        displayMatchingMaterials(omc.matchingMaterials, localStorage["user.displayCharacteristic"]);
-    });
+    $('#performance_index_select').selectmenu({ select: (event, ui) => {
+        user.saveDisplayCharacteristic(ui.item.value);
+        displayAll(ui.item.value, displayAllMaterials);
+    }});
 });

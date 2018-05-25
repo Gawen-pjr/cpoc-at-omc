@@ -35,44 +35,36 @@ function displayMatchingMaterial(material)
 	mireFactory.create('#axe_abscisses', mireId, 352 + xs, -3 - ys, color).attr('title', title);
 }
 
+function displayAll(param)
+{
+    var $selectedChar = $('#performance_index_select option:selected');
+    $('#label_abscisses').text($selectedChar.text());
+    $('.mire_container').remove();
+
+    displayMatchingMaterial(omc.userMaterial);
+	omc.withMatchingMaterials(displayMatchingMaterial);
+}
+
 omc.init();
 user.init();
 
 jQuery($ => {
 
-    if (window.localStorage["user.displayCharacteristicText"] != undefined)
-    {
-        $("#performance_index_select option:selected").removeAttr("selected");
-        $("#performance_index_select option[value='"+ localStorage["user.displayCharacteristic"] +"']").attr('selected', 'selected');
-    }
-    else
-    {
-        user.saveDisplayCharacteristic($('#performance_index_select option:selected').val());
-        user.saveDisplayCharacteristicText($('#performance_index_select option:selected').text());
-    }
-
-    $('#label_abscisses').text($('#performance_index_select option:selected').text());
-    displayMatchingMaterial(omc.userMaterial);
-	omc.withMatchingMaterials(displayMatchingMaterial);
-
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
-    $('#homepage_button').button().click(() => {
-        omc.resetStudy();
-        window.location = 'material_characteristics.html';
-    });
+    $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
 
-    // Récupération des données clients
     $('#client_part_description').append(localStorage["omc.clientPartDescription"]);
     $('#client_file_number').append(localStorage["omc.clientFileNumber"]);
 
-    // Event fieldset
-    $('#performance_index_select').change(() => {
-		$('#label_abscisses').text($('#performance_index_select option:selected').text());
-		localStorage.setItem("user.displayCharacteristic", $('#performance_index_select option:selected').val());
-        localStorage.setItem("user.displayCharacteristicText", $('#performance_index_select option:selected').text());
-        displayMatchingMaterial(omc.userMaterial);
-		omc.withMatchingMaterials(displayMatchingMaterial);
-	});
+    var displayCharacteristic = user.displayCharacteristic || 'rm';
+    $("#performance_index_select").val(displayCharacteristic);
+    
+	displayAll(displayCharacteristic);
+
+    $('#performance_index_select').selectmenu({ select: (event, ui) => {
+        user.saveDisplayCharacteristic(ui.item.value);
+        displayAll(ui.item.value);
+	}});
 });
