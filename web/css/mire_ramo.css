@@ -81,7 +81,7 @@ body {
     font-size: 10pt;
     text-align: center;
     font-style: italic;
-    font-family: 'Lato black';
+    font-family: 'Lato italic';
     color: #4014AF;
     margin-bottom: 10px;
 }
@@ -214,4 +214,9 @@ body {
 @font-face {
     font-family: 'Lato regular';
     src: url('font/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Lato italic';
+    src: url('font/Lato-Italic.ttf');
 }

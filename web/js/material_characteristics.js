@@ -131,7 +131,7 @@ jQuery($ => {
     // Configuration des boutons de navigation
     $('#check_button').button();
     $('#upload_button').button();
-    $('#back_button').button().click(() => window.location = 'page_zero.html');
+    $('#back_button').button().click(() => window.location = 'index.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
     $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
 });
