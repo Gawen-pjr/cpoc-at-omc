@@ -95,9 +95,10 @@ body {
 }
 
 #overall {
-    margin-top: 60px;
+    margin-top: 70px;
     margin-left: 45px;
     width: 608px;
+    height: 650px;
 }
 
 #grandcercle {
@@ -131,6 +132,8 @@ body {
     margin-left: -175px;
 }
 
+
+
 #axe_ordonnées {
     height: 700px;
     border-right: 5px #000000 solid;
@@ -162,9 +165,19 @@ body {
     font-family: 'Lato black';
     color: #000000;
     font-size: 15px;
-    margin-left: 665px;
+    margin-left: 674px;
     margin-top: -315px;
     width: 400px;
+}
+
+#fleche_abscisses {
+    width: 0;
+    height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-left: 30px solid black;
+    margin-left: 638px;
+    margin-top: -26px;
 }
 
 #label_ordonnées {
@@ -172,7 +185,17 @@ body {
     color: #000000;
     text-align: center;
     font-size: 15px;
-    margin-top: 349px;
+    margin-top: 5px;
+}
+
+#fleche_ordonnees {
+    width: 0;
+    height: 0;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    border-bottom: 30px solid black;
+    margin-left: 287.5px;
+    margin-top: -380px;
 }
 
 #bottom_buttons .ui-button.ui-widget.ui-corner-all {
