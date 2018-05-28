@@ -131,7 +131,8 @@ jQuery($ => {
     // Configuration des boutons de navigation
     $('#check_button').button();
     $('#upload_button').button();
-    $('#back_button').button().click(() => window.location = 'index.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
     $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
+    $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
+    $('#back_benco').click(() => window.location = 'index.html');
 });

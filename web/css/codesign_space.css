@@ -16,17 +16,6 @@ h2 {
     margin-bottom: 7px;
 }
 
-#about {
-    font-family: 'Lato black';
-    color: black;
-    text-align: center;
-    margin-left: 43%;
-}
-
-#about:hover {
-    color: blue;
-}
-
 .container {
     width: 700px;
     margin-left: auto;
@@ -201,4 +190,23 @@ img.info_logo {
 @font-face {
     font-family: 'Lato italic';
     src: url('font/Lato-Italic.ttf');
+}
+
+.links {
+    width: 588.5px;
+    height: 15px;
+    margin: 0 auto;
+    color: black;
+    text-align: center;
+    }
+
+footer {
+    font-family: 'Lato regular';
+    font-size: 12px;
+    padding: 4px;
+    text-align: center;
+    }
+
+span:hover {
+    color: blue;
 }

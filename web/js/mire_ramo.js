@@ -54,6 +54,9 @@ jQuery($ => {
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
+    $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
+    $('#back_benco').click(() => window.location = 'index.html');
+
 
     $('#client_part_description').append(localStorage["omc.clientPartDescription"]);
     $('#client_file_number').append(localStorage["omc.clientFileNumber"]);
@@ -67,4 +70,17 @@ jQuery($ => {
         user.saveDisplayCharacteristic(ui.item.value);
         displayAll(ui.item.value);
 	}});
+
+    // if (Object.keys(omc.matchingMaterials).length>1)
+    // {
+    //     $('#nb_material').append(Object.keys(omc.matchingMaterials).length + ' matching materials.');
+    // }
+    // else if (Object.keys(omc.matchingMaterials).length==1)
+    // {
+    //     $('#nb_material').append(Object.keys(omc.matchingMaterials).length + ' matching materials.');
+    // }
+    // else
+    // {
+    //     $('#nb_material').append("No material matching in the Alpen'Tech's database.");
+    // }
 });

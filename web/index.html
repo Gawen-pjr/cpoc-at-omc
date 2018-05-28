@@ -23,22 +23,24 @@
 
 		<div id="header">
 			<div id="benco_selector">
-				<div id="BENCO_header">BENCO</div>
+				<div id="BENCO_header" title="Bureau d'Etude Numérique de CO-conception">BENCO</div>
 				<div class="selector">
 	              <select id="POC_selector" name="POC_selector">
-	              	<option>AT-OMC v1.5</option>
+	              	<option>(AT-RFQ)</option>
+	              	<option selected="selected">AT-OMC</option>
+	              	<option>(AT-CDB)</option>
+	              	<option>(AT-CLB)</option>
 	              </select>
 	            </div>
 			</div>
-			<div id="language">
-				<img src="css/images/french_icon.png" class="language_icon">
-				<img src="css/images/english_icon.png" class="language_icon">
+			<div id="language" title="Click to switch language.">
+				<img src="css/images/french_icon.png" class="language_icon" id="french_icon">
+				<img src="css/images/english_icon.png" class="language_icon" id="english_icon">
 			</div>
 		</div>
-
 		<div class="main">
 			<div class="left">
-				<img src="css/images/alpen.png" class="logo_alpentech">
+				<img src="css/images/alpen.png" id="logo_alpentech" title="Cliquer ici pour être dirigé vers le site web d'Alpen’Tech.">
 			</div>
 
 			<div class="right">
@@ -57,11 +59,11 @@
 
 				        <div class="Item_and_his_value">
 				          <div class="item">
-				            <div class="item_text">Logo Société</div>
+				            <div class="item_text">Logo de la société</div>
 				          </div>
 				          <div class="value">
 				            <div class="upload">
-				            	<button id="upload_button">Télécharger<img src="css/images/ul.png" id="ul_logo"/></button>
+				            	<button id="upload_button">Parcourir<img src="css/images/ul.png" id="ul_logo"/></button>
 				            </div>
 				          </div>
 				        </div>
@@ -90,25 +92,22 @@
 
 					</div>
 				</div>
-
 				<div class="start">
 					<div id="BENCO_OMC">
-						<div class="h1">Module BENCO-OMC</div><div class="subtitle">(v1.5 du 28 mai 2018)</div>
+						<div class="h1">Module AT-OMC</div><div class="subtitle">(v1.5 du 28 mai 2018)</div>
 					</div>
 					<div id="BUTTON">
 						<button id="start_button">START</button>
 					</div>
-					
 				</div>
-
 				<div class="copyright">
-					<p>L’application BENCO-OMC est une réalisation de la KM-Team de Alpen’Tech - Plus d’info auprès de Marc HORELLOU. Cette application métier contient des connaissances industrielles propriété de la société Alpen’Tech. Toute diffusion, reproduction ou communication interdite sans autorisation écrite préable - Copyright Alpen’Tech ©2018.</p>
+					<p>L’espace BENCO est une réalisation de la KM-Team d'Alpen’Tech - Plus d’info auprès de Marc HORELLOU.<br>Cette application métier contient des connaissances industrielles propriété de la société Alpen’Tech.<br>Toute diffusion, reproduction ou communication interdite sans autorisation écrite préalable - Copyright Alpen’Tech ©2018.</p>
 				</div>
 			</div>
 		</div>
 		
 		<div class="links">
-			<footer>PLAN DU SITE | QUI SOMMES NOUS | NOUS CONTACTER | VERSION v1.5 | 2018</footer>
+			<footer> <span id="plan">PLAN DU SITE</span> | <span id="at_infos">QUI SOMMES NOUS</span> | <span id="contact">NOUS CONTACTER</span> | v2018</footer>
 		</div>
 	</div>
 

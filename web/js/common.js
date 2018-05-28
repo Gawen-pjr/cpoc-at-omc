@@ -17,6 +17,7 @@ var _omc =
 	matchingMaterialsCallbacks: [],
 	clientFileNumber: undefined,
 	clientPartDescription: undefined,
+	incr: 0,
 
 
     init: function()
@@ -134,7 +135,12 @@ var _omc =
 		{
 			_omc.matchingMaterials = {};
 		}
+
+		// _omc.incr += 1;
         _omc.matchingMaterials[material.name] = material;
+        // _omc.matchingMaterials.characteristics.nb = _omc.incr;
+
+
 		window.localStorage.setItem("omc.matchingMaterials", JSON.stringify(_omc.matchingMaterials));
     },
 	
@@ -143,15 +149,6 @@ var _omc =
         _omc.matchingMaterials = undefined;
         window.localStorage.removeItem("omc.matchingMaterials");
     },
-
- //    getDisplayValue: function(material, displayCharacteristic, unit, shortname)
- //    {
- //    	var x = Number(material.characteristics[displayCharacteristic]);
- //    	var y = Number(material.characteristics.pricePerTon);
-	// 	var tooltipValue = unit + " = " + (x * omc.ATTR_MULT[displayCharacteristic]).toFixed(0) + shortname;
-	//     var title = material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';    	
- //    	return title
-	// }
 
     computeMatchingMaterials: function()
 	{

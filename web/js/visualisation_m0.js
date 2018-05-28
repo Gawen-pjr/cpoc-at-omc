@@ -26,7 +26,7 @@ function easterEgg()
     }
 }
 
-function displayMaterial(material, param, color)
+function displayMaterial(material, param, color, nb)
 {
     var x0 = material.characteristics[param];
     var unit = $('#performance_index_select option:selected').attr('data-unit');
@@ -37,14 +37,14 @@ function displayMaterial(material, param, color)
 
     var shortName = $('#performance_index_select option:selected').attr('data-shortname');
     var tooltipValue = shortName + " = " + (x0 * omc.ATTR_MULT[param]).toFixed(0) + unit;
-    var title = material.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
+    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Raw material price index = ' + y0 + ')';
 
     mireFactory.create('#repere', 'm0_material', x, 500 - y, color).attr('title', title);
 }
 
 function displayUserMaterial(param)
 {
-    displayMaterial(omc.userMaterial,param,user.userFavoriteColor || '#000000');
+    displayMaterial(omc.userMaterial,param,user.userFavoriteColor || '#000000', 0);
 }
 
 function displayMatchingMaterials(param)
@@ -58,7 +58,8 @@ function displayMatchingMaterials(param)
     for (var key in omc.matchingMaterials)
     {
         var material = omc.matchingMaterials[key];
-        displayMaterial(material,param,(material.characteristics.pi <= 100) ? '#008800' : '#EAA60C');
+        var nb = omc.matchingMaterials[key][nb];
+        displayMaterial(material,param,(material.characteristics.pi <= 100) ? '#008800' : '#EAA60C', nb);
     }
 }
 
@@ -112,4 +113,8 @@ jQuery($ => {
         user.saveDisplayCharacteristic(ui.item.value);
         displayAll(ui.item.value, displayAllMaterials);
     }});
+
+    // Configuration footer
+    $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
+    $('#back_benco').click(() => window.location = 'index.html');
 });

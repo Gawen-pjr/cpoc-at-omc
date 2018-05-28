@@ -13,16 +13,6 @@ h1 {
     margin-bottom: 5px;
 }
 
-#about {
-    font-family: 'Lato black';
-    color: black;
-    margin-left:  44%;
-}
-
-#about:hover {
-    color: blue;
-}
-
 #overall {
     margin-top: 20px;
     margin-left: 45px;
@@ -160,4 +150,23 @@ h1 {
 @font-face {
     font-family: 'Lato italic';
     src: url('font/Lato-Italic.ttf');
+}
+
+.links {
+    width: 588.5px;
+    height: 15px;
+    margin: 0 auto;
+    color: black;
+    text-align: center;
+    }
+
+footer {
+    font-family: 'Lato regular';
+    font-size: 12px;
+    padding: 4px;
+    text-align: center;
+    }
+
+span:hover {
+    color: blue;
 }

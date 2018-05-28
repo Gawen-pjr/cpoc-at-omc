@@ -44,7 +44,6 @@ body {
 	background: #66be5c;
 	font-family: 'Lato bold';
 	font-size: 8px;
-	text-align: center;
 	color : #ffffff;
 	}
 
@@ -77,12 +76,15 @@ body {
 	margin-bottom: -28px;
 	}
 
-.logo_alpentech {
+#logo_alpentech {
 	width: 108px;
 	height: 81px;
 	margin-bottom: -28px;
 	}
 
+span:hover {
+	color: blue;
+}
 .right {
 	display: inline-block;
 	box-sizing: border-box;
