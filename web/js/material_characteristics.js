@@ -68,11 +68,10 @@ jQuery($ => {
 
         $gradeInput.autocomplete({
             source: grades,
-            select: (event,ui) => gradeChanged(ui.item.value)
+            minLength: 0,
+            select: (event,ui) => gradeChanged(ui.item.value),
+            focus: function() {$(this).autocomplete("search", "");},
         });
-        // .focus(function() {    
-        //     $(this).autocomplete({source: grades, select: (event,ui) => gradeChanged(ui.item.value)})
-        // });
     }
 
     $('<option value="-">-</option>').appendTo($familySelect);
