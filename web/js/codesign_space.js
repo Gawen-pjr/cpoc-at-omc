@@ -64,7 +64,7 @@ jQuery($ => {
         }
 
         defaultIntervals[characteristic] = [v1Init / multiplier, v2Init / multiplier];
-        
+
         if(currentState && currentState[characteristic])
         {
             v1Init = Math.min(val || max,currentState[characteristic][0] * multiplier);
@@ -74,7 +74,6 @@ jQuery($ => {
         {
             currentState[characteristic] = [v1Init, v2Init];
         }
-        
 
         updateText(v1Init, v2Init);
 
@@ -89,7 +88,7 @@ jQuery($ => {
                 var v1 = ui.values[0];
                 var v2 = ui.values[1];
                 var centralValueReached = false;
-                
+
                 if(val && (v1 > val))
                 {
                     v1 = val;
@@ -103,7 +102,7 @@ jQuery($ => {
                     $slider.slider("values", 1, v2);
                     centralValueReached = true;
                 }
-                
+
                 updateText(v1, v2);
                 return !centralValueReached;
             },
@@ -113,7 +112,7 @@ jQuery($ => {
             },
         });
     });
-    
+
     omc.saveDefaultIntervals(defaultIntervals);
 
     // Configuration des radio buttons
@@ -153,9 +152,9 @@ jQuery($ => {
             }
         })
     });
-    
+
     // Configuration des boutons de navigation
-    $('#calculation_button').button().click(() => window.location = 'mire_ramo.html');
+    $('#calculation_button').button().click(() => {omc.deleteMatchingMaterials(); window.location = 'mire_ramo.html';});
     $('#return_button').button().click(() => window.location = 'material_characteristics.html');
     $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
     $('#back_benco').click(() => window.location = 'index.html');

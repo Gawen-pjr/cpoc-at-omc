@@ -62,10 +62,9 @@ body {
 #header {
     background-color: #FFF700;
     border: 3px solid black;
-    margin-bottom: 13px;
-    background-image: url("images/at.png");
-    background-repeat: no-repeat;
-    background-position: 6%;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #body {
@@ -98,6 +97,33 @@ body {
     border: 1px solid black;
 }
 
+#upheader {
+    width: 600px;
+    height: 90px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.upheader_text{
+    display: inline-block;
+    font-family: 'Lato italic';
+    color: #A0A0A0;
+    margin-top: 47px;
+    font-size: 15px;
+}
+
+.logo_alpen{
+    float: left;
+    opacity: 0.8;
+    transform: scale(0.8, 0.8);
+}
+
+.logo_client{
+    float: right;
+    opacity: 0.8;
+    transform: scale(0.8, 0.8);
+}
+
 .Item_and_his_value {
     display: flex;
     justify-content: center;
@@ -128,11 +154,27 @@ body {
     margin-bottom: 10px
 }
 
-
 #upload_button {
-    width: 420px;
-    text-align: center;
-    margin-bottom: 10px;
+    background-color: #fff700;
+    border-radius: 10px;
+    cursor:pointer;
+    width: 150px;
+    height: 22px;
+    font-family: 'Lato black'; 
+    font-size: 12px;
+    font-weight: bolder;
+    letter-spacing: 0.2em;
+    padding: 0px 0px;
+}
+
+#upload_button:hover {
+    background-color: #ffff88;
+}
+
+#ul_logo {
+    margin-left: 5px;
+    width: 11px;
+    height: 11px;
 }
 
 .parameter_unit {

@@ -37,6 +37,11 @@ function displayMatchingMaterial(material)
 	var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
 	$('#' + mireId).remove();
 	mireFactory.create('#axe_abscisses', mireId, 352 + xs, -3 - ys, color).attr('title', title);
+
+    if (nbDisplayedMaterials != 0)
+    {
+        $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+    }       
 }
 
 function displayAll(param)
@@ -76,16 +81,18 @@ jQuery($ => {
         displayAll(ui.item.value);
 	}});
 
-    if (nbDisplayedMaterials>1)
-    {
-        $('#nb_material').append(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
-    }
-    else if (omc.matToken==1)
-    {
-        $('#nb_material').append(nbDisplayedMaterials + " matching material out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
-    }
-    else
-    {
-        $('#nb_material').append("No material matching in the Alpen'Tech's database.");
-    }
+    // $(document).ready(() => {
+    //     if (nbDisplayedMaterials>1)
+    //     {
+    //         $('#nb_material').append(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+    //     }
+    //     else if (nbDisplayedMaterials==1)
+    //     {
+    //         $('#nb_material').append(nbDisplayedMaterials + " matching material out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+    //     }
+    //     else
+    //     {
+    //         $('#nb_material').append("No material matching in the Alpen'Tech's database.");
+    //     }
+    // });
 });
