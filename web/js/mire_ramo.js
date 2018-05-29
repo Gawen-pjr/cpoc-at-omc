@@ -1,8 +1,12 @@
+var nbDisplayedMaterials = 0;
 
 function displayMatchingMaterial(material)
 {
     var $displayCharacteristic = $('#performance_index_select option:selected');
     user.saveDisplayCharacteristic($displayCharacteristic.val());
+
+    var nb = material.nb;
+    nbDisplayedMaterials = (nbDisplayedMaterials < nb) ? nb : nbDisplayedMaterials; 
 
     console.debug('OMC', material);
     console.debug('OMC', user.displayCharacteristic);
@@ -27,7 +31,7 @@ function displayMatchingMaterial(material)
     var ys = (y - y0) * (350.0 / yAmp);
 	
 	var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
-    var title = material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
+    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
 
 	var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
 	var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
@@ -41,6 +45,7 @@ function displayAll(param)
     $('#label_abscisses').text($selectedChar.text());
     $('.mire_container').remove();
 
+    omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
 	omc.withMatchingMaterials(displayMatchingMaterial);
 }
@@ -71,16 +76,16 @@ jQuery($ => {
         displayAll(ui.item.value);
 	}});
 
-    // if (Object.keys(omc.matchingMaterials).length>1)
-    // {
-    //     $('#nb_material').append(Object.keys(omc.matchingMaterials).length + ' matching materials.');
-    // }
-    // else if (Object.keys(omc.matchingMaterials).length==1)
-    // {
-    //     $('#nb_material').append(Object.keys(omc.matchingMaterials).length + ' matching materials.');
-    // }
-    // else
-    // {
-    //     $('#nb_material').append("No material matching in the Alpen'Tech's database.");
-    // }
+    if (nbDisplayedMaterials>1)
+    {
+        $('#nb_material').append(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+    }
+    else if (omc.matToken==1)
+    {
+        $('#nb_material').append(nbDisplayedMaterials + " matching material out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+    }
+    else
+    {
+        $('#nb_material').append("No material matching in the Alpen'Tech's database.");
+    }
 });

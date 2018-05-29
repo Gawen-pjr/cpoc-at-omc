@@ -17,8 +17,7 @@ var _omc =
 	matchingMaterialsCallbacks: [],
 	clientFileNumber: undefined,
 	clientPartDescription: undefined,
-	incr: 0,
-
+	matToken: 0,
 
     init: function()
     {
@@ -129,6 +128,11 @@ var _omc =
         window.localStorage.removeItem("omc.defaultIntervals");
     },
 
+    resetMatToken: function()
+    {
+    	_omc.matToken = 0;
+    },
+
     addMatchingMaterial: function(material)
     {
 		if(typeof _omc.matchingMaterials === "undefined")
@@ -136,11 +140,7 @@ var _omc =
 			_omc.matchingMaterials = {};
 		}
 
-		// _omc.incr += 1;
         _omc.matchingMaterials[material.name] = material;
-        // _omc.matchingMaterials.characteristics.nb = _omc.incr;
-
-
 		window.localStorage.setItem("omc.matchingMaterials", JSON.stringify(_omc.matchingMaterials));
     },
 	
@@ -166,7 +166,7 @@ var _omc =
 				setAttributeInterval(index + 1, object, characteristics, callback);
 				return;
 			}
-			
+
 			if(typeof interval !== "object")
 			{
 				interval = [interval];
@@ -216,12 +216,16 @@ var _omc =
 				var mat = {
 					characteristics: {},
 					name: grades[index],
+					nb: 0,
 				};
 
 				for(var i = 0; i < _omc.KV_ATTRIBUTES.length; i++)
 				{
 					mat.characteristics[_omc.JS_ATTRIBUTES[i]] = kvMat.attributes[_omc.KV_ATTRIBUTES[i]].value;
 				}
+
+				_omc.matToken += 1;
+				mat.nb = _omc.matToken;
 
 				var intervals = _omc.toleranceIntervals || _omc.defaultIntervals;
 				if(!intervals || ((mat.characteristics.pi >= intervals.pi[0]) && (mat.characteristics.pi <= intervals.pi[1])))
@@ -241,11 +245,11 @@ var _omc =
 		{
 			var grades = _omc.kvoweb.session.activeObjects.mat.attributes.Nuance.value.split('\n').filter(g => (g != 'Inconnue') && (g != _omc.userMaterial.name));
 			console.debug('OMC', grades);
-			
+
 			kvoweb.restartSession();
 			kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades)));
 		}
-		
+
 		alert('Please wait while suggestions are being calculated.\nClick "Ok" to go on.');
 		window.localStorage.removeItem("kvoweb.session");
 		_omc.kvoweb.init();
@@ -255,7 +259,7 @@ var _omc =
 	withMatchingMaterials: function(callback)
 	{
 		_omc.matchingMaterialsCallbacks.push(callback);
-		
+
 		if(typeof _omc.matchingMaterials !== 'undefined')
 		{
 			for(key in _omc.matchingMaterials)
