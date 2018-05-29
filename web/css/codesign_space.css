@@ -131,6 +131,7 @@ h2 {
     width: 500px;
     height: 85px;
     text-align: center;
+    position: relative;
 }
 
 .slidebar_title {
@@ -194,7 +195,7 @@ h2 {
     width: 1px;
     border: none;
     height: 30px;
-    top: -2px;
+    top: 46px;
     z-index: 3;
 }
 

@@ -224,12 +224,12 @@ var _omc =
 					mat.characteristics[_omc.JS_ATTRIBUTES[i]] = kvMat.attributes[_omc.KV_ATTRIBUTES[i]].value;
 				}
 
-				_omc.matToken += 1;
-				mat.nb = _omc.matToken;
-
 				var intervals = _omc.toleranceIntervals || _omc.defaultIntervals;
 				if(!intervals || ((mat.characteristics.pi >= intervals.pi[0]) && (mat.characteristics.pi <= intervals.pi[1])))
 				{
+					_omc.matToken += 1;
+					mat.nb = _omc.matToken;
+
 					_omc.addMatchingMaterial(mat);
 					_omc.matchingMaterialsCallbacks.forEach(callback => callback(mat));
 				}
@@ -250,7 +250,7 @@ var _omc =
 			kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades)));
 		}
 
-		alert('Please wait while suggestions are being calculated.\nClick "Ok" to go on.');
+		// alert('Please wait while suggestions are being calculated.\nClick "Ok" to go on.');
 		window.localStorage.removeItem("kvoweb.session");
 		_omc.kvoweb.init();
 		_omc.kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
