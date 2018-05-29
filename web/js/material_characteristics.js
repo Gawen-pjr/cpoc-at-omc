@@ -70,7 +70,10 @@ jQuery($ => {
             source: grades,
             minLength: 0,
             select: (event,ui) => gradeChanged(ui.item.value),
-            focus: function() {$(this).autocomplete("search", "");},
+            focus: function() {$(this).autocomplete({
+            source: grades,
+            minLength: 0,
+            select: (event,ui) => gradeChanged(ui.item.value)});},
         });
     }
 
