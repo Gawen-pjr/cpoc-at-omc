@@ -4,20 +4,24 @@ function displayMatchingMaterial(material)
 {
     var $displayCharacteristic = $('#performance_index_select option:selected');
     user.saveDisplayCharacteristic($displayCharacteristic.val());
+    var $displayPriceIndex = $('#price_index_select option:selected');
+    user.saveDisplayPriceIndex($displayPriceIndex.val());
 
     var nb = material.nb;
     nbDisplayedMaterials = (nbDisplayedMaterials < nb) ? nb : nbDisplayedMaterials; 
 
     console.debug('OMC', material);
     console.debug('OMC', user.displayCharacteristic);
+    console.debug('OMC', user.displayPriceIndex);
 
     var x0 = omc.userMaterial.characteristics[user.displayCharacteristic];
     var xAmp = Math.max(x0, omc.ATTR_AMP[user.displayCharacteristic] - x0);
 
-    var y0 = omc.userMaterial.characteristics.pricePerTon;
-    var yAmp = Math.max(y0 - 750.0, 4600.0 - y0);
+    var y0 = omc.userMaterial.characteristics[user.displayPriceIndex] || 100;
+    var yAmp = Math.max(y0, omc.ATTR_AMP[user.displayPriceIndex] - y0);
 
     var pi = Number(material.characteristics.pi || 100);
+    var pricePerTon = Number(material.characteristics.pricePerTon);
 
     var intervals = omc.toleranceIntervals || omc.defaultIntervals;
     if(intervals)
@@ -26,12 +30,12 @@ function displayMatchingMaterial(material)
     }
 
     var x = Number(material.characteristics[user.displayCharacteristic]);
-    var y = Number(material.characteristics.pricePerTon);
+    var y = Number(material.characteristics[user.displayPriceIndex]) || y0;
     var xs = (x - x0) * (350.0 / xAmp);
     var ys = (y - y0) * (350.0 / yAmp);
-	
+
 	var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
-    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + y.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
+    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + pricePerTon.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
 
 	var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
 	var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
@@ -44,10 +48,12 @@ function displayMatchingMaterial(material)
     }       
 }
 
-function displayAll(param)
+function displayAll()
 {
     var $selectedChar = $('#performance_index_select option:selected');
     $('#label_abscisses').text($selectedChar.text());
+    var $selectedPriceIndex = $('#price_index_select option:selected');
+    $('#label_ordonnées').text($selectedPriceIndex.text());
     $('.mire_container').remove();
 
     omc.userMaterial.nb = 0;
@@ -67,32 +73,24 @@ jQuery($ => {
     $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
     $('#back_benco').click(() => window.location = 'index.html');
 
-
     $('#client_part_description').append(localStorage["omc.clientPartDescription"]);
     $('#client_file_number').append(localStorage["omc.clientFileNumber"]);
 
     var displayCharacteristic = user.displayCharacteristic || 'rm';
     $("#performance_index_select").val(displayCharacteristic);
-    
-	displayAll(displayCharacteristic);
+
+    var displayPriceIndex = user.displayPriceIndex || 'pricePerTon';
+    $("#price_index_select").val(displayPriceIndex);
+
+	displayAll();
 
     $('#performance_index_select').selectmenu({ select: (event, ui) => {
         user.saveDisplayCharacteristic(ui.item.value);
         displayAll(ui.item.value);
 	}});
 
-    // $(document).ready(() => {
-    //     if (nbDisplayedMaterials>1)
-    //     {
-    //         $('#nb_material').append(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
-    //     }
-    //     else if (nbDisplayedMaterials==1)
-    //     {
-    //         $('#nb_material').append(nbDisplayedMaterials + " matching material out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
-    //     }
-    //     else
-    //     {
-    //         $('#nb_material').append("No material matching in the Alpen'Tech's database.");
-    //     }
-    // });
+    $('#price_index_select').selectmenu({ select: (event, ui) => {
+        user.saveDisplayPriceIndex(ui.item.value);
+        displayAll(ui.item.value);
+    }});
 });

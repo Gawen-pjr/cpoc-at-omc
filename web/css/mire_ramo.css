@@ -56,6 +56,13 @@ body {
     border: none;
 }
 
+
+.price_index_selection
+{
+    text-align: center;
+    padding: 3px 0px 3px 0px;
+    border: none;
+}
 #additional_info {
     width: 721px;
     display: flex;
@@ -240,6 +247,13 @@ body {
 }
 
 .performance_index {
+    font-size:11pt;
+    font-family: 'Lato regular';
+    border: 1px solid black;  
+    width: 252px;
+}
+
+.price_index {
     font-size:11pt;
     font-family: 'Lato regular';
     border: 1px solid black;  

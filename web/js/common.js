@@ -283,6 +283,7 @@ var _user =
 {
 	userFavoriteColor: undefined,
 	displayCharacteristic: undefined,
+    displayPriceIndex: undefined,
 
 	init: function()
     {
@@ -291,6 +292,9 @@ var _user =
     
         var sessionCharacteristic = window.localStorage.getItem("user.displayCharacteristic");
         _user.displayCharacteristic = sessionCharacteristic ? sessionCharacteristic : undefined;
+        
+        var sessionPriceIndex = window.localStorage.getItem("user.displayPriceIndex");
+        _user.displayPriceIndex = sessionPriceIndex ? sessionPriceIndex : undefined;
     },
 
 	saveFavoriteColor: function(color)
@@ -303,6 +307,12 @@ var _user =
     {
     	_user.displayCharacteristic = characteristic;
         window.localStorage.setItem("user.displayCharacteristic", characteristic);
+    },
+
+    saveDisplayPriceIndex: function(index)
+    {
+        _user.displayPriceIndex = index;
+        window.localStorage.setItem("user.displayPriceIndex", index);
     },
 }
 
