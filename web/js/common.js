@@ -152,33 +152,26 @@ var _omc =
 
     computeMatchingMaterials: function()
 	{
-		function setAttributeInterval(index, object, characteristics, callback)
-		{
-			if(index >= _omc.JS_ATTRIBUTES.length)
-			{
-				callback();
-				return;
-			}
-
-			var interval = characteristics[_omc.JS_ATTRIBUTES[index]];
-			if(typeof interval === "undefined")
-			{
-				setAttributeInterval(index + 1, object, characteristics, callback);
-				return;
-			}
-
-			if(typeof interval !== "object")
-			{
-				interval = [interval];
-			}
-
-			var kvValue = ((interval.length > 1) && (interval[0] != interval[1])) ? ('[ ' + interval[0] + ' ; ' + interval[1] + ' ]') : interval[0];
-			_omc.kvoweb.setAttributeValue(object, _omc.KV_ATTRIBUTES[index], kvValue, () => setAttributeInterval(index + 1, object, characteristics, callback));
-		}
-
 		function sendMaterialCharacteristics(object, characteristics, callback)
 		{
-			setAttributeInterval(0, object, characteristics, callback);
+			var kvAttributes = {};
+
+			for(var i = 0; i < _omc.KV_ATTRIBUTES.length; i++)
+			{
+				var interval = characteristics[_omc.JS_ATTRIBUTES[i]];
+				if(typeof interval !== "undefined")
+				{
+					if(typeof interval !== "object")
+					{
+						interval = [interval];
+					}
+
+					var kvValue = ((interval.length > 1) && (interval[0] != interval[1])) ? ('[ ' + interval[0] + ' ; ' + interval[1] + ' ]') : interval[0];
+					kvAttributes[_omc.KV_ATTRIBUTES[i]] = kvValue;
+				}
+			}
+
+			_omc.kvoweb.setAttributes(object, kvAttributes, callback);
 		}
 
 		function sendToleranceIntervals(callback)
