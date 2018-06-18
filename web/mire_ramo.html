@@ -21,11 +21,15 @@
 </head>
 
 <body>
+  <div id="upheader">
+    <div class="upheader_text">Module AT-OMC<br>(v1.6 of May 30th 2018)</div>
+    <img src="css/images/alpen.png" class="logo_alpen"/>
+    <img src="css/images/alpen.png" class="logo_client"/>
+  </div>
   <div id="header">
     <h1>
       ALPEN'TECH'S MATERIAL<br>SUGGESTIONS
     </h1>
-    <div class="subtitle">v1.5 of May, 28th 2018</div>
   </div>
   <div id="additional_info">
     <div class="part_information client_infos">
@@ -50,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div id="nb_material"></div>
+      <div id="nb_material">Chargement en cours...</div>
     </div>
     <div class="part_information selectbox">
       <div class="performance_index">
@@ -65,6 +69,20 @@
               <option value="rp" data-unit=" MPa" data-shortname="Rp">Proof stress Rp0.2 (MPa)</option>
               <option value="hb" data-unit=" HB" data-shortname="HB">Hardness HB (HB)</option>
               <option value="a" data-unit="%" data-shortname="A">Elongation percentage (%)</option>
+            </select>
+          </fieldset>
+        </form>
+      </div>
+      <div class="performance_index">
+        <div id="performance_label">Prince index selection
+        </div>
+      </div>
+      <div class="price_index">
+        <form>
+          <fieldset class="price_index_selection">
+            <select name="price_index" id="price_index_select">
+              <option value="pricePerTon">Price per Ton</option>
+              <option value="pi">Operation price index</option>
             </select>
           </fieldset>
         </form>

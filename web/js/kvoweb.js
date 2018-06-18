@@ -2,14 +2,14 @@
 
 var _kvoweb =
 {
-    KVOWEB_BASE_URL : 'https://alpenbox.kad-office.com/kvoweb/api/v1.0',
-    USER : 'toto',
-    PASS : 'titi',
+    KVOWEB_BASE_URL: 'https://alpenbox.kad-office.com/kvoweb/api/v1.0',
+    USER: 'toto',
+    PASS: 'titi',
 
-    userToken : undefined,
-    session : undefined,
+    userToken: undefined,
+    session: undefined,
 
-    apiCall : function(endpoint, method, data, contentType, callback, errorHandler)
+    apiCall: function(endpoint, method, data, contentType, callback, errorHandler)
     {
         $.ajax(_kvoweb.KVOWEB_BASE_URL + endpoint, {
             method : method,
@@ -24,32 +24,32 @@ var _kvoweb =
         });
     },
 
-    apiGet : function(endpoint, callback, errorHandler)
+    apiGet: function(endpoint, callback, errorHandler)
     {
         _kvoweb.apiCall(endpoint, 'GET', undefined, false, callback, errorHandler);
     },
 
-    apiPost : function(endpoint, data, contentType, callback, errorHandler)
+    apiPost: function(endpoint, data, contentType, callback, errorHandler)
     {
         _kvoweb.apiCall(endpoint, 'POST', data, contentType, callback, errorHandler);
     },
 
-    apiDelete : function(endpoint, callback, errorHandler)
+    apiDelete: function(endpoint, callback, errorHandler)
     {
         _kvoweb.apiCall(endpoint, 'DELETE', undefined, false, callback, errorHandler);
     },
 
-    apiPatch : function(endpoint, data, contentType, callback, errorHandler)
+    apiPatch: function(endpoint, data, contentType, callback, errorHandler)
     {
         _kvoweb.apiCall(endpoint, 'PATCH', data, contentType, callback, errorHandler);
     },
 
-    apiPut : function(endpoint, data, contentType, callback, errorHandler)
+    apiPut: function(endpoint, data, contentType, callback, errorHandler)
     {
         _kvoweb.apiCall(endpoint, 'PUT', data, contentType, callback, errorHandler);
     },
 
-    login : function(callback)
+    login: function(callback)
     {
         var data =
         {
@@ -64,7 +64,7 @@ var _kvoweb =
         });
     },
 
-    init : function()
+    init: function()
     {
         _kvoweb.login(() => {
             var lastSession = window.localStorage.getItem("kvoweb.session");
@@ -86,7 +86,7 @@ var _kvoweb =
         });
     },
 
-    saveSession : function()
+    saveSession: function()
     {
         // TODO à implémenter
     },
@@ -96,7 +96,7 @@ var _kvoweb =
         _kvoweb.apiDelete('/session');
     },
 
-    restartSession : function()
+    restartSession: function()
     {
         window.localStorage.removeItem("kvoweb.session");
         if (_kvoweb.session)
@@ -107,7 +107,7 @@ var _kvoweb =
         }
     },
 
-    setAttributeValue : function(object, attribute, value, callback)
+    setAttributeValue: function(object, attribute, value, callback)
     {
         if (!_kvoweb.session)
         {
@@ -115,7 +115,30 @@ var _kvoweb =
             return;
         }
 
-        _kvoweb.apiPatch('/session/' + _kvoweb.session.id + '/object/' + object + '/attribute/' + attribute, '"' + value  + '"', 'text/plain; charset=UTF-8', session => {
+        if(value === "")
+        {
+            value = " ";
+        }
+        else
+        {
+            value = "" + value;
+        }
+
+        _kvoweb.apiPatch('/session/' + _kvoweb.session.id + '/object/' + object + '/attribute/' + attribute, value, 'text/plain; charset=UTF-8', session => {
+            _kvoweb.session = session;
+            callback(session);
+        });
+    },
+	
+	setAttributes: function(object, attributes, callback)
+    {
+        if (!_kvoweb.session)
+        {
+            console.warn('OMC',"No Kvoweb active session");
+            return;
+        }
+
+        _kvoweb.apiPatch('/session/' + _kvoweb.session.id + '/object/' + object + '/attribute', JSON.stringify(attributes), 'application/json; charset=UTF-8', session => {
             _kvoweb.session = session;
             callback(session);
         });
@@ -133,7 +156,7 @@ var _kvoweb =
         }
     },
 
-    createAndActivateSession : function()
+    createAndActivateSession: function()
     {
         var data =
         {

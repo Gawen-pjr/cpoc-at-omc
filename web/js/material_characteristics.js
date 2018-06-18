@@ -65,7 +65,16 @@ jQuery($ => {
         }
 
         var grades = omc.materialDB.grades.filter(grade => grade.family == family).map(grade => grade.name);
-        $gradeInput.autocomplete({source: grades, select: (event,ui) => gradeChanged(ui.item.value)});
+
+        $gradeInput.autocomplete({
+            source: grades,
+            minLength: 0,
+            select: (event,ui) => gradeChanged(ui.item.value),
+            focus: function() {$(this).autocomplete({
+            source: grades,
+            minLength: 0,
+            select: (event,ui) => gradeChanged(ui.item.value)});},
+        });
     }
 
     $('<option value="-">-</option>').appendTo($familySelect);

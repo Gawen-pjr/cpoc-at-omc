@@ -23,9 +23,36 @@ h1 {
     background-color: #FFF700;
     border: 3px solid black;
     width: 800px;
-    background-image: url("images/at.png");
-    background-repeat: no-repeat;
-    background-position: 9%;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#upheader {
+    width: 806px;
+    height: 90px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.upheader_text{
+    display: inline-block;
+    font-family: 'Lato italic';
+    color: #A0A0A0;
+    margin-top: 47px;
+    font-size: 15px;
+}
+
+.logo_alpen{
+    float: left;
+    opacity: 0.8;
+    transform: scale(0.8, 0.8);
+}
+
+.logo_client{
+    float: right;
+    opacity: 0.8;
+    transform: scale(0.8, 0.8);
 }
 
 .subtitle {

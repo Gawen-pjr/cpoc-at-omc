@@ -17,8 +17,7 @@ var _omc =
 	matchingMaterialsCallbacks: [],
 	clientFileNumber: undefined,
 	clientPartDescription: undefined,
-	incr: 0,
-
+	matToken: 0,
 
     init: function()
     {
@@ -129,6 +128,11 @@ var _omc =
         window.localStorage.removeItem("omc.defaultIntervals");
     },
 
+    resetMatToken: function()
+    {
+    	_omc.matToken = 0;
+    },
+
     addMatchingMaterial: function(material)
     {
 		if(typeof _omc.matchingMaterials === "undefined")
@@ -136,11 +140,7 @@ var _omc =
 			_omc.matchingMaterials = {};
 		}
 
-		// _omc.incr += 1;
         _omc.matchingMaterials[material.name] = material;
-        // _omc.matchingMaterials.characteristics.nb = _omc.incr;
-
-
 		window.localStorage.setItem("omc.matchingMaterials", JSON.stringify(_omc.matchingMaterials));
     },
 	
@@ -152,33 +152,26 @@ var _omc =
 
     computeMatchingMaterials: function()
 	{
-		function setAttributeInterval(index, object, characteristics, callback)
-		{
-			if(index >= _omc.JS_ATTRIBUTES.length)
-			{
-				callback();
-				return;
-			}
-
-			var interval = characteristics[_omc.JS_ATTRIBUTES[index]];
-			if(typeof interval === "undefined")
-			{
-				setAttributeInterval(index + 1, object, characteristics, callback);
-				return;
-			}
-			
-			if(typeof interval !== "object")
-			{
-				interval = [interval];
-			}
-
-			var kvValue = ((interval.length > 1) && (interval[0] != interval[1])) ? ('[ ' + interval[0] + ' ; ' + interval[1] + ' ]') : interval[0];
-			_omc.kvoweb.setAttributeValue(object, _omc.KV_ATTRIBUTES[index], kvValue, () => setAttributeInterval(index + 1, object, characteristics, callback));
-		}
-
 		function sendMaterialCharacteristics(object, characteristics, callback)
 		{
-			setAttributeInterval(0, object, characteristics, callback);
+			var kvAttributes = {};
+
+			for(var i = 0; i < _omc.KV_ATTRIBUTES.length; i++)
+			{
+				var interval = characteristics[_omc.JS_ATTRIBUTES[i]];
+				if(typeof interval !== "undefined")
+				{
+					if(typeof interval !== "object")
+					{
+						interval = [interval];
+					}
+
+					var kvValue = ((interval.length > 1) && (interval[0] != interval[1])) ? ('[ ' + interval[0] + ' ; ' + interval[1] + ' ]') : interval[0];
+					kvAttributes[_omc.KV_ATTRIBUTES[i]] = kvValue;
+				}
+			}
+
+			_omc.kvoweb.setAttributes(object, kvAttributes, callback);
 		}
 
 		function sendToleranceIntervals(callback)
@@ -216,6 +209,7 @@ var _omc =
 				var mat = {
 					characteristics: {},
 					name: grades[index],
+					nb: 0,
 				};
 
 				for(var i = 0; i < _omc.KV_ATTRIBUTES.length; i++)
@@ -226,6 +220,9 @@ var _omc =
 				var intervals = _omc.toleranceIntervals || _omc.defaultIntervals;
 				if(!intervals || ((mat.characteristics.pi >= intervals.pi[0]) && (mat.characteristics.pi <= intervals.pi[1])))
 				{
+					_omc.matToken += 1;
+					mat.nb = _omc.matToken;
+
 					_omc.addMatchingMaterial(mat);
 					_omc.matchingMaterialsCallbacks.forEach(callback => callback(mat));
 				}
@@ -241,12 +238,12 @@ var _omc =
 		{
 			var grades = _omc.kvoweb.session.activeObjects.mat.attributes.Nuance.value.split('\n').filter(g => (g != 'Inconnue') && (g != _omc.userMaterial.name));
 			console.debug('OMC', grades);
-			
+
 			kvoweb.restartSession();
 			kvoweb.withSession(() => prepareM0Grade(() => sendMatchingGrades(grades)));
 		}
-		
-		alert('Please wait while suggestions are being calculated.\nClick "Ok" to go on.');
+
+		// alert('Please wait while suggestions are being calculated.\nClick "Ok" to go on.');
 		window.localStorage.removeItem("kvoweb.session");
 		_omc.kvoweb.init();
 		_omc.kvoweb.withSession(() => prepareM0Grade(() => sendToleranceIntervals(processFilteredGrades)));
@@ -255,7 +252,7 @@ var _omc =
 	withMatchingMaterials: function(callback)
 	{
 		_omc.matchingMaterialsCallbacks.push(callback);
-		
+
 		if(typeof _omc.matchingMaterials !== 'undefined')
 		{
 			for(key in _omc.matchingMaterials)
@@ -286,6 +283,7 @@ var _user =
 {
 	userFavoriteColor: undefined,
 	displayCharacteristic: undefined,
+    displayPriceIndex: undefined,
 
 	init: function()
     {
@@ -294,6 +292,9 @@ var _user =
     
         var sessionCharacteristic = window.localStorage.getItem("user.displayCharacteristic");
         _user.displayCharacteristic = sessionCharacteristic ? sessionCharacteristic : undefined;
+        
+        var sessionPriceIndex = window.localStorage.getItem("user.displayPriceIndex");
+        _user.displayPriceIndex = sessionPriceIndex ? sessionPriceIndex : undefined;
     },
 
 	saveFavoriteColor: function(color)
@@ -306,6 +307,12 @@ var _user =
     {
     	_user.displayCharacteristic = characteristic;
         window.localStorage.setItem("user.displayCharacteristic", characteristic);
+    },
+
+    saveDisplayPriceIndex: function(index)
+    {
+        _user.displayPriceIndex = index;
+        window.localStorage.setItem("user.displayPriceIndex", index);
     },
 }
 

@@ -64,7 +64,7 @@ jQuery($ => {
         }
 
         defaultIntervals[characteristic] = [v1Init / multiplier, v2Init / multiplier];
-        
+
         if(currentState && currentState[characteristic])
         {
             v1Init = Math.min(val || max,currentState[characteristic][0] * multiplier);
@@ -74,7 +74,6 @@ jQuery($ => {
         {
             currentState[characteristic] = [v1Init, v2Init];
         }
-        
 
         updateText(v1Init, v2Init);
 
@@ -89,7 +88,7 @@ jQuery($ => {
                 var v1 = ui.values[0];
                 var v2 = ui.values[1];
                 var centralValueReached = false;
-                
+
                 if(val && (v1 > val))
                 {
                     v1 = val;
@@ -103,17 +102,18 @@ jQuery($ => {
                     $slider.slider("values", 1, v2);
                     centralValueReached = true;
                 }
-                
+
                 updateText(v1, v2);
                 return !centralValueReached;
             },
             change: (event, ui) => {
                 currentState[characteristic] = ui.values.map(v => v / multiplier);
                 omc.saveToleranceIntervals(currentState);
+                omc.deleteMatchingMaterials();
             },
         });
     });
-    
+
     omc.saveDefaultIntervals(defaultIntervals);
 
     // Configuration des radio buttons
@@ -150,10 +150,11 @@ jQuery($ => {
                 var $input = $(event.target);
                 currentState[characteristic] = [1,Number($input.attr('value'))];
                 omc.saveToleranceIntervals(currentState);
+                omc.deleteMatchingMaterials();
             }
         })
     });
-    
+
     // Configuration des boutons de navigation
     $('#calculation_button').button().click(() => window.location = 'mire_ramo.html');
     $('#return_button').button().click(() => window.location = 'material_characteristics.html');
