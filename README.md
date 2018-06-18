@@ -1,4 +1,4 @@
-﻿# cpoc-at-omc
-Front-end du POC Alpen'Tech pour l'optimisation matériaux.
+﻿# Welcome on the CPOC-AT-OMC
+The Alpen'Tech's tool for material optimisation.
 
-Pour voir la maquette d'IHM, suivez le [lien](./web/index.html)
+To access to the tool, follow the [link].(./web/index.html)
