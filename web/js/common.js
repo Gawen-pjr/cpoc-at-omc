@@ -18,6 +18,7 @@ var _omc =
 	clientFileNumber: undefined,
 	clientPartDescription: undefined,
 	matToken: 0,
+    matchingGradesComputationListener: [],
 
     init: function()
     {
@@ -198,6 +199,7 @@ var _omc =
 			if(index >= grades.length)
 			{
 				_omc.matchingMaterialsCallbacks = [];
+                _omc.matchingGradesComputationListener.forEach(l => l());
 				return;
 			}
 

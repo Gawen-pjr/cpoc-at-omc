@@ -51,6 +51,14 @@ body {
     width: 600px;
 }
 
+#precision {
+    text-align: center;
+    font-family: 'Lato italic';
+    color: #FFFFFF;
+    font-size: 10pt;
+    margin-bottom: 3.5px;
+}
+
 #colorpicker {
     width: 47%;
 }

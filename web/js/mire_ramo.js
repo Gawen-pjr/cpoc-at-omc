@@ -45,7 +45,7 @@ function displayMatchingMaterial(material)
     if (nbDisplayedMaterials != 0)
     {
         $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
-    }       
+    }
 }
 
 function displayAll()
@@ -55,6 +55,17 @@ function displayAll()
     var $selectedPriceIndex = $('#price_index_select option:selected');
     $('#label_ordonnées').text($selectedPriceIndex.text());
     $('.mire_container').remove();
+
+    omc.matchingGradesComputationListener.push(() => {
+        if (omc.matToken == 0)
+        {
+            $('#nb_material').text("No matching materials in Alpen'Tech's database.")
+        }
+        else
+        {
+            $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
+        }
+    });
 
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
