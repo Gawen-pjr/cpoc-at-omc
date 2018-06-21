@@ -31,7 +31,15 @@ function displayMatchingMaterial(material)
 
     var x = Number(material.characteristics[user.displayCharacteristic]);
     var y = Number(material.characteristics[user.displayPriceIndex]) || y0;
-    var xs = (x - x0) * (350.0 / xAmp);
+
+    if (material === omc.userMaterial)
+    {
+        var xs = 0;
+    }
+    else 
+    {
+        var xs = (x - x0) * (350.0 / xAmp);
+    }
     var ys = (y - y0) * (350.0 / yAmp);
 
 	var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
