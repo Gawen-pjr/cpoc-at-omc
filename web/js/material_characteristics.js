@@ -30,6 +30,11 @@ function setMaterialFields(grade)
 jQuery($ => {
     var $gradeInput = $('#material_grade');
     var $familySelect = $('#material_family');
+    var $gradeSelect = $('#material_grade');
+
+    $.getJSON("poc.json", meta =>
+    $('#versionning').text("v" + meta.version + " du " + meta.release_date)
+    );
     
     function gradeChanged(gradeName)
     {
@@ -64,16 +69,17 @@ jQuery($ => {
             clearMaterialFields();
         }
 
-        var grades = omc.materialDB.grades.filter(grade => grade.family == family).map(grade => grade.name);
+        var grades = omc.materialDB.grades.filter(grade => !family || grade.family == family).map(grade => grade.name);
 
         $gradeInput.autocomplete({
             source: grades,
             minLength: 0,
             select: (event,ui) => gradeChanged(ui.item.value),
             focus: function() {$(this).autocomplete({
-            source: grades,
-            minLength: 0,
-            select: (event,ui) => gradeChanged(ui.item.value)});},
+                source: grades,
+                minLength: 0,
+                select: (event,ui) => gradeChanged(ui.item.value)});
+            },
         });
     }
 
@@ -128,6 +134,8 @@ jQuery($ => {
         gradeChanged($gradeInput.val());
     });
 
+    setGradeAutocompletion();
+
     $('#restart_session_button').button().click(() => {
         omc.resetStudy();
         $("#client_file_number").val(null);
@@ -142,6 +150,4 @@ jQuery($ => {
     $('#upload_button').button();
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
     $('#next_step_button').button().click(() => window.location = 'codesign_space.html');
-    $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
-    $('#back_benco').click(() => window.location = 'index.html');
 });

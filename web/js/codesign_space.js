@@ -158,9 +158,6 @@ jQuery($ => {
     // Configuration des boutons de navigation
     $('#calculation_button').button().click(() => window.location = 'mire_ramo.html');
     $('#return_button').button().click(() => window.location = 'material_characteristics.html');
-    $('#about').click(() => window.location = "https://alpenbox.kad-office.com/w/D%C3%A9finition_du_POC_AT-OMC_pour_le_choix_optimal_de_mat%C3%A9riau_recommand%C3%A9_au_client");
-    $('#back_benco').click(() => window.location = 'index.html');
-
 
     // Stockage en localStorage des intervalles extrêmes
     localStorage.setItem("omc.extremeIntervals", JSON.stringify(extremeIntervals));
