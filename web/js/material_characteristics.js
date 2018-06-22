@@ -28,19 +28,18 @@ function setMaterialFields(grade)
 }
 
 jQuery($ => {
-    var $gradeInput = $('#material_grade');
-    var $familySelect = $('#material_family');
-    var $gradeSelect = $('#material_grade');
 
     $.getJSON("poc.json", meta =>
-    $('#versionning').text("v" + meta.version + " du " + meta.release_date)
+        $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
+
+    var $gradeInput = $('#material_grade');
+    var $familySelect = $('#material_family');
     
     function gradeChanged(gradeName)
     {
         var grade = omc.materialDB.grades.find(g => g.name == gradeName);
-        console.debug('OMC', grade);
-
+        
         if (grade)
         {
             $familySelect.val(grade.family);
@@ -49,60 +48,70 @@ jQuery($ => {
         }
         else
         {
-            if (gradeName != '')
+            if (omc.userMaterial)
             {
-                $familySelect.val('-');
-                console.debug('OMC', 'No matching grade');
+                grade = omc.userMaterial;
+                $familySelect.val(omc.userMaterial.family);
+                $gradeInput.val(omc.userMaterial.name);
+                setMaterialFields(omc.userMaterial);
             }
-            omc.deleteUserMaterial();
-            clearMaterialFields();
+            else
+            {
+                omc.deleteUserMaterial();
+                clearMaterialFields();
+            }
         }
 
         $familySelect.selectmenu('refresh');
+        $gradeInput.combobox('refresh');
+        console.debug('OMC', grade);
     }
 
-    function setGradeAutocompletion(family)
+    function gradeFamilyChanged()
     {
+        var family = $familySelect.val();
+        if(family == "-")
+        {
+            family = undefined;
+        }
+
         if (!omc.userMaterial || (family != omc.userMaterial.family))
         {
             $gradeInput.val('');
+            $gradeInput.combobox('refresh');
             clearMaterialFields();
         }
+    }
 
-        var grades = omc.materialDB.grades.filter(grade => !family || grade.family == family).map(grade => grade.name);
-
-        $gradeInput.autocomplete({
-            source: grades,
-            minLength: 0,
-            select: (event,ui) => gradeChanged(ui.item.value),
-            focus: function() {$(this).autocomplete({
-                source: grades,
-                minLength: 0,
-                select: (event,ui) => gradeChanged(ui.item.value)});
-            },
-        });
+    function getFilteredGrades()
+    {
+        var family = $familySelect.val();
+        if(family == "-")
+        {
+            family = undefined;
+        }
+       
+        return omc.materialDB.grades
+            .filter(grade => !family || grade.family == family)
+            .map(grade => grade.name);
     }
 
     $('<option value="-">-</option>').appendTo($familySelect);
-    $familySelect.selectmenu({ select: (event, ui) => setGradeAutocompletion(ui.item.value)});
+    $familySelect.selectmenu({"select": gradeFamilyChanged});
+
+    $gradeInput
+        .combobox({sourceFunction: getFilteredGrades})
+        .change(() => gradeChanged($gradeInput.val()));
 
     omc.withMaterialDB(db => {
-        
+
         db.families.forEach(f => {
             var $optGroup = $('<optgroup />').attr('label', f.name);
             $optGroup.appendTo($familySelect);
             f.subfamilies.forEach(sf => $('<option />').val(sf.id).text(sf.name).appendTo($optGroup));
         });
 
-        if (omc.userMaterial)
-        {
-            $familySelect.val(omc.userMaterial.family);
-            $gradeInput.val(omc.userMaterial.name);
-            setMaterialFields(omc.userMaterial);
-            setGradeAutocompletion(omc.userMaterial.family);
-        }
-
-        $familySelect.selectmenu('refresh');
+        gradeChanged();
     });
 
     // Configuration du champs 'part number'
@@ -128,13 +137,6 @@ jQuery($ => {
     {
         $('#client_part_description').val(window.localStorage["omc.clientPartDescription"]);
     }
-
-    $gradeInput.change(() => {
-        omc.deleteMatchingMaterials();
-        gradeChanged($gradeInput.val());
-    });
-
-    setGradeAutocompletion();
 
     $('#restart_session_button').button().click(() => {
         omc.resetStudy();
