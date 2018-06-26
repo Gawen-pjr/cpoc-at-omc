@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+
+<link rel="stylesheet" href="css/index.css" />
+
+<script src="js/lib/jquery-3.3.1.js"></script>
+<script src="js/lib/jquery-ui-1.12.1.js"></script>
+<script src="js/kvoweb.js"></script>
+<script src="js/common.js"></script>
+<script src="js/index.js"></script>
+
+<title>Page Zero</title>
+
+</head>
+
+<body>
+    
+    <div id="container">
+
+        <div id="header">
+            <div id="benco_selector">
+                <div id="BENCO_header" title="Bureau d'Etude Numérique de CO-conception">BENCO</div>
+                <div class="selector">
+                  <select id="POC_selector" name="POC_selector">
+                    <option>(AT-RFQ)</option>
+                    <option selected="selected">AT-OMC</option>
+                    <option>(AT-CDB)</option>
+                    <option>(AT-CLB)</option>
+                  </select>
+                </div>
+            </div>
+            <div id="language" title="Click to switch language.">
+                <img src="css/images/french_icon.png" class="language_icon" id="french_icon">
+                <img src="css/images/english_icon.png" class="language_icon" id="english_icon">
+            </div>
+        </div>
+        <div class="main">
+            <div class="left">
+                <img src="css/images/alpen.png" id="logo_alpentech" title="Cliquer ici pour être dirigé vers le site web d'Alpen’Tech.">
+            </div>
+
+            <div class="right">
+                <div class="back">
+                    <div class="menu">
+                        <div class="Item_and_his_value">
+                          <div class="item">
+                            <div class="item_text">Company name</div>
+                          </div>
+                          <div class="value">
+                            <div class="ui-widget">
+                              <label for="client_society_name"></label><input id="client_society_name">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="Item_and_his_value">
+                          <div class="item">
+                            <div class="item_text">Company logo</div>
+                          </div>
+                          <div class="value">
+                            <div class="upload">
+                                <button id="upload_button">Browse<img src="css/images/ul.png" id="ul_logo"/></button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="Item_and_his_value">
+                          <div class="item">
+                            <div class="item_text">Favored colour</div>
+                          </div>
+                          <div class="value">
+                            <div class="ui-widget">
+                              <label for="client_color"></label>
+                              <input id="colorpicker" value="#000000" type="color">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="Item_and_his_value">
+                          <div class="item">
+                            <div class="item_text">Trigram</div>
+                          </div>
+                          <div class="value">
+                            <div class="ui-widget">
+                              <label for="client_trigramme"></label><input id="client_trigramme">
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="start">
+                    <div id="BENCO_OMC">
+                        <div class="h1">Module AT-OMC</div><div class="subtitle">(v1.7 of the 22/06/2018)</div>
+                    </div>
+                    <div id="BUTTON">
+                        <button id="start_button">START</button>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>The BENCO space is an achievement from the KM-Team of Alpen'Tech - Further infomation alongside Marc HORELLOU.<br>This industrial app contains industrial knowledges owned by Alpen'Tech. <br>Any use, reproduction or communication forbidden without prior written permission - Copyright Alpen’Tech ©2018.</p> 
+                </div>
+            </div>
+        </div>
+        
+        <div class="links">
+            <footer> <a href="http://www.alpen-tech.com/">SITE MAP</a> | <a href='http://www.alpen-tech.com/'>WHO ARE WE</a> | <a href="http://www.alpen-tech.com/page/contact">CONTACTS</a> | v2018</footer>
+        </div>
+    </div>
+</body>
