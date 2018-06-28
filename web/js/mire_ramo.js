@@ -43,7 +43,7 @@ function displayMatchingMaterial(material)
     var ys = (y - y0) * (350.0 / yAmp);
 
 	var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
-    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + pricePerTon.toFixed(0) + ', Price index = ' + pi.toFixed(0) + ')';
+    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + pricePerTon.toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
 
 	var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
 	var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
