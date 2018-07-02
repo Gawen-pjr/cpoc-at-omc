@@ -167,10 +167,10 @@ body {
 
 
 #legend {
-    border: 3px solid black;
-    width: 300px;
-    margin-left: 600px;
-    margin-top: -50px;
+    border: 2px solid black;
+    width: 320px;
+    margin-left: 415px;
+    margin-top: -30px;
 }
 
 .legend_mire {
@@ -180,9 +180,11 @@ body {
 .target_legend {
     height: 25px;
     width: 25px;
-    margin: 2px 2px 2px 2px;
     padding-top: 5px;
     padding-bottom: 7px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border: 1px solid black;
 }
 
 .target {
@@ -193,6 +195,14 @@ body {
 .text_legend {
     font-family: 'Lato regular';
     font-size: 11pt;
+    padding-top: 10px;
+    padding-left: 5px;
+    width: 300px;
+    border: 1px solid black;
+    text-align: center;
+}
+}
+
 }
 
 
