@@ -85,6 +85,10 @@ user.init();
 
 jQuery($ => {
 
+    $.getJSON("poc.json", meta =>
+        $('#versionning').text("v" + meta.version + " du " + meta.release_date)
+    );
+
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');

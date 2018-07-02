@@ -3,6 +3,11 @@ omc.init();
 var extremeIntervals = {};
 
 jQuery($ => {
+
+    $.getJSON("poc.json", meta =>
+        $('#versionning').text("v" + meta.version + " du " + meta.release_date)
+    );
+    
     if(!omc.userMaterial)
     {
         $('#price-index-section').css('display','none');

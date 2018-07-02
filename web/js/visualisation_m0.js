@@ -59,6 +59,10 @@ user.init();
 
 jQuery($ => {
 
+    $.getJSON("poc.json", meta =>
+        $('#versionning').text("v" + meta.version + " du " + meta.release_date)
+    );
+
     var displayAllMaterials = document.referrer.endsWith("mire_ramo.html");
 
     if (displayAllMaterials)
