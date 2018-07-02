@@ -165,6 +165,37 @@ body {
     margin-right: 171px;
 }
 
+
+#legend {
+    border: 3px solid black;
+    width: 300px;
+    margin-left: 600px;
+    margin-top: -50px;
+}
+
+.legend_mire {
+    display: flex;
+}
+
+.target_legend {
+    height: 25px;
+    width: 25px;
+    margin: 2px 2px 2px 2px;
+    padding-top: 5px;
+    padding-bottom: 7px;
+}
+
+.target {
+    height: 25px;
+    width: 25px;
+}
+
+.text_legend {
+    font-family: 'Lato regular';
+    font-size: 11pt;
+}
+
+
 #homepage_button {
     text-align: center;
     margin-top: 10px;
