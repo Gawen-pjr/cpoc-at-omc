@@ -41,6 +41,6 @@ jQuery($ => {
     $('#logo_alpentech').click(() => window.location = 'http://www.alpen-tech.com/');
 
     // Changement de langue
-    $('#french_icon').click(() => window.location = '/index.html');
-    $('#english_icon').click(() => window.location = '/index_en.html');
+    $('#french_icon').click(() => window.location = 'index.html');
+    $('#english_icon').click(() => window.location = 'index_en.html');
 });
