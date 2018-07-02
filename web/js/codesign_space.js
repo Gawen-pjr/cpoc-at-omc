@@ -4,19 +4,10 @@ var extremeIntervals = {};
 
 jQuery($ => {
 
-<<<<<<< HEAD
-    $.getJSON("poc.json", meta =>
-        $('#versionning').text("v" + meta.version + " du " + meta.release_date)
-    );
-    
-=======
-
     $.getJSON("poc.json", meta =>
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-
->>>>>>> c2efce84140ee6576ace85ed0ea057b844bb760f
     if(!omc.userMaterial)
     {
         $('#price-index-section').css('display','none');
