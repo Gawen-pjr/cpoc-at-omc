@@ -15,7 +15,10 @@ h2 {
     margin-top: 7px;
     margin-bottom: 7px;
 }
-
+#precision{
+    font-size:10pt;
+    font-weight: bold;
+}
 .container {
     width: 700px;
     margin-left: auto;

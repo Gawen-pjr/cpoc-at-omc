@@ -268,6 +268,11 @@ img.info_logo {
     text-align: center;
 }
 
+#material_corrosion_resistance {
+    width:91%;
+    text-align: center;
+}
+
 .ui-widget.ui-corner-all {
     padding: 6px 25px;
     font-family: Arial, Helvetica, sans-serif;
