@@ -50,14 +50,24 @@ body {
     margin-right: auto;
     width: 600px;
 }
-
 #precision {
     text-align: center;
     font-family: 'Lato italic';
     color: #FFFFFF;
     font-size: 10pt;
     margin-bottom: 3.5px;
+
 }
+
+#description{
+    text-align: center;
+    border: 3px solid black;
+    background-color: #FFF700;
+    color: #4014AF;
+    margin-bottom: 10px;
+
+}
+
 
 #colorpicker {
     width: 47%;
@@ -70,12 +80,14 @@ body {
 #header {
     background-color: #FFF700;
     border: 3px solid black;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
+
 #body {
+   
     border: 2px solid black;
 }
 
