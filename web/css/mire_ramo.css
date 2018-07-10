@@ -71,10 +71,26 @@ body {
 
 .part_information.client_infos {flex-grow: 10}
 
+#comparison{
+    width: 734px;
+    background-color: #FFF700;
+    border: 3px solid black;
+    text-align: center;
+    margin-top: 20px;
+    height: 35px;
+    font-size: 25px;
+    font-family: 'Lato black';
+    color: #4014AF;
+    padding-top: 5px;
+
+
+}
+
 #table{
     border: 2px solid black;
     width: 500px;
     margin-top: 20px;
+    margin-left: 100px;
 }
 
 .part{
