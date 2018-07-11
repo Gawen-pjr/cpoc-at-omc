@@ -75,15 +75,31 @@ function displayAll()
             $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
         }
 
-        $('.mire').click(event => {
+        $('.mire_container').click(event => {
             if ($(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)" && nbSelectedTargets < 2)
             {
                 $(event.currentTarget).css("background-color", "rgb(128, 128, 128)");
                 nbSelectedTargets += 1;
+
+                var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
+
+                for (key in omc.matchingMaterials[selectedMaterial].characteristics)
+                {
+                    var characValue = omc.matchingMaterials[selectedMaterial].characteristics[key];
+                    $('[attr='+ key + '_' + String(nbSelectedTargets) + ']').text(Number(characValue).toFixed(2));
+                }
             }
             else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
             {
                 $(event.currentTarget).css("background-color", "rgba(0, 0, 0, 0)");
+
+                var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
+
+                for (key in omc.matchingMaterials[selectedMaterial].characteristics)
+                {
+                    $('[attr='+ key + '_' + String(nbSelectedTargets) + ']').text('');
+                }
+
                 nbSelectedTargets -= 1;
             }
         });
@@ -102,6 +118,16 @@ jQuery($ => {
     $.getJSON("poc.json", meta =>
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
+
+    // $('[attr=name_0]').text(omc.userMaterial.name);
+    // $('[attr=family_0]').text(omc.userMaterial.family.split('_').join(' '));
+    $('[attr=pi_0]').text("100.00");
+    
+    for (key in omc.userMaterial.characteristics)
+    {
+        var characValue = omc.userMaterial.characteristics[key];
+        $('[attr='+ key + '_0]').text(Number(characValue).toFixed(2));
+    }
 
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');

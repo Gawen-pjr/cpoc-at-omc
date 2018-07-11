@@ -108,8 +108,8 @@ body {
     font-family: 'Lato-Regular';
     font-size: 11pt;
     width: 500px;
-   
 }
+
 #table_corner{
     width: 200px;
     border:1px solid black;
@@ -122,17 +122,20 @@ body {
     font-size: 15pt;
     font-weight: bold;
 }
+
 .table_characteristique_line{
     display: flex;
     width: 500px;
 }
+
 .table_characteristique_title{
     width:200px;
     text-align: center;
     border: 1px solid black;
     background-color:#f9b642;
 }
-.table_characteristique{
+
+.table_characteristique {
     width:100px;
     text-align: center;
     border: 1px solid black;
