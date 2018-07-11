@@ -73,6 +73,17 @@ function displayAll()
         {
             $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
         }
+
+        $('.mire').click(event => {
+            if ($(event.currentTarget).css("background-color") == "transparent" || $(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)")
+            {
+                $(event.currentTarget).css("background-color", "grey");
+            }
+            else
+            {
+                $(event.currentTarget).css("background-color", "transparent");
+            }
+        });
     });
 
     omc.userMaterial.nb = 0;

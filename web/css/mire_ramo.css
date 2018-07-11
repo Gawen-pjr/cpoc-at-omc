@@ -240,6 +240,10 @@ body {
     margin-top: -30px;
 }
 
+.mire {
+    background-color: transparent;
+}
+
 .legend_mire {
     display: flex;
 }
