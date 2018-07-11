@@ -80,13 +80,15 @@ function displayAll()
             {
                 $(event.currentTarget).css("background-color", "rgb(128, 128, 128)");
                 nbSelectedTargets += 1;
+                $(event.currentTarget).attr("selection_nb", nbSelectedTargets);
 
                 var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
 
                 for (key in omc.matchingMaterials[selectedMaterial].characteristics)
                 {
                     var characValue = omc.matchingMaterials[selectedMaterial].characteristics[key];
-                    $('[attr='+ key + '_' + String(nbSelectedTargets) + ']').text(Number(characValue).toFixed(2));
+                    var selectionNb = $(event.currentTarget).attr("selection_nb");
+                    $('[attr='+ key + '_' + selectionNb + ']').text(Number(characValue).toFixed(2));
                 }
             }
             else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
@@ -94,10 +96,11 @@ function displayAll()
                 $(event.currentTarget).css("background-color", "rgba(0, 0, 0, 0)");
 
                 var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
+                var selectionNb = $(event.currentTarget).attr("selection_nb");
 
                 for (key in omc.matchingMaterials[selectedMaterial].characteristics)
                 {
-                    $('[attr='+ key + '_' + String(nbSelectedTargets) + ']').text('');
+                    $('[attr='+ key + '_' + selectionNb + ']').text('');
                 }
 
                 nbSelectedTargets -= 1;
