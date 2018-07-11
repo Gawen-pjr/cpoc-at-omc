@@ -89,8 +89,37 @@ function displayAll()
 
                 for (key in omc.matchingMaterials[selectedMaterial].characteristics)
                 {
-                    var characValue = omc.matchingMaterials[selectedMaterial].characteristics[key];
-                    $('[attr='+ key + '_' + selectionNb + ']').text(Number(characValue).toFixed(2));
+                    var characValue = Number(omc.matchingMaterials[selectedMaterial].characteristics[key]);
+                    var m0Value = Number($('[attr=' + key + '_0]').text());
+                    $('[attr='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
+
+
+                    if (key == "pi")
+                    {
+                       if (characValue < m0Value)
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
+                        }
+
+                        else if (characValue > m0Value)
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
+                        } 
+                    }
+
+                    else
+                    {
+                        if (characValue > m0Value)
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
+                        }
+
+                        else if (characValue < m0Value)
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
+                        }
+                    }
+                    
                 }
             }
             else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
