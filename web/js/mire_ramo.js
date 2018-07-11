@@ -1,4 +1,5 @@
 var nbDisplayedMaterials = 0;
+var nbSelectedTargets = 0;
 
 function displayMatchingMaterial(material)
 {
@@ -75,13 +76,15 @@ function displayAll()
         }
 
         $('.mire').click(event => {
-            if ($(event.currentTarget).css("background-color") == "transparent" || $(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)")
+            if ($(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)" && nbSelectedTargets < 2)
             {
-                $(event.currentTarget).css("background-color", "grey");
+                $(event.currentTarget).css("background-color", "rgb(128, 128, 128)");
+                nbSelectedTargets += 1;
             }
-            else
+            else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
             {
-                $(event.currentTarget).css("background-color", "transparent");
+                $(event.currentTarget).css("background-color", "rgba(0, 0, 0, 0)");
+                nbSelectedTargets -= 1;
             }
         });
     });
