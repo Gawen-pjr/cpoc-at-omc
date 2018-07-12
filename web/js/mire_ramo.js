@@ -55,6 +55,147 @@ function displayMatchingMaterial(material)
     {
         $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
     }
+
+    $('.mire_container').click(event => {
+        if ($(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)" && nbSelectedTargets < 2)
+        {
+            $(event.currentTarget).css("background-color", "rgb(128, 128, 128)");
+            nbSelectedTargets += 1;
+            $(event.currentTarget).attr("selection_nb", nbSelectedTargets);
+            var selectionNb = $(event.currentTarget).attr("selection_nb");
+
+            var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
+            $('[attr=name_' + selectionNb + ']').text(selectedMaterial);
+
+
+            for (key in omc.matchingMaterials[selectedMaterial].characteristics)
+            {
+                // Affichage des paramètres dans le tableau
+                if (key == "s")
+                {
+                    var characValue = Number((Number(omc.matchingMaterials[selectedMaterial].characteristics[key])).toFixed(1));
+
+                    if (characValue.toFixed(0) == "1")
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text("Easily weldable");
+                    }
+
+                    else if (characValue.toFixed(0) == "2")
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text("Weldable with heating");
+                    }
+
+                    else if (characValue.toFixed(0) == "3")
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text("Unweldable");
+                    }
+                }
+
+                else if (key == "ts")
+                {
+                    var characValue = Number((Number(omc.matchingMaterials[selectedMaterial].characteristics[key])).toFixed(1));
+
+                    if (characValue.toFixed(0) == "1")
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text("Easily treatable");
+                    }
+
+                    else if (characValue.toFixed(0) == "2")
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text("Treatable with specific conditions");
+                    }
+
+                    else if (characValue.toFixed(0) == "3")
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text("Not easily treatable");
+                    }
+                }
+
+                else if (key == "a")
+                {
+                    var characValue = Number((Number(omc.matchingMaterials[selectedMaterial].characteristics[key])).toFixed(2));
+
+                    $('[attr='+ key + '_' + selectionNb + ']').text((characValue*100).toFixed(0));
+                }
+
+                else
+                {
+                    var characValue = Number((Number(omc.matchingMaterials[selectedMaterial].characteristics[key])).toFixed(1));
+
+                    $('[attr='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
+                }
+
+                // Comparaison à M0
+                if (key == "s" || key == "ts")
+                {
+                    var m0Value = Number(Number(omc.userMaterial.characteristics[key]).toFixed(1));
+                }
+
+                else if (key == "a")
+                {
+                    var m0Value = Number(Number(omc.userMaterial.characteristics[key]).toFixed(2));
+                }
+
+                else
+                {
+                    var m0Value = Number(Number($('[attr=' + key + '_0]').text()).toFixed(1));  
+                }
+
+                if (key == "pi" || key == "pricePerTon" || key == "s" || key == "ts")
+                {
+                   if (characValue < m0Value)
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
+                    }
+
+                    else if (characValue > m0Value)
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
+                    }
+
+                    else
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').css('color', 'black');
+                    }
+                }
+
+                else
+                {
+                    if (characValue > m0Value)
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
+                    }
+
+                    else if (characValue < m0Value)
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
+                    }
+
+                    else
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').css('color', 'black');
+                    }
+                }
+            }
+        }
+
+        else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
+        {
+            $(event.currentTarget).css("background-color", "rgba(0, 0, 0, 0)");
+
+            var selectionNb = $(event.currentTarget).attr("selection_nb");
+
+            var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
+            $('[attr=name_' + selectionNb + ']').text('');
+
+            for (key in omc.matchingMaterials[selectedMaterial].characteristics)
+            {
+                $('[attr='+ key + '_' + selectionNb + ']').text('');
+            }
+
+            nbSelectedTargets -= 1;
+        }
+    });
 }
 
 function displayAll()
@@ -74,121 +215,6 @@ function displayAll()
         {
             $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
         }
-
-        $('.mire_container').click(event => {
-            if ($(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)" && nbSelectedTargets < 2)
-            {
-                $(event.currentTarget).css("background-color", "rgb(128, 128, 128)");
-                nbSelectedTargets += 1;
-                $(event.currentTarget).attr("selection_nb", nbSelectedTargets);
-                var selectionNb = $(event.currentTarget).attr("selection_nb");
-
-                var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
-                $('[attr=name_' + selectionNb + ']').text(selectedMaterial);
-
-
-                for (key in omc.matchingMaterials[selectedMaterial].characteristics)
-                {
-                    var characValue = Number(omc.matchingMaterials[selectedMaterial].characteristics[key]);
-
-                    // Affichage des paramètres dans le tableau
-                    if (key == "s")
-                    {
-                        if (characValue.toFixed(0) == "1")
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').text("Easily weldable");
-                        }
-
-                        else if (characValue.toFixed(0) == "2")
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').text("Weldable with heating");
-                        }
-
-                        else if (characValue.toFixed(0) == "3")
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').text("Unweldable");
-                        }
-                    }
-
-                    else if (key == "ts")
-                    {
-                        if (characValue.toFixed(0) == "1")
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').text("Easily treatable");
-                        }
-
-                        else if (characValue.toFixed(0) == "2")
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').text("Treatable with specific conditions");
-                        }
-
-                        else if (characValue.toFixed(0) == "3")
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').text("Not easily treatable");
-                        }
-                    }
-
-                    else
-                    {
-                        $('[attr='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
-                    }
-
-                    // Comparaison à M0
-                    if (key == "s" || key == "ts")
-                    {
-                        var m0Value = omc.userMaterial.characteristics[key];
-                    }
-                    
-                    else
-                    {
-                        var m0Value = Number($('[attr=' + key + '_0]').text());  
-                    }
-
-                    if (key == "pi" || key == "pricePerTon" || key == "s" || key == "ts")
-                    {
-                       if (characValue < m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
-                        }
-
-                        else if (characValue > m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
-                        } 
-                    }
-
-                    else
-                    {
-                        if (characValue > m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
-                        }
-
-                        else if (characValue < m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
-                        }
-                    }
-                    
-                }
-            }
-            else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
-            {
-                $(event.currentTarget).css("background-color", "rgba(0, 0, 0, 0)");
-
-                var selectionNb = $(event.currentTarget).attr("selection_nb");
-
-                var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
-                $('[attr=name_' + selectionNb + ']').text('');
-
-                for (key in omc.matchingMaterials[selectedMaterial].characteristics)
-                {
-                    $('[attr='+ key + '_' + selectionNb + ']').text('');
-                }
-
-                nbSelectedTargets -= 1;
-            }
-        });
     });
 
     omc.userMaterial.nb = 0;
@@ -247,6 +273,11 @@ jQuery($ => {
             {
                 $('[attr='+ key + '_0]').text("Not easily treatable");
             }
+        }
+
+        else if (key == "a")
+        {
+            $('[attr='+ key + '_0]').text(Number(characValue*100).toFixed(0));
         }
 
         else
