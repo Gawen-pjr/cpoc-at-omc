@@ -88,13 +88,13 @@ body {
 
 #table{
     border: 2px solid black;
-    width: 500px;
+    width: 625px;
     margin-top: 20px;
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .part{
-    width: 498px;
+    width: 623px;
     border:1px solid black;
     font-family: 'Lato-Regular';
     font-weight: bold;
@@ -107,16 +107,30 @@ body {
     display: flex;
     font-family: 'Lato-Regular';
     font-size: 11pt;
-    width: 500px;
+    width: 625px;
 }
 
 #table_corner{
     width: 200px;
     border:1px solid black;
 }
+#title_unit{
+    width: 50px;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 15pt;
+    font-weight: bold;
+
+}
+.unit_value{
+    width: 50px;
+    text-align: center;
+    border: 1px solid black;
+    
+}
 
 .table_material{
-    width:100px;
+    width:125px;
     text-align: center;
     border: 1px solid black;
     font-size: 15pt;
@@ -125,8 +139,9 @@ body {
 
 .table_characteristique_line{
     display: flex;
-    width: 500px;
+    width: 625px;
 }
+
 
 .table_characteristique_title{
     width:200px;
@@ -136,7 +151,7 @@ body {
 }
 
 .table_characteristique {
-    width:100px;
+    width:125px;
     text-align: center;
     border: 1px solid black;
 }
