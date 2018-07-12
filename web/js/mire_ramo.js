@@ -90,11 +90,61 @@ function displayAll()
                 for (key in omc.matchingMaterials[selectedMaterial].characteristics)
                 {
                     var characValue = Number(omc.matchingMaterials[selectedMaterial].characteristics[key]);
-                    var m0Value = Number($('[attr=' + key + '_0]').text());
-                    $('[attr='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
 
+                    // Affichage des paramètres dans le tableau
+                    if (key == "s")
+                    {
+                        if (characValue.toFixed(0) == "1")
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').text("Easily weldable");
+                        }
 
-                    if (key == "pi")
+                        else if (characValue.toFixed(0) == "2")
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').text("Weldable with heating");
+                        }
+
+                        else if (characValue.toFixed(0) == "3")
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').text("Unweldable");
+                        }
+                    }
+
+                    else if (key == "ts")
+                    {
+                        if (characValue.toFixed(0) == "1")
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').text("Easily treatable");
+                        }
+
+                        else if (characValue.toFixed(0) == "2")
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').text("Treatable with specific conditions");
+                        }
+
+                        else if (characValue.toFixed(0) == "3")
+                        {
+                            $('[attr='+ key + '_' + selectionNb + ']').text("Not easily treatable");
+                        }
+                    }
+
+                    else
+                    {
+                        $('[attr='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
+                    }
+
+                    // Comparaison à M0
+                    if (key == "s" || key == "ts")
+                    {
+                        var m0Value = omc.userMaterial.characteristics[key];
+                    }
+                    
+                    else
+                    {
+                        var m0Value = Number($('[attr=' + key + '_0]').text());  
+                    }
+
+                    if (key == "pi" || key == "pricePerTon" || key == "s" || key == "ts")
                     {
                        if (characValue < m0Value)
                         {
@@ -162,7 +212,47 @@ jQuery($ => {
     for (key in omc.userMaterial.characteristics)
     {
         var characValue = omc.userMaterial.characteristics[key];
-        $('[attr='+ key + '_0]').text(Number(characValue).toFixed(2));
+
+        if (key == "s")
+        {
+            if (characValue.toFixed(0) == "1")
+            {
+                $('[attr='+ key + '_0]').text("Easily weldable");
+            }
+
+            else if (characValue.toFixed(0) == "2")
+            {
+                $('[attr='+ key + '_0]').text("Weldable with heating");
+            }
+
+            else if (characValue.toFixed(0) == "3")
+            {
+                $('[attr='+ key + '_0]').text("Unweldable");
+            }
+        }
+
+        else if (key == "ts")
+        {
+            if (characValue.toFixed(0) == "1")
+            {
+                $('[attr='+ key + '_0]').text("Easily treatable");
+            }
+
+            else if (characValue.toFixed(0) == "2")
+            {
+                $('[attr='+ key + '_0]').text("Treatable with specific conditions");
+            }
+
+            else if (characValue.toFixed(0) == "3")
+            {
+                $('[attr='+ key + '_0]').text("Not easily treatable");
+            }
+        }
+
+        else
+        {
+            $('[attr='+ key + '_0]').text(Number(characValue).toFixed(2));
+        }
     }
 
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
