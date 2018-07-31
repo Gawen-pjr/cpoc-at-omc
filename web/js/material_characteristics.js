@@ -110,10 +110,10 @@ jQuery($ => {
 
     omc.withMaterialDB(db => {
 
-        db.families.forEach(f => {
+        Object.values(db.families).forEach(f => {
             var $optGroup = $('<optgroup />').attr('label', f.name);
             $optGroup.appendTo($familySelect);
-            f.subfamilies.forEach(sf => $('<option />').val(sf.id).text(sf.name).appendTo($optGroup));
+            Object.values(f.subfamilies).forEach(sf => $('<option />').val(sf.id).text(sf.name).appendTo($optGroup));
         });
 
         gradeChanged();

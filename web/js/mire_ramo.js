@@ -1,5 +1,5 @@
 var nbDisplayedMaterials = 0;
-var targetDataPositions = [];
+var selectedMaterials = [];
 var textualDatas = {
     "s": {
         "1": "Easily weldable",
@@ -18,132 +18,102 @@ var textualDatas = {
     }
 };
 
-function targetClickHandler($mire, material) {
+var invertedComparisonCharacs = ['s', 'ts', 'co', 'a', 'pi', 'pricePerTon'];
 
-    if (!$mire.data("selection_nb") && (targetDataPositions.length < 2))
+function populateMaterialTable(material, position)
+{
+	$('[data-attr=name_' + position + ']').text(material.name);
+
+	if(position == 0)
+	{
+		omc.withMaterialDB(db => {
+			var materialFamily = omc.materialDB.subfamilies[material.family];
+			var materialOverFamily = omc.materialDB.families[materialFamily.family];
+			$('[data-attr=family_' + position + ']').text(materialOverFamily.name);
+			$('[data-attr=subfamily_' + position + ']').text(materialFamily.name);
+		});
+	}
+
+    for (key in material.characteristics)
     {
-        $mire.css("background-color", "rgb(128, 128, 128)");
+		var characValue = Number(material.characteristics[key]);
+		var $cell = $('[data-attr='+ key + '_' + position + ']');
 
-        if (targetDataPositions.length > 0) {
-            if (targetDataPositions[0] == 1) {
-                selectionNb = 2;
-            }
+		switch (key)
+		{
+			case 's':
+			case 'ts':
+			case 'co':
+				$cell.text(textualDatas[key][characValue]);
+				break;
+			case 'a':
+				$cell.text((characValue*100).toFixed(0));
+				break;
+			default:
+				$cell.text(characValue.toFixed(2));
+		}
 
-            else if (targetDataPositions[0] == 2) {
-                selectionNb = 1;
-            }
-        }
+		if(position == 0)
+		{
+			continue;
+		}
 
-        else {
-            selectionNb = 1;
-        }
-
-        $mire.data("selection_nb", selectionNb);
-        targetDataPositions.push(selectionNb);
-
-        var selectedMaterial = $mire.attr("id").split('_')[1];
-        $('[data=name_' + selectionNb + ']').text(selectedMaterial);
-
-        for (key in material.characteristics)
-        {
-            // Affichage des paramètres dans le tableau
-
-            if (key == "s" || key =="ts" || key == "co")
-            {
-                var characValue = Number((Number(material.characteristics[key])).toFixed(1));
-                $('[data='+ key + '_' + selectionNb + ']').text(textualDatas[key][selectionNb]);
-            }
-
-            else if (key == "a")
-            {
-                var characValue = Number((Number(material.characteristics[key])).toFixed(2));
-
-                $('[data='+ key + '_' + selectionNb + ']').text((characValue*100).toFixed(0));
-            }
-
-            else
-            {
-                var characValue = Number((Number(material.characteristics[key])).toFixed(1));
-
-                $('[data='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
-            }
-
-            // Comparaison à M0
-            if (key == "s" || key == "ts")
-            {
-                var m0Value = Number(Number(material.characteristics[key]).toFixed(1));
-            }
-
-            else if (key == "a")
-            {
-                var m0Value = Number(Number(material.characteristics[key]).toFixed(2));
-            }
-
-            else
-            {
-                var m0Value = Number(Number($('[data=' + key + '_0]').text()).toFixed(1));  
-            }
-
-            if (key == "pi" || key == "pricePerTon" || key == "s" || key == "ts")
-            {
-               if (characValue < m0Value)
-                {
-                    $('[data='+ key + '_' + selectionNb + ']').css('color', 'green');
-                }
-
-                else if (characValue > m0Value)
-                {
-                    $('[data='+ key + '_' + selectionNb + ']').css('color', 'red');
-                }
-
-                else
-                {
-                    $('[data='+ key + '_' + selectionNb + ']').css('color', 'black');
-                }
-            }
-
-            else
-            {
-                if (characValue > m0Value)
-                {
-                    $('[data='+ key + '_' + selectionNb + ']').css('color', 'green');
-                }
-
-                else if (characValue < m0Value)
-                {
-                    $('[data='+ key + '_' + selectionNb + ']').css('color', 'red');
-                }
-
-                else
-                {
-                    $('[data='+ key + '_' + selectionNb + ']').css('color', 'black');
-                }
-            }
-        }
+		var m0Value = Number(omc.userMaterial.characteristics[key]);
+		var color;
+		
+		if (invertedComparisonCharacs.includes(key))
+		{
+			color = (characValue > m0Value) ? 'red' : (characValue < m0Value) ? 'green' : 'unset';
+		}
+		else
+		{
+			color = (characValue > m0Value) ? 'green' : (characValue < m0Value) ? 'red' : 'unset';
+		}
+		$cell.css('color', color);
     }
+}
 
-    else if ($mire.data("selection_nb"))
-    {
-        $mire.css("background-color", "");
+function clearMaterialTable()
+{
+	var $variableCells = $('.table_characteristique.variable');
+	$variableCells.text('');
+	$variableCells.css('color', '');
+}
 
-        var selectionNb = $mire.data("selection_nb");
+function refreshMaterialTable()
+{
+	clearMaterialTable();
+	if(selectedMaterials.length > 0)
+	{
+		populateMaterialTable(selectedMaterials[0], 1);
+		
+		if(selectedMaterials.length > 1)
+		{
+			populateMaterialTable(selectedMaterials[1], 2);
+		}
+	}
+}
 
-        var selectedMaterial = $mire.attr("id").split('_')[1];
-        $('[data=name_' + selectionNb + ']').text('');
+function mireClickHandler($mire, material)
+{
+	var selectionPos = selectedMaterials.indexOf(material);
+	if(selectionPos < 0)
+	{
+		if(selectedMaterials.length > 1)
+		{
+			return;
+		}
 
-        for (key in material.characteristics)
-        {
-            $('[data='+ key + '_' + selectionNb + ']').text('');
-        }
-
-        for (i = 0; i = targetDataPositions.length - 1; i++) {
-            if(targetDataPositions[i] === selectionNb) {
-               targetDataPositions.splice(i, 1);
-            }
-        }
-
-        $mire.removeData("selection_nb");
-    }
+		$mire.css("background-color", "rgb(128, 128, 128)");
+		selectedMaterials.push(material);
+	}
+	else
+	{
+		$mire.css("background-color", "");
+		selectedMaterials.splice(selectionPos, 1);
+	}
+	
+	refreshMaterialTable();
 }
 
 function displayMatchingMaterial(material)
@@ -194,14 +164,14 @@ function displayMatchingMaterial(material)
     var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
     var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
     $('#' + mireId).remove();
-    $mire = mireFactory.create('#axe_abscisses', mireId, 352 + xs, -3 - ys, color).attr('title', title);
+    var $mire = mireFactory.create('#axe_abscisses', mireId, 352 + xs, -3 - ys, color).attr('title', title);
 
     if (nbDisplayedMaterials != 0)
     {
         $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
     }
 
-    $mire.click(() => targetClickHandler($mire, material));
+    $mire.click(() => mireClickHandler($mire, material));
 }
 
 function displayAll()
@@ -241,56 +211,8 @@ jQuery($ => {
     $('[data=family_0]').text(omc.userMaterial.family.split('_').join(' '));
     $('[data=pi_0]').text("100.00");
 
-    for (key in omc.userMaterial.characteristics)
-    {
-        var characValue = omc.userMaterial.characteristics[key];
-
-        if (key == "s")
-        {
-            if (characValue.toFixed(0) == "1")
-            {
-                $('[data='+ key + '_0]').text("Easily weldable");
-            }
-
-            else if (characValue.toFixed(0) == "2")
-            {
-                $('[data='+ key + '_0]').text("Weldable with heating");
-            }
-
-            else if (characValue.toFixed(0) == "3")
-            {
-                $('[data='+ key + '_0]').text("Unweldable");
-            }
-        }
-
-        else if (key == "ts")
-        {
-            if (characValue.toFixed(0) == "1")
-            {
-                $('[data='+ key + '_0]').text("Easily treatable");
-            }
-
-            else if (characValue.toFixed(0) == "2")
-            {
-                $('[data='+ key + '_0]').text("Treatable with specific conditions");
-            }
-
-            else if (characValue.toFixed(0) == "3")
-            {
-                $('[data='+ key + '_0]').text("Not easily treatable");
-            }
-        }
-
-        else if (key == "a")
-        {
-            $('[data='+ key + '_0]').text(Number(characValue*100).toFixed(0));
-        }
-
-        else
-        {
-            $('[data='+ key + '_0]').text(Number(characValue).toFixed(2));
-        }
-    }
+	omc.userMaterial.characteristics.pi = 100;
+	populateMaterialTable(omc.userMaterial, 0);
 
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');

@@ -10,36 +10,36 @@
 		"corrosion_resistance_2": "Good resistance to corrosion",
 		"corrosion_resistance_3": "Poor resistance to corrosion"
 	},
-	"families": [
-		{
+	"families": {
+		"steels": {
 			"id": "steels",
 			"name": "Steels",
-			"subfamilies": [
-				{
+			"subfamilies": {
+				"unalloyed_steel": {
 					"id": "unalloyed_steel",
 					"name": "Unalloyed Steel"
 				},
-				{
+				"stainless_steel": {
 					"id": "stainless_steel",
 					"name": "Stainless Steel"
 				},
-				{
+				"alloyed_steel": {
 					"id": "alloyed_steel",
 					"name": "Alloyed Steel"
 				}
-			]
+			}
 		},
-		{
+		"aluminiums": {
 			"id": "aluminiums",
 			"name": "Aluminiums",
-			"subfamilies": [
-				{
+			"subfamilies": {
+				"aluminium": {
 					"id": "aluminium",
 					"name": "Aluminium"
 				}
-			]
+			}
 		}
-	],
+	},
 	"grades": [
 		{
 			"id": "16crni4spb",

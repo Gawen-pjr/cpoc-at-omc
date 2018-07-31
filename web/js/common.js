@@ -52,6 +52,15 @@ var _omc =
         $.getJSON(_omc.MATERIAL_DB_URL, null, function(json)
         {
             console.debug('OMC', 'material DB loaded from server');
+
+			json.subfamilies = {};
+			Object.values(json.families).forEach(f => {
+				Object.values(f.subfamilies).forEach(sf => {
+					json.subfamilies[sf.id] = sf;
+					sf.family = f.id;
+				});
+			});
+
             _omc.materialDB = json;
             window.localStorage.setItem("omc.materialDB", JSON.stringify(_omc.materialDB));
         });
