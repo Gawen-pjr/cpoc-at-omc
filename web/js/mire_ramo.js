@@ -1,5 +1,120 @@
 var nbDisplayedMaterials = 0;
-var nbSelectedTargets = 0;
+var selectedMaterials = [];
+var textualDatas = {
+    "s": {
+        "1": "Easily weldable",
+        "2": "Weldable with heating",
+        "3": "Unweldable"
+    },
+    "ts": {
+        "1": "Easily treatable",
+        "2": "Treatable with specific conditions",
+        "3": "Not easily treatable"
+    },
+    "co": {
+        "1": "High resistance to corrosion",
+        "2": "Good resistance to corrosion",
+        "3": "Poor resistance to corrosion"
+    }
+};
+
+var invertedComparisonCharacs = ['s', 'ts', 'co', 'a', 'pi', 'pricePerTon'];
+
+function populateMaterialTable(material, position)
+{
+	$('[data-attr=name_' + position + ']').text(material.name);
+
+	if(position == 0)
+	{
+		omc.withMaterialDB(db => {
+			var materialFamily = omc.materialDB.subfamilies[material.family];
+			var materialOverFamily = omc.materialDB.families[materialFamily.family];
+			$('[data-attr=family_' + position + ']').text(materialOverFamily.name);
+			$('[data-attr=subfamily_' + position + ']').text(materialFamily.name);
+		});
+	}
+
+    for (key in material.characteristics)
+    {
+		var characValue = Number(material.characteristics[key]);
+		var $cell = $('[data-attr='+ key + '_' + position + ']');
+
+		switch (key)
+		{
+			case 's':
+			case 'ts':
+			case 'co':
+				$cell.text(textualDatas[key][characValue]);
+				break;
+			case 'a':
+				$cell.text((characValue*100).toFixed(0));
+				break;
+			default:
+				$cell.text(characValue.toFixed(2));
+		}
+
+		if(position == 0)
+		{
+			continue;
+		}
+
+		var m0Value = Number(omc.userMaterial.characteristics[key]);
+		var color;
+		
+		if (invertedComparisonCharacs.includes(key))
+		{
+			color = (characValue > m0Value) ? 'red' : (characValue < m0Value) ? 'green' : 'unset';
+		}
+		else
+		{
+			color = (characValue > m0Value) ? 'green' : (characValue < m0Value) ? 'red' : 'unset';
+		}
+		$cell.css('color', color);
+    }
+}
+
+function clearMaterialTable()
+{
+	var $variableCells = $('.table_characteristique.variable');
+	$variableCells.text('');
+	$variableCells.css('color', '');
+}
+
+function refreshMaterialTable()
+{
+	clearMaterialTable();
+	if(selectedMaterials.length > 0)
+	{
+		populateMaterialTable(selectedMaterials[0], 1);
+		
+		if(selectedMaterials.length > 1)
+		{
+			populateMaterialTable(selectedMaterials[1], 2);
+		}
+	}
+}
+
+function mireClickHandler($mire, material)
+{
+	var selectionPos = selectedMaterials.indexOf(material);
+	if(selectionPos < 0)
+	{
+		if(selectedMaterials.length > 1)
+		{
+			return;
+		}
+
+		$mire.css("background-color", "rgb(128, 128, 128)");
+		selectedMaterials.push(material);
+	}
+	else
+	{
+		$mire.css("background-color", "");
+		selectedMaterials.splice(selectionPos, 1);
+	}
+	
+	refreshMaterialTable();
+}
 
 function displayMatchingMaterial(material)
 {
@@ -43,18 +158,20 @@ function displayMatchingMaterial(material)
     }
     var ys = (y - y0) * (350.0 / yAmp);
 
-	var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
+    var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
     var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + pricePerTon.toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
 
-	var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
-	var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
-	$('#' + mireId).remove();
-	mireFactory.create('#axe_abscisses', mireId, 352 + xs, -3 - ys, color).attr('title', title);
+    var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
+    var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
+    $('#' + mireId).remove();
+    var $mire = mireFactory.create('#axe_abscisses', mireId, 352 + xs, -3 - ys, color).attr('title', title);
 
     if (nbDisplayedMaterials != 0)
     {
         $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
     }
+
+    $mire.click(() => mireClickHandler($mire, material));
 }
 
 function displayAll()
@@ -74,76 +191,11 @@ function displayAll()
         {
             $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
         }
-
-        $('.mire_container').click(event => {
-            if ($(event.currentTarget).css("background-color") == "rgba(0, 0, 0, 0)" && nbSelectedTargets < 2)
-            {
-                $(event.currentTarget).css("background-color", "rgb(128, 128, 128)");
-                nbSelectedTargets += 1;
-                $(event.currentTarget).attr("selection_nb", nbSelectedTargets);
-                var selectionNb = $(event.currentTarget).attr("selection_nb");
-
-                var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
-                $('[attr=name_' + selectionNb + ']').text(selectedMaterial);
-
-
-                for (key in omc.matchingMaterials[selectedMaterial].characteristics)
-                {
-                    var characValue = Number(omc.matchingMaterials[selectedMaterial].characteristics[key]);
-                    var m0Value = Number($('[attr=' + key + '_0]').text());
-                    $('[attr='+ key + '_' + selectionNb + ']').text(characValue.toFixed(2));
-
-
-                    if (key == "pi")
-                    {
-                       if (characValue < m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
-                        }
-
-                        else if (characValue > m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
-                        } 
-                    }
-
-                    else
-                    {
-                        if (characValue > m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'green');
-                        }
-
-                        else if (characValue < m0Value)
-                        {
-                            $('[attr='+ key + '_' + selectionNb + ']').css('color', 'red');
-                        }
-                    }
-                    
-                }
-            }
-            else if ($(event.currentTarget).css("background-color") == "rgb(128, 128, 128)")
-            {
-                $(event.currentTarget).css("background-color", "rgba(0, 0, 0, 0)");
-
-                var selectionNb = $(event.currentTarget).attr("selection_nb");
-
-                var selectedMaterial = $(event.currentTarget).attr("id").split('_')[1];
-                $('[attr=name_' + selectionNb + ']').text('');
-
-                for (key in omc.matchingMaterials[selectedMaterial].characteristics)
-                {
-                    $('[attr='+ key + '_' + selectionNb + ']').text('');
-                }
-
-                nbSelectedTargets -= 1;
-            }
-        });
     });
 
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
-	omc.withMatchingMaterials(displayMatchingMaterial);
+    omc.withMatchingMaterials(displayMatchingMaterial);
 }
 
 omc.init();
@@ -155,15 +207,12 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-    $('[attr=name_0]').text(omc.userMaterial.name);
-    $('[attr=family_0]').text(omc.userMaterial.family.split('_').join(' '));
-    $('[attr=pi_0]').text("100.00");
-    
-    for (key in omc.userMaterial.characteristics)
-    {
-        var characValue = omc.userMaterial.characteristics[key];
-        $('[attr='+ key + '_0]').text(Number(characValue).toFixed(2));
-    }
+    $('[data=name_0]').text(omc.userMaterial.name);
+    $('[data=family_0]').text(omc.userMaterial.family.split('_').join(' '));
+    $('[data=pi_0]').text("100.00");
+
+	omc.userMaterial.characteristics.pi = 100;
+	populateMaterialTable(omc.userMaterial, 0);
 
     $('#back_button').button().click(() => window.location = 'codesign_space.html');
     $('#print_button').button().click(() => window.location = 'material_characteristics.html');
@@ -179,12 +228,12 @@ jQuery($ => {
     var displayPriceIndex = user.displayPriceIndex || 'pricePerTon';
     $("#price_index_select").val(displayPriceIndex);
 
-	displayAll();
+    displayAll();
 
     $('#performance_index_select').selectmenu({ select: (event, ui) => {
         user.saveDisplayCharacteristic(ui.item.value);
         displayAll(ui.item.value);
-	}});
+    }});
 
     $('#price_index_select').selectmenu({ select: (event, ui) => {
         user.saveDisplayPriceIndex(ui.item.value);
