@@ -172,6 +172,17 @@ function displayMatchingMaterial(material)
     }
 
     $mire.click(() => mireClickHandler($mire, material));
+
+    if (selectedMaterials != [])
+    {
+        for (i=0; i < selectedMaterials.length; i++)
+        {
+            if (material.name == selectedMaterials[i].name)
+            {
+                $mire.css("background-color", "rgb(128, 128, 128)");
+            }
+        }
+    }
 }
 
 function displayAll()
