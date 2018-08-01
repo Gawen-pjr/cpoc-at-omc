@@ -9,6 +9,9 @@ jQuery($ => {
     $('#client_trigramme').change(() => localStorage.setItem('client_trigramme', $('#client_trigramme').val()));
     $('#colorpicker').change(() => user.saveFavoriteColor($('#colorpicker').val()));
 
+    $.getJSON("poc.json", meta =>
+        $('#versionning').text("v" + meta.version + " du " + meta.release_date)
+    );
 
 	// Configuration données
     if (user.userFavoriteColor != undefined)
