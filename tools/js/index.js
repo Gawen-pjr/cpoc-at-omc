@@ -4,5 +4,5 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-    $('#upload').click(() => console.log("click"));
+    // $('#upload_button').click(() => console.log("click"));
 });
