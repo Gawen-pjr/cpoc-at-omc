@@ -27,7 +27,7 @@ public class OmcRestService
     private OmcService omcService;
 
     @GET
-    @Path("/materialDB")
+    @Path("/material-db")
     @Produces("application/json")
     public Response getMaterialDb() throws IOException
     {
@@ -37,10 +37,15 @@ public class OmcRestService
     }
 
     @POST
-    @Path("/materialDB/csv")
+    @Path("/material-db/csv")
     public Response parseCsv(String csvContent) throws IOException
     {
-        LOG.debug("parseCsv \n{}\n...",csvContent.substring(0,100));
+        String summary = csvContent;
+        if (summary.length() > 100)
+        {
+            summary = summary.substring(0,100);
+        }
+        LOG.debug("parseCsv \n{}\n...",summary);
 
         JsonObject materialDb = omcService.generateMaterialDb(csvContent);
         omcService.saveMaterialDb(materialDb);
@@ -52,7 +57,7 @@ public class OmcRestService
     }
 
     /**
-     * Injecte le serviec {@link OmcService}.
+     * Injecte le service {@link OmcService}.
      *
      * @param omcService
      *            service à injecter
