@@ -1,13 +1,19 @@
 package com.iknova.omc.api.jaxrs;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +40,19 @@ public class OmcRestService
         LOG.debug("getMaterialDb");
         JsonObject materialDb = omcService.getMaterialDb();
         return Response.ok().type("application/json").entity(materialDb).build();
+    }
+
+    @POST
+    @Path("/material-db/csv")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response parseCsv(@Multipart("csvFile") Attachment csvFile) throws IOException
+    {
+        try (InputStream in = csvFile.getObject(InputStream.class))
+        {
+            @SuppressWarnings("resource")
+            Scanner s = new Scanner(in,"utf-8").useDelimiter("\\A");
+            return parseCsv(s.hasNext() ? s.next() : "");
+        }
     }
 
     @POST

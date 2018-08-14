@@ -37,8 +37,10 @@
       </div>
       <div class="value">
         <div class="ui-widget">
-        	<input type="file" id="input_csv" accept=".csv">
-        	<input type="submit" value="Submit" id="submit">
+			<form method="POST" enctype="multipart/form-data" action="https://alpenbox.kad-office.com/cxf/omc/material-db/csv"> 
+				<input type="file" id="input_csv" name="csvFile" accept=".csv">
+				<input type="submit" value="Submit" id="submit">
+			</form>
         </div>
       </div>
     </div>
