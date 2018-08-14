@@ -109,6 +109,7 @@ body {
     height: 90px;
     text-align: center;
     overflow: hidden;
+    margin-left: 100px;
 }
 
 .upheader_text{
