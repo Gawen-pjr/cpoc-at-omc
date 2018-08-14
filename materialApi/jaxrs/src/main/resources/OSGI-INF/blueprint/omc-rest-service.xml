@@ -1,0 +1,31 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/blueprint/jaxws"
+  xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs" xmlns:cxf="http://cxf.apache.org/blueprint/core"
+  xsi:schemaLocation="
+  http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+  http://cxf.apache.org/blueprint/jaxws http://cxf.apache.org/schemas/blueprint/jaxws.xsd
+  http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+  http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+  <!-- Configuration des logs CXF afin de faire apparaître les requêtes reçues et les réponses fournies, dans le journal 
+    de Karaf -->
+  <cxf:bus id="bus">
+    <cxf:features>
+      <cxf:logging />
+    </cxf:features>
+  </cxf:bus>
+
+  <reference id="omcService" interface="com.iknova.omc.api.services.OmcService" />
+
+  <bean id="omcRestService" class="com.iknova.omc.api.jaxrs.OmcRestService">
+    <property name="omcService" ref="omcService" />
+  </bean>
+
+  <!-- Configuration du endpoint JAX-RS dans le container OSGI -->
+  <jaxrs:server address="/omc" id="omc">
+    <jaxrs:serviceBeans>
+      <ref component-id="omcRestService" />
+    </jaxrs:serviceBeans>
+  </jaxrs:server>
+
+</blueprint>
