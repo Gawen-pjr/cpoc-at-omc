@@ -21,6 +21,8 @@
 </head>
 
 <body>
+  <form method="get" id="get_form" action="">
+  </form>
   <div id="upheader">
     <div class="upheader_text">Module AT-OMC<br><a id="versionning"></a></div>
     <img src="css/images/alpen.png" class="logo_alpen"/>
@@ -81,7 +83,9 @@
         <form>
           <fieldset class="price_index_selection">
             <select name="price_index" id="price_index_select">
-              <option value="pricePerTon">Raw material index</option>
+              <option value="pricePerTonMin">Minimum price</option>
+              <option value="pricePerTon">Median price</option>
+              <option value="pricePerTonMax">Maximum price</option>
               <option value="pi">Operation price index</option>
             </select>
           </fieldset>

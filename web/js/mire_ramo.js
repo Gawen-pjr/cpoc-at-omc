@@ -206,7 +206,16 @@ function displayAll()
 
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
-    omc.withMatchingMaterials(displayMatchingMaterial);
+
+    for (mat in omc.materialDB.keys())
+    {
+        omc.testMatchingMaterial(mat);
+    }
+    
+    for (mat in omc.matchingMaterials)
+    {
+        displayMatchingMaterial(mat);
+    }
 }
 
 omc.init();
@@ -218,6 +227,8 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
+    var form = document.getElementById('get_form');
+    form.action = omc.MATERIAL_DB_URL || "https://alpenbox.kad-office.com/cxf/omc/material-db/bdd-steels";
     $('[data=name_0]').text(omc.userMaterial.name);
     $('[data=family_0]').text(omc.userMaterial.family.split('_').join(' '));
     $('[data=pi_0]').text("100.00");
