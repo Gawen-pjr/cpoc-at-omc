@@ -2,12 +2,14 @@ package com.iknova.omc.api.jaxrs;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Scanner;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -17,6 +19,8 @@ import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.iknova.omc.api.services.OmcService;
 
@@ -28,36 +32,46 @@ import com.iknova.omc.api.services.OmcService;
  */
 public class OmcRestService
 {
-    private static final Logger LOG = LoggerFactory.getLogger(OmcRestService.class);
+    private static final Logger LOG  = LoggerFactory.getLogger(OmcRestService.class);
+    private static final Gson   GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private OmcService omcService;
 
     @GET
-    @Path("/material-db")
+    @Path("/about")
+    @Produces("text/plain")
+    public Response about()
+    {
+        return Response.ok().entity("OMC REST API").build();
+    }
+
+    @GET
+    @Path("/material-db/{dbName}")
     @Produces("application/json")
-    public Response getMaterialDb() throws IOException
+    public Response getMaterialDb(@PathParam("dbName") String dbName) throws IOException
     {
         LOG.debug("getMaterialDb");
-        JsonObject materialDb = omcService.getMaterialDb();
-        return Response.ok().type("application/json").entity(materialDb).build();
+        JsonObject materialDb = omcService.getMaterialDb(dbName);
+        return Response.ok().type("application/json").entity(GSON.toJson(materialDb)).build();
     }
 
     @POST
-    @Path("/material-db/csv")
+    @Path("/material-db/{dbName}/csv")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response parseCsv(@Multipart("csvFile") Attachment csvFile) throws IOException
+    public Response parseCsv(@PathParam("dbName") String dbName, @Multipart("csvFile") Attachment csvFile)
+        throws IOException
     {
         try (InputStream in = csvFile.getObject(InputStream.class))
         {
             @SuppressWarnings("resource")
             Scanner s = new Scanner(in,"utf-8").useDelimiter("\\A");
-            return parseCsv(s.hasNext() ? s.next() : "");
+            return parseCsv(dbName,s.hasNext() ? s.next() : "");
         }
     }
 
     @POST
-    @Path("/material-db/csv")
-    public Response parseCsv(String csvContent) throws IOException
+    @Path("/material-db/{dbName}/csv")
+    public Response parseCsv(@PathParam("dbName") String dbName, String csvContent) throws IOException
     {
         String summary = csvContent;
         if (summary.length() > 100)
@@ -67,12 +81,9 @@ public class OmcRestService
         LOG.debug("parseCsv \n{}\n...",summary);
 
         JsonObject materialDb = omcService.generateMaterialDb(csvContent);
-        omcService.saveMaterialDb(materialDb);
+        omcService.saveMaterialDb(dbName,materialDb);
 
-        java.nio.file.Path amiPath = omcService.generateOmcAmi(materialDb);
-        omcService.deployKvowebAmi(amiPath);
-
-        return Response.ok().build();
+        return Response.created(URI.create("/material-db/" + dbName)).build();
     }
 
     /**

@@ -1,8 +1,14 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+  xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+  xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+  http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.3.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.3.0.xsd">
 
-  <bean id="omcService" class="com.iknova.omc.api.internal.services.OmcServiceImpl" />
+  <cm:property-placeholder persistent-id="com.iknova.omc.api.db" update-strategy="reload" />
+
+  <bean id="omcService" class="com.iknova.omc.api.internal.services.OmcServiceImpl">
+    <property name="dbDirectory" value="${db.dir}"></property>
+  </bean>
 
   <service ref="omcService" interface="com.iknova.omc.api.services.OmcService">
     <service-properties>

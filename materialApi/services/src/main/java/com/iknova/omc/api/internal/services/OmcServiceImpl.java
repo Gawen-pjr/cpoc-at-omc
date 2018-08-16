@@ -4,21 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.Paths;
 import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,14 +102,9 @@ public class OmcServiceImpl implements OmcService
         }
     }
 
-    private final Path materialDbFile;
+    private final Map<String, JsonObject> materialDbCache = new ConcurrentHashMap<>();
 
-    private JsonObject materialDb;
-
-    public OmcServiceImpl() throws IOException
-    {
-        materialDbFile = Files.createTempFile("omc_material_db",".json");
-    }
+    private Path dbDirectory;
 
     private static String normalizeToJsonKey(String s)
     {
@@ -151,38 +141,11 @@ public class OmcServiceImpl implements OmcService
         return parseInteger(value);
     }
 
-    private static void zipFolder(Path sourceFolderPath, Path zipPath) throws IOException
-    {
-        try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(zipPath)))
-        {
-            Files.walkFileTree(sourceFolderPath,new SimpleFileVisitor<Path>()
-            {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
-                {
-                    zos.putNextEntry(new ZipEntry(sourceFolderPath.relativize(file).toString()));
-                    Files.copy(file,zos);
-                    zos.closeEntry();
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        }
-    }
-
     public static String stripAccents(String s)
     {
         String result = Normalizer.normalize(s,Normalizer.Form.NFD);
         result = result.replaceAll("[\\p{InCombiningDiacriticalMarks}]","");
         return result;
-    }
-
-    @Override
-    public void deployKvowebAmi(Path amiPath)
-    {
-        // TODO Méthode de test débile
-
-        LOG.debug("Deploying Kvoweb AMI");
-
     }
 
     @Override
@@ -252,53 +215,50 @@ public class OmcServiceImpl implements OmcService
     }
 
     @Override
-    public Path generateOmcAmi(JsonObject materialDb) throws IOException
+    public JsonObject getMaterialDb(String dbName)
     {
-        // TODO Méthode de test débile
+        return materialDbCache.computeIfAbsent(dbName,dbn -> {
+            Path dbFile = dbDirectory.resolve(dbn + ".json");
 
-        LOG.debug("Generating Kvoweb AMI");
+            if (!Files.exists(dbFile))
+            {
+                throw new IllegalArgumentException("No material DB with name " + dbn);
+            }
 
-        Path workingDir = Files.createTempDirectory("omc_working_dir");
-
-        Path amiDir = workingDir.resolve("omc");
-        Files.createDirectory(amiDir);
-
-        Path amiFile = amiDir.resolve("ami.kva");
-
-        List<String> lines = new ArrayList<>();
-        lines.add("Hello AMI");
-        lines.add("from Brignais");
-        lines.add(materialDb.toString());
-
-        Files.write(amiFile,lines,UTF_8);
-
-        Path zipFile = workingDir.resolve("ami.zip");
-        zipFolder(amiDir,zipFile);
-        LOG.debug("AMI zip file: {}",zipFile);
-        return zipFile;
+            try
+            {
+                String json = new String(Files.readAllBytes(dbFile),Charset.forName("utf-8"));
+                LOG.debug("Material DB retrieved from {}",dbFile);
+                return GSON.fromJson(json,JsonObject.class);
+            }
+            catch (IOException e)
+            {
+                throw new IllegalStateException(e);
+            }
+        });
     }
 
     @Override
-    public JsonObject getMaterialDb() throws IOException
+    public void saveMaterialDb(String dbName, JsonObject materialDb) throws IOException
     {
-        if (materialDb == null)
-        {
-            String json = new String(Files.readAllBytes(materialDbFile),Charset.forName("utf-8"));
-            materialDb = GSON.fromJson(json,JsonObject.class);
-            LOG.debug("Material DB retrieved from {}",materialDbFile);
-        }
-        return materialDb;
-    }
-
-    @Override
-    public void saveMaterialDb(JsonObject materialDb) throws IOException
-    {
-        this.materialDb = materialDb;
+        materialDbCache.put(dbName,materialDb);
 
         byte[] json = GSON.toJson(materialDb).getBytes(Charset.forName("utf-8"));
+        Path dbFile = dbDirectory.resolve(dbName + ".json");
 
-        Files.write(materialDbFile,json);
+        Files.write(dbFile,json);
 
-        LOG.debug("Material DB saved to {}",materialDbFile);
+        LOG.debug("Material DB saved to {}",dbFile);
+    }
+
+    /**
+     * Injecte le chemin de sauvegarde des bases de données matériaux.
+     *
+     * @param dbDirectory
+     *            chemin des BDD
+     */
+    public void setDbDirectory(String dbDirectory)
+    {
+        this.dbDirectory = Paths.get(dbDirectory);
     }
 }

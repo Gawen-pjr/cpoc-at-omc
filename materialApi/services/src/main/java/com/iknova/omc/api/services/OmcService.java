@@ -1,26 +1,17 @@
 package com.iknova.omc.api.services;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 import com.google.gson.JsonObject;
 
 /**
- * Service de gestion de la base de données matériaux du POC OMC.
+ * Service de gestion des bases de données matériaux du POC AT-OMC.
  *
  * @author Pierre-Louis JAEGER (<a href="mailto:pjr@iknova.com">pjr@iknova.com</a>)
  * @since v1.0
  */
 public interface OmcService
 {
-    /**
-     * Déploie l'AMI spécifiée sur Kvoweb.
-     *
-     * @param amiPath
-     *            chemin vers le ZIP de l'AMI à déployer
-     */
-    void deployKvowebAmi(Path amiPath);
-
     /**
      * Génère la BDD matériaux à partir d'un fichier CSV.
      *
@@ -31,32 +22,25 @@ public interface OmcService
     JsonObject generateMaterialDb(String csv);
 
     /**
-     * Génère l'AMI Kvoweb à partir de la BDD matériaux.
+     * Récupère la base de données matériaux spécifiée stockée sur le serveur.
      *
-     * @param materialDb
-     *            BDD matériaux
-     * @return le chemin vers le ZIP de l'AMI générée
-     * @throws IOException
-     *             en cas d'erreur d'IO lors de la génération des fichiers KDL
-     */
-    Path generateOmcAmi(JsonObject materialDb) throws IOException;
-
-    /**
-     * Récupère la base de données matériaux stockée sur le serveur.
-     *
-     * @return la base de données matériaux
-     * @throws IOException
+     * @param dbName
+     *            nom de la base de donnée recherchée
+     * @return la base de données matériaux correspondante
+     * @throws IllegalStateException
      *             en cas d'erreur lors de la lecture du fichier de BDD depuis le disque
      */
-    JsonObject getMaterialDb() throws IOException;
+    JsonObject getMaterialDb(String dbName);
 
     /**
      * Sauve la base de données matériaux spécifiée sur le serveur.
      *
+     * @param dbName
+     *            nom de la base de données
      * @param materialDb
      *            BDD à sauver
      * @throws IOException
      *             en cas d'erreur lors de la sauvegarde du fichier sur le disque
      */
-    void saveMaterialDb(JsonObject materialDb) throws IOException;
+    void saveMaterialDb(String dbName, JsonObject materialDb) throws IOException;
 }
