@@ -11,7 +11,6 @@
 
 <script src="js/lib/jquery-3.3.1.js"></script>
 <script src="js/lib/jquery-ui-1.12.1.js"></script>
-<script src="js/kvoweb.js"></script>
 <script src="js/index.js"></script>
 
 <title>CSV Uploader</title>
@@ -31,13 +30,27 @@
     </div>
     <div class="Item_and_his_value">
       <div class="item">
+        <div class="item_text">Choose material BDD
+        </div>
+      </div>
+      <div class="value">
+        <div class="ui-widget">
+          <select id="bdd_select">
+            <option value="bdd-steels">General steels</option>
+            <option value="bdd-inox">Inox</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="Item_and_his_value">
+      <div class="item">
         <div class="item_text">Upload your .csv file
           <img src="css/images/info.png" alt="icone information" class="info_logo" title="It will be used by the OMC application." />
         </div>
       </div>
       <div class="value">
         <div class="ui-widget">
-			<form method="POST" enctype="multipart/form-data" action="https://alpenbox.kad-office.com/cxf/omc/material-db/csv"> 
+			<form method="POST" id="submit_form" enctype="multipart/form-data" action="https://alpenbox.kad-office.com/cxf/omc/material-db/bdd-steels/csv"> 
 				<input type="file" id="input_csv" name="csvFile" accept=".csv">
 				<input type="submit" value="Submit" id="submit">
 			</form>
