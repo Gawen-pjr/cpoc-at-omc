@@ -214,11 +214,6 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-    $.getJSON(omc.MATERIAL_DB_BASE_URL + omc.dbName, meta =>
-    {
-        omc.materialDB = meta;
-    });
-
     $('[data=name_0]').text(omc.userMaterial.name);
     $('[data=family_0]').text(omc.userMaterial.family.split('_').join(' '));
     $('[data=pi_0]').text("100.00");

@@ -42,11 +42,6 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-    $.getJSON(omc.MATERIAL_DB_BASE_URL + omc.dbName, meta =>
-    {
-        omc.materialDB = meta;
-    });
-
     var $gradeInput = $('#material_grade');
     var $familySelect = $('#material_family');
     
@@ -122,7 +117,6 @@ jQuery($ => {
         Object.values(db.families).forEach(f => {
             var $optGroup = $('<optgroup />').attr('label', f.name);
             $optGroup.appendTo($familySelect);
-            Object.values(f.subfamilies).forEach(sf => $('<option />').val(sf.id).text(sf.name).appendTo($optGroup));
         });
 
         gradeChanged();

@@ -19,7 +19,8 @@ var _omc =
 
     init: function(dbName)
     {
-        _omc.dbName = dbName;
+        var chosenDb = window.localStorage.getItem("omc.dbName");
+        _omc.dbName = dbName ? dbName : chosenDb;
 
         _omc.reloadMaterialDB();
 
@@ -43,14 +44,6 @@ var _omc =
         $.getJSON(_omc.MATERIAL_DB_BASE_URL + _omc.dbName, null, function(json)
         {
             console.debug('OMC', 'material DB ' + _omc.dbName + ' loaded from server');
-
-			json.subfamilies = {};
-			Object.values(json.families).forEach(f => {
-				Object.values(f.subfamilies).forEach(sf => {
-					json.subfamilies[sf.id] = sf;
-					sf.family = f.id;
-				});
-			});
 
             _omc.materialDB = json;
         });

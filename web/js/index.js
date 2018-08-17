@@ -43,12 +43,14 @@ jQuery($ => {
 
     // Gestion du choix de la base de données
     var dbName = $('#bdd_select option:selected').val();
+    localStorage.setItem("omc.dbName", dbName);
     omc.init(dbName);
 
     $('#bdd_select').blur(() =>
     {
         dbName = $('#bdd_select option:selected').val();
         omc.init(dbName);
+        localStorage.setItem("omc.dbName", dbName);
     });
 
     $('#logo_alpentech').click(() => window.location = 'http://www.alpen-tech.com/');
