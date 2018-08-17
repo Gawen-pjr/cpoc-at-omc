@@ -108,7 +108,7 @@ public class OmcServiceImpl implements OmcService
 
     private static String normalizeToJsonKey(String s)
     {
-        return stripAccents(s).trim().replace(' ','_').replaceAll("[^a-zA-Z_]","").toLowerCase();
+        return "_" + stripAccents(s).trim().replace(' ','_').replaceAll("[^a-zA-Z0-9_]","").toLowerCase();
     }
 
     private static JsonPrimitive parseFloat(String value)
