@@ -62,6 +62,11 @@
         <version>${cxf.version}</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-security-cors</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
 
       <!-- Dépendance pour org.osgi.service.log.LogService -->
       <dependency>

@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,7 @@ import com.iknova.omc.api.services.OmcService;
  * @author Pierre-Louis JAEGER (<a href="mailto:pjr@iknova.com">pjr@iknova.com</a>)
  * @since v1.0
  */
+@CrossOriginResourceSharing(allowAllOrigins = true)
 public class OmcRestService
 {
     private static final Logger LOG  = LoggerFactory.getLogger(OmcRestService.class);

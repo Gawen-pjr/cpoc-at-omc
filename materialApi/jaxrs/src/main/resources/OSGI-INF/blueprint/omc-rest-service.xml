@@ -21,11 +21,16 @@
     <property name="omcService" ref="omcService" />
   </bean>
 
+  <bean id="cors-filter" class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter" />
+
   <!-- Configuration du endpoint JAX-RS dans le container OSGI -->
   <jaxrs:server address="/omc" id="omc">
     <jaxrs:serviceBeans>
       <ref component-id="omcRestService" />
     </jaxrs:serviceBeans>
+    <jaxrs:providers>
+      <ref component-id="cors-filter" />
+    </jaxrs:providers>
   </jaxrs:server>
 
 </blueprint>
