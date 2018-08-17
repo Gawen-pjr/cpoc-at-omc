@@ -2,9 +2,7 @@
 
 var _omc =
 {
-    MATERIAL_DB_URL: undefined,
-	KV_ATTRIBUTES: [ 'Module_young', 'Resistance_traction', 'Limite_elastique2', 'Durete', 'Allongement', 'Cout_operation', 'Soudabilite', 'Traitement_surface', 'Indice_outillage', 'Usinabilite', 'Prix_tonne' ],
-	JS_ATTRIBUTES: [ 'e', 'rm', 'rp', 'hb', 'a', 'pi', 's', 'ts', 'iTool', 'u', 'pricePerTonMin', 'pricePerTon', 'pricePerTonMax' ],
+	MATERIAL_DB_BASE_URL: "https://alpenbox.kad-office.com/cxf/omc/material-db/"
 	ATTR_MULT: { 'e':1.0, 'rm':1.0, 'rp':1.0, 'hb':1.0, 'a':100.0, 'pi':1.0, 's':1.0, 'ts':1.0, 'iTool':1.0, 'u':1.0, 'pricePerTonMin':1.0, 'pricePerTon':1.0, 'pricePerTonMax':1.0 },
 	ATTR_AMP: { 'e':250.0, 'rm':1200.0, 'rp':1200.0, 'hb':500.0, 'a':0.5, 'pi':200.0, 's':3.0, 'ts':3.0, 'iTool':0.15, 'u':100.0, 'pricePerTonMin':5000.0, 'pricePerTon':5000.0, 'pricePerTonMax':5000.0 },
 
@@ -17,40 +15,35 @@ var _omc =
 	clientFileNumber: undefined,
 	clientPartDescription: undefined,
 	matToken: 0,
+	dbName: undefined,
     matchingGradesComputationListener: [],
 
-    init: function()
+    init: function(dbName)
     {
-        _omc.kvoweb = window.kvoweb;
-        
-        var cachedDB = window.localStorage.getItem("omc.materialDB");
-        _omc.materialDB = cachedDB ? JSON.parse(cachedDB) : undefined;
-        
-        if(!_omc.materialDB)
-        {
-            _omc.reloadMaterialDB();
-        }
+		_omc.dbName = dbName;
+
+        _omc.reloadMaterialDB();
 
         // Restauration de session
-        var sessionGrade = window.localStorage.getItem("omc.userMaterial");
+        var sessionGrade = window.localStorage.getItem("omc.userMaterial." + dbName);
         _omc.userMaterial = sessionGrade ? JSON.parse(sessionGrade) : undefined;
 
-        var sessionIntervals = window.localStorage.getItem("omc.toleranceIntervals");
+        var sessionIntervals = window.localStorage.getItem("omc.toleranceIntervals." + dbName);
         _omc.toleranceIntervals = sessionIntervals ? JSON.parse(sessionIntervals) : undefined;
 
-        var defIntervals = window.localStorage.getItem("omc.defaultIntervals");
+        var defIntervals = window.localStorage.getItem("omc.defaultIntervals." + dbName);
         _omc.defaultIntervals = defIntervals ? JSON.parse(defIntervals) : undefined;
 
-        var sessionMatches = window.localStorage.getItem("omc.matchingMaterials");
+        var sessionMatches = window.localStorage.getItem("omc.matchingMaterials." + dbName);
         _omc.matchingMaterials = sessionMatches ? JSON.parse(sessionMatches) : undefined;
     },
 
     reloadMaterialDB: function()
     {
         // Requête asynchrone
-        $.getJSON(_omc.MATERIAL_DB_URL, null, function(json)
+        $.getJSON(_omc.MATERIAL_DB_BASE_URL + _omc.dbName, null, function(json)
         {
-            console.debug('OMC', 'material DB loaded from server');
+            console.debug('OMC', 'material DB ' + _omc.dbName + ' loaded from server');
 
 			json.subfamilies = {};
 			Object.values(json.families).forEach(f => {
@@ -61,7 +54,6 @@ var _omc =
 			});
 
             _omc.materialDB = json;
-            window.localStorage.setItem("omc.materialDB", JSON.stringify(_omc.materialDB));
         });
     },
 
@@ -80,61 +72,61 @@ var _omc =
     saveUserMaterial: function(grade)
     {
         _omc.userMaterial = grade;
-        window.localStorage.setItem("omc.userMaterial", JSON.stringify(grade));
+        window.localStorage.setItem("omc.userMaterial." + _omc.dbName, JSON.stringify(grade));
     },
 
     deleteUserMaterial: function()
     {
         _omc.userMaterial = undefined;
-        window.localStorage.removeItem("omc.userMaterial");
+        window.localStorage.removeItem("omc.userMaterial." + _omc.dbName);
     },
 
     saveToleranceIntervals: function(intervals)
     {
         _omc.toleranceIntervals = intervals;
-        window.localStorage.setItem("omc.toleranceIntervals", JSON.stringify(intervals));
+        window.localStorage.setItem("omc.toleranceIntervals." + _omc.dbName, JSON.stringify(intervals));
     },
 
     deleteToleranceIntervals: function()
     {
         _omc.toleranceIntervals = undefined;
-        window.localStorage.removeItem("omc.toleranceIntervals");
+        window.localStorage.removeItem("omc.toleranceIntervals." + _omc.dbName);
     },
 
     saveFileNumber: function(number)
     {
         _omc.clientFileNumber = number;
-        window.localStorage.setItem("omc.clientFileNumber", number);
+        window.localStorage.setItem("omc.clientFileNumber." + _omc.dbName, number);
     },
 
     deleteFileNumber: function()
     {
         _omc.clientFileNumber = undefined;
-        window.localStorage.removeItem("omc.clientFileNumber");
+        window.localStorage.removeItem("omc.clientFileNumber." + _omc.dbName);
     },
 
     savePartDescription: function(description)
     {
         _omc.clientPartDescription = description;
-        window.localStorage.setItem("omc.clientPartDescription", description);
+        window.localStorage.setItem("omc.clientPartDescription." + _omc.dbName, description);
     },
 
     deletePartDescription: function()
     {
         _omc.clientPartDescription = undefined;
-        window.localStorage.removeItem("omc.clientPartDescription");
+        window.localStorage.removeItem("omc.clientPartDescription." + _omc.dbName);
     },
 
     saveDefaultIntervals: function(intervals)
     {
         _omc.defaultIntervals = intervals;
-        window.localStorage.setItem("omc.defaultIntervals", JSON.stringify(intervals));
+        window.localStorage.setItem("omc.defaultIntervals." + _omc.dbName, JSON.stringify(intervals));
     },
 
     deleteDefaultIntervals: function()
     {
         _omc.defaultIntervals = undefined;
-        window.localStorage.removeItem("omc.defaultIntervals");
+        window.localStorage.removeItem("omc.defaultIntervals." + _omc.dbName);
     },
 
     resetMatToken: function()
@@ -150,37 +142,69 @@ var _omc =
 		}
 
         _omc.matchingMaterials[material.name] = material;
-		window.localStorage.setItem("omc.matchingMaterials", JSON.stringify(_omc.matchingMaterials));
+		window.localStorage.setItem("omc.matchingMaterials." + _omc.dbName, JSON.stringify(_omc.matchingMaterials));
     },
 	
 	deleteMatchingMaterials: function()
     {
         _omc.matchingMaterials = undefined;
-        window.localStorage.removeItem("omc.matchingMaterials");
+        window.localStorage.removeItem("omc.matchingMaterials." + _omc.dbName);
     },
 
-    testMatchingMaterial(material)
+	getMatchingMaterials: function()
     {
+		function computeOperationPriceIndex(material)
+		{
+			if(!_omc.userMaterial)
+			{
+				return;
+			}
+
+			m0characs = _omc.userMaterial.characteristics;
+			characs = material.characteristics;
+			characs.pi = 100 * (characs.iTool / characs.u) * (m0characs.u / m0characs.iTool);
+		}
+
+		function testCandidateMaterial(material)
+		{
+			var characs = material.characteristics;
+			for (charac in characs.keys())
+			{
+				if(_omc.toleranceIntervals[charac])
+				{
+					if ((characs[charac] < _omc.toleranceIntervals[charac][0]) || (characs[charac] > _omc.toleranceIntervals[charac][1]))
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+
+		function findMatchingMaterials()
+		{
+			for (mat in _omc.materialDB.grades)
+			{
+				computeOperationPriceIndex(mat);
+				if (testCandidateMaterial(mat))
+				{
+					_omc.addMatchingMaterial(material);
+				}
+			}
+		}
+		
+		if(!_omc.userMaterial || !_omc.materialDB)
+		{
+			return undefined;
+		}
+		
         if(typeof _omc.matchingMaterials === "undefined")
-        {
-            _omc.matchingMaterials = {};
-        }
-
-        var matTest = true;
-        
-        for (charac in material.keys())
-        {
-            if (material[charac] < omc.toleranceIntervals[charac][0] || material[charac] > omc.toleranceIntervals[charac][1])
-            {
-                matTest = false;
-            }
-        }
-
-        if (matTest)
-        {
-            addMatchingMaterial(material);
-        }
-    }
+		{
+			findMatchingMaterials();
+		}
+		
+		return _omc.matchingMaterials;
+    },
 
     resetStudy: function()
     {
