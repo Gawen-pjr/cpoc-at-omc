@@ -6,6 +6,8 @@ user.init();
 function clearMaterialFields()
 {
     $('#material_price_per_ton').val('-');
+    $('#material_price_per_ton_min').val('-');
+    $('#material_price_per_ton_max').val('-');
     $('#part_price').val('-');
     $('#material_tensile_strength').val('-');
     $('#material_proof_stress').val('-');
@@ -19,6 +21,8 @@ function clearMaterialFields()
 function setMaterialFields(grade)
 {
     $('#material_price_per_ton').val(grade.characteristics.pricePerTon);
+    $('#material_price_per_ton_min').val(grade.characteristics.pricePerTonMin);
+    $('#material_price_per_ton_max').val(grade.characteristics.pricePerTonMax);
     $('#part_price').val(100);
     $('#material_tensile_strength').val(grade.characteristics.rm);
     $('#material_proof_stress').val(grade.characteristics.rp);
@@ -37,6 +41,11 @@ jQuery($ => {
     $.getJSON("poc.json", meta =>
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
+
+    $.getJSON(MATERIAL_DB_BASE_URL + dbName, meta =>
+    {
+        omc.materialDB = meta;
+    });
 
     var $gradeInput = $('#material_grade');
     var $familySelect = $('#material_family');
