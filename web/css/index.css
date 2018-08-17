@@ -101,7 +101,7 @@ span:hover {
 	float: right;
 	width: 284px;
 	height: 130px;
-	margin-top: 170px;
+	margin-top: 130px;
 	}
 
 .Item_and_his_value {
@@ -115,6 +115,9 @@ span:hover {
 	background-color: #8282f2;
 	opacity: 0.8;
 	}
+#bdd_select {
+	width: 144px;
+}
 
 .item_text {
 	font-family: 'Lato regular';

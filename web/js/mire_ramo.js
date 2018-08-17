@@ -193,27 +193,14 @@ function displayAll()
     $('#label_ordonnées').text($selectedPriceIndex.text());
     $('.mire_container').remove();
 
-    omc.matchingGradesComputationListener.push(() => {
-        if (omc.matToken == 0)
-        {
-            $('#nb_material').text("No matching materials in Alpen'Tech's database.")
-        }
-        else
-        {
-            $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
-        }
-    });
-
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
 
-    for (mat in omc.materialDB.keys())
-    {
-        omc.testMatchingMaterial(mat);
-    }
-    
+    getMatchingMaterials();
+
     for (mat in omc.matchingMaterials)
     {
+        nbDisplayedMaterials++;
         displayMatchingMaterial(mat);
     }
 }
@@ -226,6 +213,11 @@ jQuery($ => {
     $.getJSON("poc.json", meta =>
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
+
+    $.getJSON(MATERIAL_DB_BASE_URL + dbName, meta =>
+    {
+        omc.materialDB = meta;
+    });
 
     $('[data=name_0]').text(omc.userMaterial.name);
     $('[data=family_0]').text(omc.userMaterial.family.split('_').join(' '));

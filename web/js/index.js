@@ -41,6 +41,16 @@ jQuery($ => {
         localStorage.setItem('client_trigramme', $('#client_trigramme').val());
     }
 
+    // Gestion du choix de la base de données
+    var dbName = $('#bdd_select option:selected').val();
+    omc.init(dbName);
+
+    $('#bdd_select').blur(() =>
+    {
+        dbName = $('#bdd_select option:selected').val();
+        omc.init(dbName);
+    });
+
     $('#logo_alpentech').click(() => window.location = 'http://www.alpen-tech.com/');
 
     // Changement de langue

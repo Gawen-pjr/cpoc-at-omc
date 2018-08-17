@@ -2,7 +2,7 @@
 
 var _omc =
 {
-	MATERIAL_DB_BASE_URL: "https://alpenbox.kad-office.com/cxf/omc/material-db/"
+	MATERIAL_DB_BASE_URL: "https://alpenbox.kad-office.com/cxf/omc/material-db/",
 	ATTR_MULT: { 'e':1.0, 'rm':1.0, 'rp':1.0, 'hb':1.0, 'a':100.0, 'pi':1.0, 's':1.0, 'ts':1.0, 'iTool':1.0, 'u':1.0, 'pricePerTonMin':1.0, 'pricePerTon':1.0, 'pricePerTonMax':1.0 },
 	ATTR_AMP: { 'e':250.0, 'rm':1200.0, 'rp':1200.0, 'hb':500.0, 'a':0.5, 'pi':200.0, 's':3.0, 'ts':3.0, 'iTool':0.15, 'u':100.0, 'pricePerTonMin':5000.0, 'pricePerTon':5000.0, 'pricePerTonMax':5000.0 },
 
@@ -16,11 +16,10 @@ var _omc =
 	clientPartDescription: undefined,
 	matToken: 0,
 	dbName: undefined,
-    matchingGradesComputationListener: [],
 
     init: function(dbName)
     {
-		_omc.dbName = dbName;
+        _omc.dbName = dbName;
 
         _omc.reloadMaterialDB();
 
