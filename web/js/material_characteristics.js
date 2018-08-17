@@ -47,15 +47,7 @@ jQuery($ => {
     
     function gradeChanged(gradeName)
     {
-        var grade = undefined;
-
-        for (mat in omc.materialDB.grades)
-        {
-            if (mat.name == gradeName)
-            {
-                grade = omc.materialDB.grades[mat];
-            }
-        }
+        var grade = Object.values(omc.materialDB.grades).find(g => g.name == gradeName);
 
         if (grade)
         {
@@ -108,19 +100,9 @@ jQuery($ => {
             family = undefined;
         }
        
-        var filteredGrades = {};
-
-        for (grade in omc.materialDB.grades)
-        {
-            if (!grade.family || grade.family == family)
-            {
-                filteredGrades.defineProperty(grade);
-            }
-        }
-
-        // return omc.materialDB.grades
-        //     .filter(grade => !family || grade.family == family)
-        //     .map(grade => grade.name);
+        return Object.values(omc.materialDB.grades)
+            .filter(grade => !family || (grade.family == family))
+            .map(grade => grade.name);
     }
 
     $('<option value="-">-</option>').appendTo($familySelect);
@@ -131,12 +113,7 @@ jQuery($ => {
         .change(() => gradeChanged($gradeInput.val()));
 
     omc.withMaterialDB(db => {
-
-        Object.values(db.families).forEach(f => {
-            var $optGroup = $('<optgroup />').attr('label', f.name);
-            $optGroup.appendTo($familySelect);
-        });
-
+        Object.values(db.families).forEach(f => $('<option />').val(f.id).text(f.name).appendTo($familySelect));
         gradeChanged();
     });
 
@@ -154,14 +131,14 @@ jQuery($ => {
     $("#client_part_description").change(() => omc.savePartDescription($("#client_part_description").val()));
     
     // Affichage des données user si déjà entrées
-    if (window.localStorage["omc.clientFileNumber"] != undefined)
+    if (window.localStorage["omc.clientFileNumber." + omc.dbName] != undefined)
     {
-        $('#client_file_number').val(window.localStorage["omc.clientFileNumber"]);
+        $('#client_file_number').val(window.localStorage["omc.clientFileNumber." + omc.dbName]);
     }
 
-    if (window.localStorage["omc.clientPartDescription"] != undefined)
+    if (window.localStorage["omc.clientPartDescription." + omc.dbName] != undefined)
     {
-        $('#client_part_description').val(window.localStorage["omc.clientPartDescription"]);
+        $('#client_part_description').val(window.localStorage["omc.clientPartDescription." + omc.dbName]);
     }
 
     $('#restart_session_button').button().click(() => {

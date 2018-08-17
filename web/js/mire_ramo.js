@@ -27,8 +27,8 @@ function populateMaterialTable(material, position)
 	if(position == 0)
 	{
 		omc.withMaterialDB(db => {
-			var materialFamily = omc.materialDB.subfamilies[material.family];
-			var materialOverFamily = omc.materialDB.families[materialFamily.family];
+			var materialFamily = db.families[material.family];
+			var materialOverFamily = {name: omc.dbName};
 			$('[data-attr=family_' + position + ']').text(materialOverFamily.name);
 			$('[data-attr=subfamily_' + position + ']').text(materialFamily.name);
 		});
@@ -196,12 +196,16 @@ function displayAll()
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
 
-    getMatchingMaterials();
-
-    for (mat in omc.matchingMaterials)
+	var matchingMaterials = omc.getMatchingMaterials();
+    for (mat in matchingMaterials)
     {
         nbDisplayedMaterials++;
-        displayMatchingMaterial(mat);
+        displayMatchingMaterial(matchingMaterials[mat]);
+    }
+
+    if (nbDisplayedMaterials == 0)
+    {
+        $('#nb_material').text("No matching materials in Alpen'Tech's database.");
     }
 }
 
@@ -235,7 +239,7 @@ jQuery($ => {
     var displayPriceIndex = user.displayPriceIndex || 'pricePerTon';
     $("#price_index_select").val(displayPriceIndex);
 
-    displayAll();
+    omc.withMaterialDB(db => displayAll());
 
     $('#performance_index_select').selectmenu({ select: (event, ui) => {
         user.saveDisplayCharacteristic(ui.item.value);

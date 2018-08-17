@@ -25,16 +25,16 @@ var _omc =
         _omc.reloadMaterialDB();
 
         // Restauration de session
-        var sessionGrade = window.localStorage.getItem("omc.userMaterial." + dbName);
+        var sessionGrade = window.localStorage.getItem("omc.userMaterial." + _omc.dbName);
         _omc.userMaterial = sessionGrade ? JSON.parse(sessionGrade) : undefined;
 
-        var sessionIntervals = window.localStorage.getItem("omc.toleranceIntervals." + dbName);
+        var sessionIntervals = window.localStorage.getItem("omc.toleranceIntervals." + _omc.dbName);
         _omc.toleranceIntervals = sessionIntervals ? JSON.parse(sessionIntervals) : undefined;
 
-        var defIntervals = window.localStorage.getItem("omc.defaultIntervals." + dbName);
+        var defIntervals = window.localStorage.getItem("omc.defaultIntervals." + _omc.dbName);
         _omc.defaultIntervals = defIntervals ? JSON.parse(defIntervals) : undefined;
 
-        var sessionMatches = window.localStorage.getItem("omc.matchingMaterials." + dbName);
+        var sessionMatches = window.localStorage.getItem("omc.matchingMaterials." + _omc.dbName);
         _omc.matchingMaterials = sessionMatches ? JSON.parse(sessionMatches) : undefined;
     },
 
@@ -155,14 +155,17 @@ var _omc =
 			m0characs = _omc.userMaterial.characteristics;
 			characs = material.characteristics;
 			characs.pi = 100 * (characs.iTool / characs.u) * (m0characs.u / m0characs.iTool);
+
+			// XXX
+			characs.pi = 100;
 		}
 
 		function testCandidateMaterial(material)
 		{
 			var characs = material.characteristics;
-			for (charac in characs.keys())
+			for (charac in characs)
 			{
-				if(_omc.toleranceIntervals[charac])
+				if(_omc.toleranceIntervals[charac] && (charac!="a")) // XXX
 				{
 					if ((characs[charac] < _omc.toleranceIntervals[charac][0]) || (characs[charac] > _omc.toleranceIntervals[charac][1]))
 					{
@@ -175,12 +178,13 @@ var _omc =
 
 		function findMatchingMaterials()
 		{
-			for (mat in _omc.materialDB.grades)
+			for (grade in _omc.materialDB.grades)
 			{
+				var mat = _omc.materialDB.grades[grade];
 				computeOperationPriceIndex(mat);
 				if (testCandidateMaterial(mat))
 				{
-					_omc.addMatchingMaterial(material);
+					_omc.addMatchingMaterial(mat);
 				}
 			}
 		}

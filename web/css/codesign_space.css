@@ -207,7 +207,9 @@ h2 {
     margin-top: 10px;
     color: #4014AF;
     margin-left: -13px;
-    font-family: 'Lato regular'
+    white-space: nowrap;
+    font-family: 'Lato regular';
+    background-color: #FFF;
 }
 
 #button_container {
