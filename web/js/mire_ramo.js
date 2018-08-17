@@ -18,7 +18,7 @@ var textualDatas = {
     }
 };
 
-var invertedComparisonCharacs = ['s', 'ts', 'co', 'a', 'pi', 'pricePerTon'];
+var invertedComparisonCharacs = ['s', 'ts', 'co', 'a', 'pi', 'pricePerTonMin', 'pricePerTon', 'pricePerTonMax'];
 
 function populateMaterialTable(material, position)
 {
@@ -214,7 +214,7 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-    $.getJSON(MATERIAL_DB_BASE_URL + dbName, meta =>
+    $.getJSON(omc.MATERIAL_DB_BASE_URL + omc.dbName, meta =>
     {
         omc.materialDB = meta;
     });

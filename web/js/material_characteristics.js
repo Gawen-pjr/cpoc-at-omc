@@ -42,7 +42,7 @@ jQuery($ => {
         $('#versionning').text("v" + meta.version + " du " + meta.release_date)
     );
 
-    $.getJSON(MATERIAL_DB_BASE_URL + dbName, meta =>
+    $.getJSON(omc.MATERIAL_DB_BASE_URL + omc.dbName, meta =>
     {
         omc.materialDB = meta;
     });
