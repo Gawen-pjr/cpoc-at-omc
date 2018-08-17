@@ -47,8 +47,16 @@ jQuery($ => {
     
     function gradeChanged(gradeName)
     {
-        var grade = omc.materialDB.grades.find(g => g.name == gradeName);
-        
+        var grade = undefined;
+
+        for (mat in omc.materialDB.grades)
+        {
+            if (mat.name == gradeName)
+            {
+                grade = omc.materialDB.grades[mat];
+            }
+        }
+
         if (grade)
         {
             $familySelect.val(grade.family);
@@ -100,9 +108,19 @@ jQuery($ => {
             family = undefined;
         }
        
-        return omc.materialDB.grades
-            .filter(grade => !family || grade.family == family)
-            .map(grade => grade.name);
+        var filteredGrades = {};
+
+        for (grade in omc.materialDB.grades)
+        {
+            if (!grade.family || grade.family == family)
+            {
+                filteredGrades.defineProperty(grade);
+            }
+        }
+
+        // return omc.materialDB.grades
+        //     .filter(grade => !family || grade.family == family)
+        //     .map(grade => grade.name);
     }
 
     $('<option value="-">-</option>').appendTo($familySelect);
