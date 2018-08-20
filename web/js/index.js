@@ -42,9 +42,18 @@ jQuery($ => {
     }
 
     // Gestion du choix de la base de données
-    var dbName = $('#bdd_select option:selected').val();
-    localStorage.setItem("omc.dbName", dbName);
-    omc.init(dbName);
+
+    if (localStorage.getItem("omc.dbName"))
+    {
+        var chosenBdd = localStorage.getItem("omc.dbName");
+        $('#bdd_select option[value=' + chosenBdd + ']').attr('selected','selected');
+    }
+    else
+    {
+        var dbName = $('#bdd_select option:selected').val();
+        localStorage.setItem("omc.dbName", dbName);
+        omc.init(dbName);
+    }
 
     $('#bdd_select').blur(() =>
     {
