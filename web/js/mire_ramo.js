@@ -168,7 +168,7 @@ function displayMatchingMaterial(material)
 
     if (nbDisplayedMaterials != 0)
     {
-        $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+        $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + Object.keys(omc.materialDB.grades).length + " materials in Alpen'Tech's database.");
     }
 
     $mire.click(() => mireClickHandler($mire, material));
@@ -193,6 +193,7 @@ function displayAll()
     $('#label_ordonnées').text($selectedPriceIndex.text());
     $('.mire_container').remove();
 
+    nbDisplayedMaterials = 0;
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
 
