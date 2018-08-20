@@ -155,9 +155,6 @@ var _omc =
 			m0characs = _omc.userMaterial.characteristics;
 			characs = material.characteristics;
 			characs.pi = 100 * (characs.iTool / characs.u) * (m0characs.u / m0characs.iTool);
-
-			// XXX
-			characs.pi = 100;
 		}
 
 		function testCandidateMaterial(material)

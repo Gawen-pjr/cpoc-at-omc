@@ -30,10 +30,10 @@ function setMaterialFields(grade)
     $('#material_elongation').val(Number(grade.characteristics.a * 100).toFixed(2));
     $('#material_weldability').val(omc.materialDB.messages['weldability_' + grade.characteristics.s]);
     $('#material_heat_treatability').val(omc.materialDB.messages['heat_treatability_' + grade.characteristics.ts]);
-    // if (grade.family == "stainless_steel")
-    // {
-    //     $('#material_corrosion_resistance').val(omc.materialDB.messages['corrosion_resistance_' + grade.characteristics.co]);
-    // }
+    if (omc.dbName == "bdd-inox")
+    {
+        $('#material_corrosion_resistance').val(omc.materialDB.messages['corrosion_resistance_' + grade.characteristics.co]);
+    }
 }
 
 jQuery($ => {

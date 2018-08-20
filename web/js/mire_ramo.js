@@ -24,15 +24,12 @@ function populateMaterialTable(material, position)
 {
 	$('[data-attr=name_' + position + ']').text(material.name);
 
-	if(position == 0)
-	{
-		omc.withMaterialDB(db => {
-			var materialFamily = db.families[material.family];
-			var materialOverFamily = {name: omc.dbName};
-			$('[data-attr=family_' + position + ']').text(materialOverFamily.name);
-			$('[data-attr=subfamily_' + position + ']').text(materialFamily.name);
-		});
-	}
+	omc.withMaterialDB(db => {
+        var materialFamily = {name: omc.dbName};
+		var materialSubfamily = db.families[material.family];
+		$('[data-attr=family_' + position + ']').text(materialFamily.name);
+		$('[data-attr=subfamily_' + position + ']').text(materialSubfamily.name);
+	});
 
     for (key in material.characteristics)
     {
