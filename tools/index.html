@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8" />
+
+<link rel="shortcut icon" href="css/favicon/engrenage.ico">
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="css/index.css" />
+
+<script src="js/lib/jquery-3.3.1.js"></script>
+<script src="js/lib/jquery-ui-1.12.1.js"></script>
+<script src="js/common.js"></script>
+<script src="js/index.js"></script>
+
+<title>CSV Uploader</title>
+
+</head>
+
+<body>
+	<div id="upheader">
+      <div class="upheader_text">CSV Uploader<br><a id="versionning"></a></div>
+      <img src="css/images/alpen.png" class="logo_alpen"/>
+      <img src="css/images/alpen.png" class="logo_client"/>
+    </div>
+        <div id="header">
+      <h1>
+        CSV Uploader for materials data
+      </h1>
+    </div>
+    <div class="Item_and_his_value">
+      <div class="item">
+        <div class="item_text">Choose material BDD
+        </div>
+      </div>
+      <div class="value">
+        <div class="ui-widget">
+          <select id="bdd_select">
+            <option value="bdd-steels">General steels</option>
+            <option value="bdd-inox">Inox</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="Item_and_his_value">
+      <div class="item">
+        <div class="item_text">Upload your .csv file
+          <img src="css/images/info.png" alt="icone information" class="info_logo" title="It will be used by the OMC application." />
+        </div>
+      </div>
+      <div class="value">
+        <div class="ui-widget">
+			<form method="POST" id="submit_form" enctype="multipart/form-data" action=""> 
+				<input type="file" id="input_csv" name="csvFile" accept=".csv">
+				<input type="submit" value="Submit" id="submit">
+			</form>
+        </div>
+      </div>
+    </div>
+</body>

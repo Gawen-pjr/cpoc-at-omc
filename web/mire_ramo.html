@@ -11,7 +11,6 @@
 
 <script src="js/lib/jquery-3.3.1.js"></script>
 <script src="js/lib/jquery-ui-1.12.1.js"></script>
-<script src="js/kvoweb.js"></script>
 <script src="js/common.js"></script>
 <script src="js/mire.js"></script>
 <script src="js/mire_ramo.js"></script>
@@ -54,7 +53,7 @@
           </div>
         </div>
       </div>
-      <div id="nb_material">Loading of the solutions...</div>
+      <div id="nb_material">Loading solutions...</div>
     </div>
     <div class="part_information selectbox">
       <div class="performance_index">
@@ -81,7 +80,9 @@
         <form>
           <fieldset class="price_index_selection">
             <select name="price_index" id="price_index_select">
-              <option value="pricePerTon">Raw material index</option>
+              <option value="pricePerTonMin">Minimum price</option>
+              <option value="pricePerTon">Median price</option>
+              <option value="pricePerTonMax">Maximum price</option>
               <option value="pi">Operation price index</option>
             </select>
           </fieldset>
@@ -133,7 +134,7 @@
     <div class="part">Material family</div>
     
     <div class="table_characteristique_line">
-      <div class="table_characteristique_title">Name</div>
+      <div class="table_characteristique_title">Grade</div>
       <div class="table_characteristique" data-attr="name_0"></div>
       <div class="table_characteristique variable" data-attr="name_1"></div>
       <div class="table_characteristique variable" data-attr="name_2"></div>
@@ -144,7 +145,7 @@
       <div class="table_characteristique_title">Family</div>
       <div class="table_characteristique" data-attr="family_0"></div>
       <div class="table_characteristique variable" data-attr="family_1"></div>
-      <div class="table_characteristique variable" data-attr="family_1"></div>
+      <div class="table_characteristique variable" data-attr="family_2"></div>
       <div class="unit_value">-</div>
     </div>
 
@@ -157,12 +158,26 @@
     </div>
   	<div class="part">Material economical datas</div>
   	<div class="table_characteristique_line">
-  		<div class="table_characteristique_title">Raw material index (m)</div>
-  		<div class="table_characteristique" data-attr="pricePerTon_0"></div>
-  		<div class="table_characteristique variable" data-attr="pricePerTon_1"></div>
-  		<div class="table_characteristique variable" data-attr="pricePerTon_2"></div>
+  		<div class="table_characteristique_title">Minimum price per ton</div>
+  		<div class="table_characteristique" data-attr="pricePerTonMin_0"></div>
+  		<div class="table_characteristique variable" data-attr="pricePerTonMin_1"></div>
+  		<div class="table_characteristique variable" data-attr="pricePerTonMin_2"></div>
       <div class="unit_value">€</div>
   	</div>
+    <div class="table_characteristique_line">
+      <div class="table_characteristique_title">Median price per ton</div>
+      <div class="table_characteristique" data-attr="pricePerTon_0"></div>
+      <div class="table_characteristique variable" data-attr="pricePerTon_1"></div>
+      <div class="table_characteristique variable" data-attr="pricePerTon_2"></div>
+      <div class="unit_value">€</div>
+    </div>
+    <div class="table_characteristique_line">
+      <div class="table_characteristique_title">Maximum price per ton</div>
+      <div class="table_characteristique" data-attr="pricePerTonMax_0"></div>
+      <div class="table_characteristique variable" data-attr="pricePerTonMax_1"></div>
+      <div class="table_characteristique variable" data-attr="pricePerTonMax_2"></div>
+      <div class="unit_value">€</div>
+    </div>
   	<div class="table_characteristique_line">
   		<div class="table_characteristique_title">Operation price index (I)</div>
   		<div class="table_characteristique" data-attr="pi_0"></div>

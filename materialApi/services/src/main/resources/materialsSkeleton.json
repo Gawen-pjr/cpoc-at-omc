@@ -1,0 +1,15 @@
+{
+	"messages": {
+		"weldability_1": "Easily weldable",
+		"weldability_2": "Weldable with heating",
+		"weldability_3": "Unweldable",
+		"heat_treatability_1": "Easily treatable",
+		"heat_treatability_2": "Treatable with specific conditions",
+		"heat_treatability_3": "Not easily treatable",
+		"corrosion_resistance_1": "High resistance to corrosion",
+		"corrosion_resistance_2": "Good resistance to corrosion",
+		"corrosion_resistance_3": "Poor resistance to corrosion"
+	},
+	"families": {},
+	"grades": {}
+}

@@ -41,6 +41,27 @@ jQuery($ => {
         localStorage.setItem('client_trigramme', $('#client_trigramme').val());
     }
 
+    // Gestion du choix de la base de données
+
+    if (localStorage.getItem("omc.dbName"))
+    {
+        var chosenBdd = localStorage.getItem("omc.dbName");
+        $('#bdd_select option[value=' + chosenBdd + ']').attr('selected','selected');
+    }
+    else
+    {
+        var dbName = $('#bdd_select option:selected').val();
+        localStorage.setItem("omc.dbName", dbName);
+        omc.init(dbName);
+    }
+
+    $('#bdd_select').blur(() =>
+    {
+        dbName = $('#bdd_select option:selected').val();
+        omc.init(dbName);
+        localStorage.setItem("omc.dbName", dbName);
+    });
+
     $('#logo_alpentech').click(() => window.location = 'http://www.alpen-tech.com/');
 
     // Changement de langue

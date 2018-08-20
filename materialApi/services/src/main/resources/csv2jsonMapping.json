@@ -1,0 +1,16 @@
+{
+	"0" : ["family", "string"],
+	"1" : ["grade", "string"],
+	"4" : ["pricePerTonMin", "nullableFloat"],
+	"5" : ["pricePerTon", "nullableFloat"],
+	"6" : ["pricePerTonMax", "nullableFloat"],
+	"15" : ["u", "integer"],
+	"16" : ["iTool", "float"],
+	"17" : ["hb", "float"],
+	"18" : ["rm", "float"],
+	"19" : ["rp", "float"],
+	"20" : ["a", "float"],
+	"21" : ["s", "integer"],
+	"23" : ["ts", "integer"],
+	"24" : ["co", "nullableInteger"]
+}

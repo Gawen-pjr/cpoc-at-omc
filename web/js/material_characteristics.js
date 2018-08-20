@@ -6,6 +6,8 @@ user.init();
 function clearMaterialFields()
 {
     $('#material_price_per_ton').val('-');
+    $('#material_price_per_ton_min').val('-');
+    $('#material_price_per_ton_max').val('-');
     $('#part_price').val('-');
     $('#material_tensile_strength').val('-');
     $('#material_proof_stress').val('-');
@@ -19,6 +21,8 @@ function clearMaterialFields()
 function setMaterialFields(grade)
 {
     $('#material_price_per_ton').val(grade.characteristics.pricePerTon);
+    $('#material_price_per_ton_min').val(grade.characteristics.pricePerTonMin);
+    $('#material_price_per_ton_max').val(grade.characteristics.pricePerTonMax);
     $('#part_price').val(100);
     $('#material_tensile_strength').val(grade.characteristics.rm);
     $('#material_proof_stress').val(grade.characteristics.rp);
@@ -26,10 +30,10 @@ function setMaterialFields(grade)
     $('#material_elongation').val(Number(grade.characteristics.a * 100).toFixed(2));
     $('#material_weldability').val(omc.materialDB.messages['weldability_' + grade.characteristics.s]);
     $('#material_heat_treatability').val(omc.materialDB.messages['heat_treatability_' + grade.characteristics.ts]);
-    // if (grade.family == "stainless_steel")
-    // {
-    //     $('#material_corrosion_resistance').val(omc.materialDB.messages['corrosion_resistance_' + grade.characteristics.co]);
-    // }
+    if (omc.dbName == "bdd-inox")
+    {
+        $('#material_corrosion_resistance').val(omc.materialDB.messages['corrosion_resistance_' + grade.characteristics.co]);
+    }
 }
 
 jQuery($ => {
@@ -43,8 +47,8 @@ jQuery($ => {
     
     function gradeChanged(gradeName)
     {
-        var grade = omc.materialDB.grades.find(g => g.name == gradeName);
-        
+        var grade = Object.values(omc.materialDB.grades).find(g => g.name == gradeName);
+
         if (grade)
         {
             $familySelect.val(grade.family);
@@ -96,8 +100,8 @@ jQuery($ => {
             family = undefined;
         }
        
-        return omc.materialDB.grades
-            .filter(grade => !family || grade.family == family)
+        return Object.values(omc.materialDB.grades)
+            .filter(grade => !family || (grade.family == family))
             .map(grade => grade.name);
     }
 
@@ -109,13 +113,7 @@ jQuery($ => {
         .change(() => gradeChanged($gradeInput.val()));
 
     omc.withMaterialDB(db => {
-
-        Object.values(db.families).forEach(f => {
-            var $optGroup = $('<optgroup />').attr('label', f.name);
-            $optGroup.appendTo($familySelect);
-            Object.values(f.subfamilies).forEach(sf => $('<option />').val(sf.id).text(sf.name).appendTo($optGroup));
-        });
-
+        Object.values(db.families).forEach(f => $('<option />').val(f.id).text(f.name).appendTo($familySelect));
         gradeChanged();
     });
 
@@ -133,14 +131,14 @@ jQuery($ => {
     $("#client_part_description").change(() => omc.savePartDescription($("#client_part_description").val()));
     
     // Affichage des données user si déjà entrées
-    if (window.localStorage["omc.clientFileNumber"] != undefined)
+    if (window.localStorage["omc.clientFileNumber." + omc.dbName] != undefined)
     {
-        $('#client_file_number').val(window.localStorage["omc.clientFileNumber"]);
+        $('#client_file_number').val(window.localStorage["omc.clientFileNumber." + omc.dbName]);
     }
 
-    if (window.localStorage["omc.clientPartDescription"] != undefined)
+    if (window.localStorage["omc.clientPartDescription." + omc.dbName] != undefined)
     {
-        $('#client_part_description').val(window.localStorage["omc.clientPartDescription"]);
+        $('#client_part_description').val(window.localStorage["omc.clientPartDescription." + omc.dbName]);
     }
 
     $('#restart_session_button').button().click(() => {

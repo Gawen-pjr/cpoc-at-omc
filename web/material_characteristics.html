@@ -11,7 +11,6 @@
 
 <script src="js/lib/jquery-3.3.1.js"></script>
 <script src="js/lib/jquery-ui-1.12.1.js"></script>
-<script src="js/kvoweb.js"></script>
 <script src="js/common.js"></script>
 <script src="js/combobox.js"></script>
 <script src="js/material_characteristics.js"></script>
@@ -89,7 +88,7 @@
           <div class="Item_and_his_value">
             <div class="item">
               <div class="item_text">
-                Material family <img src="css/images/info.png" alt="icone information" class="info_logo" title="General class of the material" />
+                Material subfamily <img src="css/images/info.png" alt="icone information" class="info_logo" title="General class of the material" />
               </div>
             </div>
             <div class="value">
@@ -115,8 +114,23 @@
             <div class="Item_and_his_value">
               <div class="item">
                 <div class="item_text">
-                  Raw material index (m)<img src="css/images/info.png" alt="icone information" class="info_logo"
-                    title="Index based on the price per ton of the raw material, basis of 100 for M0"
+                  Minimum price per ton<img src="css/images/info.png" alt="icone information" class="info_logo"
+                    title="Lower estimation for the price per ton, based on Alpen'Tech's database."
+                  />
+                </div>
+              </div>
+              <div class="value_with_unit">
+                <div class="ui-widget">
+                  <label for="material_price_per_ton_min"></label> <input class="material_property" id="material_price_per_ton_min" readonly="readonly" value="-">
+                </div>
+              </div>
+              <div class="parameter_unit">€</div>
+            </div>
+            <div class="Item_and_his_value">
+              <div class="item">
+                <div class="item_text">
+                  Median price per ton<img src="css/images/info.png" alt="icone information" class="info_logo"
+                    title="Median estimation for the price per ton, based on Alpen'Tech's database."
                   />
                 </div>
               </div>
@@ -125,7 +139,22 @@
                   <label for="material_price_per_ton"></label> <input class="material_property" id="material_price_per_ton" readonly="readonly" value="-">
                 </div>
               </div>
-              <div class="parameter_unit">-</div>
+              <div class="parameter_unit">€</div>
+            </div>
+            <div class="Item_and_his_value">
+              <div class="item">
+                <div class="item_text">
+                  Maximum price per ton<img src="css/images/info.png" alt="icone information" class="info_logo"
+                    title="Higher estimation for the price per ton, based on Alpen'Tech's database."
+                  />
+                </div>
+              </div>
+              <div class="value_with_unit">
+                <div class="ui-widget">
+                  <label for="material_price_per_ton_max"></label> <input class="material_property" id="material_price_per_ton_max" readonly="readonly" value="-">
+                </div>
+              </div>
+              <div class="parameter_unit">€</div>
             </div>
             <div class="Item_and_his_value">
               <div class="item">

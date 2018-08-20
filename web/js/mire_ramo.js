@@ -1,6 +1,6 @@
 var nbDisplayedMaterials = 0;
 var selectedMaterials = [];
-var textualDatas = {
+var textualData = {
     "s": {
         "1": "Easily weldable",
         "2": "Weldable with heating",
@@ -12,27 +12,24 @@ var textualDatas = {
         "3": "Not easily treatable"
     },
     "co": {
-        "1": "High resistance to corrosion",
-        "2": "Good resistance to corrosion",
-        "3": "Poor resistance to corrosion"
+        "1": "High resistance",
+        "2": "Good resistance",
+        "3": "Poor resistance"
     }
 };
 
-var invertedComparisonCharacs = ['s', 'ts', 'co', 'a', 'pi', 'pricePerTon'];
+var invertedComparisonCharacs = ['s', 'ts', 'co', 'a', 'pi', 'pricePerTonMin', 'pricePerTon', 'pricePerTonMax'];
 
 function populateMaterialTable(material, position)
 {
 	$('[data-attr=name_' + position + ']').text(material.name);
 
-	if(position == 0)
-	{
-		omc.withMaterialDB(db => {
-			var materialFamily = omc.materialDB.subfamilies[material.family];
-			var materialOverFamily = omc.materialDB.families[materialFamily.family];
-			$('[data-attr=family_' + position + ']').text(materialOverFamily.name);
-			$('[data-attr=subfamily_' + position + ']').text(materialFamily.name);
-		});
-	}
+	omc.withMaterialDB(db => {
+        var materialFamily = {name: omc.dbName};
+		var materialSubfamily = db.families[material.family];
+		$('[data-attr=family_' + position + ']').text(materialFamily.name);
+		$('[data-attr=subfamily_' + position + ']').text(materialSubfamily.name);
+	});
 
     for (key in material.characteristics)
     {
@@ -44,7 +41,7 @@ function populateMaterialTable(material, position)
 			case 's':
 			case 'ts':
 			case 'co':
-				$cell.text(textualDatas[key][characValue]);
+				$cell.text(textualData[key][characValue]);
 				break;
 			case 'a':
 				$cell.text((characValue*100).toFixed(0));
@@ -168,7 +165,7 @@ function displayMatchingMaterial(material)
 
     if (nbDisplayedMaterials != 0)
     {
-        $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.");
+        $('#nb_material').text(nbDisplayedMaterials + " matching materials out of " + Object.keys(omc.materialDB.grades).length + " materials in Alpen'Tech's database.");
     }
 
     $mire.click(() => mireClickHandler($mire, material));
@@ -193,20 +190,21 @@ function displayAll()
     $('#label_ordonnées').text($selectedPriceIndex.text());
     $('.mire_container').remove();
 
-    omc.matchingGradesComputationListener.push(() => {
-        if (omc.matToken == 0)
-        {
-            $('#nb_material').text("No matching materials in Alpen'Tech's database.")
-        }
-        else
-        {
-            $('#nb_material').text("Solutions loaded : " + nbDisplayedMaterials + " matching materials out of " + omc.materialDB.grades.length + " materials in Alpen'Tech's database.")
-        }
-    });
-
+    nbDisplayedMaterials = 0;
     omc.userMaterial.nb = 0;
     displayMatchingMaterial(omc.userMaterial);
-    omc.withMatchingMaterials(displayMatchingMaterial);
+
+	var matchingMaterials = omc.getMatchingMaterials();
+    for (mat in matchingMaterials)
+    {
+        nbDisplayedMaterials++;
+        displayMatchingMaterial(matchingMaterials[mat]);
+    }
+
+    if (nbDisplayedMaterials == 0)
+    {
+        $('#nb_material').text("No matching materials in Alpen'Tech's database.");
+    }
 }
 
 omc.init();
@@ -230,8 +228,8 @@ jQuery($ => {
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
 
-    $('#client_part_description').append(localStorage["omc.clientPartDescription"]);
-    $('#client_file_number').append(localStorage["omc.clientFileNumber"]);
+    $('#client_part_description').append(localStorage["omc.clientPartDescription." + omc.dbName]);
+    $('#client_file_number').append(localStorage["omc.clientFileNumber." + omc.dbName]);
 
     var displayCharacteristic = user.displayCharacteristic || 'rm';
     $("#performance_index_select").val(displayCharacteristic);
@@ -239,7 +237,7 @@ jQuery($ => {
     var displayPriceIndex = user.displayPriceIndex || 'pricePerTon';
     $("#price_index_select").val(displayPriceIndex);
 
-    displayAll();
+    omc.withMaterialDB(db => displayAll());
 
     $('#performance_index_select').selectmenu({ select: (event, ui) => {
         user.saveDisplayCharacteristic(ui.item.value);
