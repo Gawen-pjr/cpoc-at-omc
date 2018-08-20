@@ -113,7 +113,15 @@ public class OmcServiceImpl implements OmcService
 
     private static JsonPrimitive parseFloat(String value)
     {
-        return new JsonPrimitive(Float.parseFloat(value.replace(',','.')));
+        String f = value.trim().replace(',','.');
+
+        if (f.endsWith("%"))
+        {
+            f = f.substring(0,f.length() - 1);
+            return new JsonPrimitive(Double.parseDouble(f) / 100.0);
+        }
+
+        return new JsonPrimitive(Double.parseDouble(f));
     }
 
     private static JsonPrimitive parseInteger(String value)

@@ -5,6 +5,7 @@
 	"5" : ["pricePerTon", "nullableFloat"],
 	"6" : ["pricePerTonMax", "nullableFloat"],
 	"15" : ["u", "integer"],
+	"16" : ["iTool", "float"],
 	"17" : ["hb", "float"],
 	"18" : ["rm", "float"],
 	"19" : ["rp", "float"],
