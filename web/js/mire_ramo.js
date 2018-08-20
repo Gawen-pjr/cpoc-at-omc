@@ -1,6 +1,6 @@
 var nbDisplayedMaterials = 0;
 var selectedMaterials = [];
-var textualDatas = {
+var textualData = {
     "s": {
         "1": "Easily weldable",
         "2": "Weldable with heating",
@@ -44,7 +44,7 @@ function populateMaterialTable(material, position)
 			case 's':
 			case 'ts':
 			case 'co':
-				$cell.text(textualDatas[key][characValue]);
+				$cell.text(textualData[key][characValue]);
 				break;
 			case 'a':
 				$cell.text((characValue*100).toFixed(0));
@@ -230,8 +230,8 @@ jQuery($ => {
     $('#homepage_button').button().click(() => window.location = 'material_characteristics.html');
     $('#visualisation_button').button().click(() => window.location = 'visualisation_m0.html');
 
-    $('#client_part_description').append(localStorage["omc.clientPartDescription"]);
-    $('#client_file_number').append(localStorage["omc.clientFileNumber"]);
+    $('#client_part_description').append(localStorage["omc.clientPartDescription." + omc.dbName]);
+    $('#client_file_number').append(localStorage["omc.clientFileNumber." + omc.dbName]);
 
     var displayCharacteristic = user.displayCharacteristic || 'rm';
     $("#performance_index_select").val(displayCharacteristic);
