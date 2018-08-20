@@ -12,9 +12,9 @@ var textualData = {
         "3": "Not easily treatable"
     },
     "co": {
-        "1": "High resistance to corrosion",
-        "2": "Good resistance to corrosion",
-        "3": "Poor resistance to corrosion"
+        "1": "High resistance",
+        "2": "Good resistance",
+        "3": "Poor resistance"
     }
 };
 

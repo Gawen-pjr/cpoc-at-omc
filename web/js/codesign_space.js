@@ -1,6 +1,17 @@
 
 omc.init();
 var extremeIntervals = {};
+var textualData = {
+    "weldability_1": "Easily weldable",
+    "weldability_2": "Weldable with heating",
+    "weldability_3": "Indifferent",
+    "heat_treatability_1": "Easily treatable",
+    "heat_treatability_2": "Treatable with specific conditions",
+    "heat_treatability_3": "Indifferent",
+    "corrosion_resistance_1": "High resistance",
+    "corrosion_resistance_2": "Good resistance",
+    "corrosion_resistance_3": "Indifferent"
+};
 
 jQuery($ => {
 
@@ -140,13 +151,11 @@ jQuery($ => {
             currentState[characteristic] = [1, val];
         }
 
-        omc.withMaterialDB(db => $labels.each((index,label) => {
+        $labels.each((index,label) => {
             var $l = $(label);
-            if(!$l.text())
-            {
-                $l.text(db.messages[$l.attr('for')]);
-            }
-        }));
+            $l.text(textualData[$l.attr('for')]);
+        });
+
         $fieldset.controlgroup();
         
         $inputs.change(event => {
@@ -165,5 +174,5 @@ jQuery($ => {
     $('#return_button').button().click(() => window.location = 'material_characteristics.html');
 
     // Stockage en localStorage des intervalles extrêmes
-    localStorage.setItem("omc.extremeIntervals", JSON.stringify(extremeIntervals));
+    localStorage.setItem("omc.extremeIntervals" + omc.dbName, JSON.stringify(extremeIntervals));
 });
