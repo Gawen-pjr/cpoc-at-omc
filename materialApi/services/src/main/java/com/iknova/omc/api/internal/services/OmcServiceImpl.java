@@ -38,12 +38,21 @@ public class OmcServiceImpl implements OmcService
             this.propertyParser = propertyParser;
         }
 
-        void setProperty(JsonObject json, String value)
+        boolean setProperty(JsonObject json, String value)
         {
-            JsonPrimitive jsonVal = propertyParser.apply(value);
-            if (jsonVal != null)
+            try
             {
-                json.add(jsonKey,jsonVal);
+                JsonPrimitive jsonVal = propertyParser.apply(value);
+                if (jsonVal != null)
+                {
+                    json.add(jsonKey,jsonVal);
+                }
+                return true;
+            }
+            catch (NumberFormatException ex)
+            {
+                LOG.warn("Cannot parse property " + jsonKey + " of " + json,ex);
+                return false;
             }
         }
     }
@@ -170,7 +179,7 @@ public class OmcServiceImpl implements OmcService
 
         String curFamilyKey = null;
 
-        for (int i = 1; i < lines.length; i++)
+        mainLoop: for (int i = 1; i < lines.length; i++)
         {
             String line = lines[i];
             String[] cells = line.split(";");
@@ -214,7 +223,11 @@ public class OmcServiceImpl implements OmcService
                 Mapping mapping = CSV2JSON_MAPPINGS.get(j);
                 if (mapping != null)
                 {
-                    mapping.setProperty(characteristics,cells[j]);
+                    if (!mapping.setProperty(characteristics,cells[j]))
+                    {
+                        grades.remove(gradeKey);
+                        continue mainLoop;
+                    }
                 }
             }
         }
