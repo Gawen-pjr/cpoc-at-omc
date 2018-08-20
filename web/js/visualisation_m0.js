@@ -32,8 +32,11 @@ function displayMatchingMaterials(param)
 
     for (var key in omc.matchingMaterials)
     {
+        if (key != omc.userMaterial.name)
+        {
         var material = omc.matchingMaterials[key];
         displayMaterial(material,param,(material.characteristics.pi <= 100) ? '#008800' : '#EAA60C');
+        }
     }
 }
 

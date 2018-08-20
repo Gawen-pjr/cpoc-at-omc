@@ -31,6 +31,8 @@ function populateMaterialTable(material, position)
 		$('[data-attr=subfamily_' + position + ']').text(materialSubfamily.name);
 	});
 
+    $('#table_material_' + position).text('M' + material.nb);
+
     for (key in material.characteristics)
     {
 		var characValue = Number(material.characteristics[key]);
@@ -88,7 +90,16 @@ function refreshMaterialTable()
 		{
 			populateMaterialTable(selectedMaterials[1], 2);
 		}
+        else
+        {
+            $('#table_material_2').text("-");
+        }
 	}
+    else
+    {
+        $('#table_material_1').text("M-");
+        $('#table_material_2').text("M-");
+    }
 }
 
 function mireClickHandler($mire, material)
@@ -197,8 +208,12 @@ function displayAll()
 	var matchingMaterials = omc.getMatchingMaterials();
     for (mat in matchingMaterials)
     {
-        nbDisplayedMaterials++;
-        displayMatchingMaterial(matchingMaterials[mat]);
+        if (mat != omc.userMaterial.name)
+        {
+            nbDisplayedMaterials++;
+            matchingMaterials[mat].nb = nbDisplayedMaterials;
+            displayMatchingMaterial(matchingMaterials[mat]);
+        }
     }
 
     if (nbDisplayedMaterials == 0)
@@ -220,6 +235,7 @@ jQuery($ => {
     $('[data=family_0]').text(omc.userMaterial.family.split('_').join(' '));
     $('[data=pi_0]').text("100.00");
 
+    omc.userMaterial.nb = 0;
 	omc.userMaterial.characteristics.pi = 100;
 	populateMaterialTable(omc.userMaterial, 0);
 

@@ -2,6 +2,6 @@
 	"id": "omc-csv-uploader",
 	"name": "CSV Uploader",
 	"description": "",
-	"version": "1.0-dev",
-	"release_date": "jj/mm/2018"
+	"version": "1.0",
+	"release_date": "20/08/2018"
 }
