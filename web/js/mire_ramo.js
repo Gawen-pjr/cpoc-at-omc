@@ -167,7 +167,15 @@ function displayMatchingMaterial(material)
     var ys = (y - y0) * (350.0 / yAmp);
 
     var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
-    var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + pricePerTon.toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
+    
+    switch (user.displayPriceIndex)
+    {
+        case "pi":
+            var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + material.characteristics.pricePerTon.toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
+            break;
+        default:
+            var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', ' + $('#price_index_select option:selected').text() + ' = ' + material.characteristics[user.displayPriceIndex].toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
+    }
 
     var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
     var mireId = ('mire_' + material.name).replace(/[^A-Za-z0-9_]+/gm,'_');
