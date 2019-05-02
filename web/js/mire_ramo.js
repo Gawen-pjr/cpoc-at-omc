@@ -166,15 +166,21 @@ function displayMatchingMaterial(material)
     }
     var ys = (y - y0) * (350.0 / yAmp);
 
-    var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + (x * omc.ATTR_MULT[user.displayCharacteristic]).toFixed(0) + $displayCharacteristic.attr("data-unit");
-    
+        
+    function toInt(x)
+    {
+        return ((typeof x) === "undefined") ? 'undef' : x.toFixed(0);
+    }
+
+    var tooltipValue = $displayCharacteristic.attr("data-shortname") + " = " + toInt(x * omc.ATTR_MULT[user.displayCharacteristic]) + $displayCharacteristic.attr("data-unit");
+	
     switch (user.displayPriceIndex)
     {
         case "pi":
-            var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + material.characteristics.pricePerTon.toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
+            var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', Price per ton = ' + toInt(material.characteristics.pricePerTon) + ', Operation price index = ' + toInt(pi) + ')';
             break;
         default:
-            var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', ' + $('#price_index_select option:selected').text() + ' = ' + material.characteristics[user.displayPriceIndex].toFixed(0) + ', Operation price index = ' + pi.toFixed(0) + ')';
+            var title = 'M' + nb + ' : ' + material.name + ' (' + tooltipValue + ', ' + $('#price_index_select option:selected').text() + ' = ' + toInt(material.characteristics[user.displayPriceIndex]) + ', Operation price index = ' + toInt(pi) + ')';
     }
 
     var color = (material.name == omc.userMaterial.name) ? user.userFavoriteColor : (pi <= 100) ? '#008800' : '#EAA60C';
